@@ -2,12 +2,12 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-6-19 23:51
-#+macro:version Version 0.0.1
+#+date:2019-6-20 01:57
+#+macro:version Version 0.0.2
 * Data Structures
 ** Arrays
 *** 2D Array
-**** Problem
+**** 2D Problem Definition
 Given a 6 \times 6 =2D Array=, ~arr~
 
 #+begin_src sh
@@ -69,8 +69,137 @@ integer, the maximum hourglass sum in the array.
 
 #+attr_texinfo: :options hourglassSum arr
 #+begin_defun
-{{{var(arr)}}} is an array of integers
+{{{var(arr)}}} is an array of integers 6 \times 6 in size (i.e., a =2D Array=).
+This function calculates the largest hourglass sum in the =2D Array=, returning
+its value.
 #+end_defun
+
+{{{heading(Input Format)}}}
+
+Each of the 6 lines of inputs ~arr[i]~ contains 6 space-separated integers
+~arr[i][j]~.
+
+{{{subheading(Sample Input)}}}
+
+#+begin_example
+1 1 1 0 0 0
+0 1 0 0 0 0
+1 1 1 0 0 0
+0 0 2 4 4 0
+0 0 0 2 0 0
+0 0 1 2 4 0
+#+end_example
+
+{{{heading(Constraints)}}}
+
+- \minus9 \le arr[i][j] \le 9
+
+- 0 \le i, j \le 5
+
+{{{heading(Output Format)}}}
+
+Print the largest (maximum) hourglass sum found in ~arr~.
+
+{{{subheading(Sample Output)}}}
+
+: 19
+
+{{{heading(Explanation)}}}
+
+~arr~ contains the following hourglasses:
+
+#+caption:Description of hourglasses
+#+name:hourglasses
+[[file:figs/hourglasssum.png]]
+
+The hourglass with the maximum sum (19) is:
+
+#+begin_example
+2 4 4
+  2
+1 2 4
+#+end_example
+
+**** 2D Code Framework
+
+#+name:2d-array-prelim
+#+begin_src js :tangle array2d/node/index.js :mkdirp yes
+'use strict';
+
+const fs = require('fs');
+
+process.stdin.setEncoding('utf-8');
+process.env.OUTPUT_PATH = './output';
+#+end_src
+
+#+name:2d-array-declarations
+#+begin_src js :tangle array2d/node/index.js
+let inputString = '';
+let currentLine = 0;
+#+end_src
+
+#+name:2d-array-process-input
+#+begin_src js :tangle array2d/node/index.js
+process.stdin.on('readable', () => {
+    console.log('readable ...');
+
+    let chunk;
+    while ((chunk = process.stdin.read()) !== null) {
+        console.log(`chunk:\n${chunk}`);
+        inputString += chunk;
+    }
+});
+
+process.stdin.on('end', () => {
+    console.log(`'end'\ninputString:\n${inputString}`);
+    inputString = inputString.replace(/\s*$/, '')
+        .split('\n')
+        .map(str => str.replace(/\s*$/, ''));
+
+    main();
+});
+#+end_src
+
+#+name:array2d-readline
+#+begin_src js :tangle array2d/node/index.js
+function readLine () {
+    return inputString[currentLine++];
+}
+#+end_src
+
+#+name:array2d-main
+#+begin_src js :tangle array2d/node/index.js
+function main () {
+    console.log('main');
+
+    const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
+
+    let arr = Array(6);
+
+    for (let i = 0; i < 6; i++) {
+        arr[i] = readLine()
+            .split(' ')
+            .map(arrTemp => parseInt(arrTemp, 10));
+
+        console.log(`i: ${i}\n${arr[i]}`);
+    }
+
+    let result = hourglassSum(arr);
+
+    ws.write(result + "\n");
+
+    ws.end();
+}
+#+end_src
+
+**** Hourglass Sum Function
+
+#+name:array2d-hourglassSum-function
+#+begin_src js :tangle array2d/node/index.js
+function hourglassSum (arr) {
+    return 0;
+}
+#+end_src
 
 * Concept Index
 :PROPERTIES:
