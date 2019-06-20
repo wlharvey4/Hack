@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-6-20 08:59
-#+macro:version Version 0.1.0
+#+date:2019-6-20 09:22
+#+macro:version Version 0.1.1
 * Data Structures
 ** Arrays
 *** 2D Array
@@ -127,10 +127,10 @@ The hourglass with the maximum sum (19) is:
 The preliminary code sets up the dependencies
 - Node.js =File System=,
 - the encoding of ~process.stdin~ as a =utf-8= string, and
-- an output file, ~result~)
+- an output file, ~result~
 
 #+name:2d-array-dependencies
-#+begin_src js :tangle array2d/node/index.js :mkdirp yes
+#+begin_src js -n :tangle array2d/node/index.js :mkdirp yes
 'use strict';
 
 const fs = require('fs');
@@ -146,10 +146,10 @@ program:
 - ~inputString~ :: the 2D array as a multi-line string of numbers
 - ~currentLine~ :: a counter used in the ~readLine()~ function for each row of
                    the 2D array
-- ~ROWS~ and ~COLUMNS~:: maximum size of the 2D array
+- ~ROWS~ and ~COLUMNS~ :: maximum size of the 2D array
 
 #+name:2d-array-declarations
-#+begin_src js :tangle array2d/node/index.js
+#+begin_src js +n :tangle array2d/node/index.js
 let inputString = '';
 let currentLine = 0;
 const ROWS = 6, COLUMNS = 6;
@@ -169,12 +169,13 @@ repeatedly until the buffer is empty.  This repeats until there is no more data
 to be read, at which point the program receives the =end= event.
 
 When the =end= event is received, the program splits the input on newlines,
-removing all trailing spaces, and returns an array of rows.  The rows are still
-in string form as space-separated numbers.  These will be handled by the
-~readLine()~ function.
+removing all trailing spaces, creating an array of rows in ~inputString~.  The
+individual rows are still in string form as space-separated numbers.  These
+will be turned into the second dimension array by the ~main()~ function, one by
+one.
 
 #+name:2d-array-process-input
-#+begin_src js :tangle array2d/node/index.js
+#+begin_src js +n :tangle array2d/node/index.js
 process.stdin.on('readable', () => {
     console.log('readable ...');
 
@@ -198,11 +199,13 @@ process.stdin.on('end', () => {
 {{{heading(readLine() Function)}}}
 
 The /Process/ section described above runs immediately upon execution of the
-program to read the standard input and set up the ~inputString~.  The ~main()~
-function calls the ~readLine()~ function to obtain each row of the array.
+program to read the standard input and set up the ~inputString~ as a single
+dimension array of rows.  The ~main()~ function calls the ~readLine()~ function
+to obtain each row of the array.  It's function is simpy to return the next row
+to ~main()~.
 
 #+name:array2d-readline
-#+begin_src js :tangle array2d/node/index.js
+#+begin_src js +n :tangle array2d/node/index.js
 function readLine () {
     return inputString[currentLine++];
 }
@@ -221,7 +224,7 @@ stores in the output file ~OUTPUT_PATH~.  Finally, it closes the output file,
 using the ~end()~ method of the =WritableStream=.
 
 #+name:array2d-main
-#+begin_src js :tangle array2d/node/index.js
+#+begin_src js +n :tangle array2d/node/index.js
 function main () {
     console.log('main');
 
@@ -258,7 +261,7 @@ been achieved, then returns the maximum value at the conclusion of checking all
 hourglasses.
 
 #+name:array2d-hourglassSum-function
-#+begin_src js :tangle array2d/node/index.js
+#+begin_src js +n :tangle array2d/node/index.js
 function hourglassSum (arr) {
     let max, sum;
     for (let row = 1; row  < ROWS - 1; row++) {
