@@ -2,8 +2,74 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-6-20 15:01
-#+macro:version Version 0.1.2
+#+date:2019-6-20 16:57
+#+macro:version Version 0.1.3
+* Introduction
+- https://www.hackerrank.com/dashboard
+
+
+#+name:show-tree
+#+begin_src sh :results output :exports results
+tree -I '*.org|*.info|*.texi*|figs'
+#+end_src
+
+* Node
+** Node Command-Line Processing
+
+#+begin_src js :noweb yes :exports none
+<<node-process-command-line-arguments>>
+#+end_src
+
+*** Process
+:PROPERTIES:
+:header-args: :noweb-ref node-process-command-line-arguments
+:END:
+
+#+name:node-dependencies
+#+begin_src js +n
+const fs = require('fs');
+process.stdin.setEncoding('utf-8');
+
+#+end_src
+
+#+name:node-declarations
+#+begin_src js +n
+let inputString = '';
+let currentLine = 0;
+
+#+end_src
+
+#+name:node-process-stdin
+#+begin_src js +n
+process.stdin.on('readable', () => {
+    let chunk = process.stdin.read();
+    inputString += chunk;
+});
+
+process.stdin.on('end', () => {
+    inputString = inputString.replace(/\s*$/, '')
+        .split('\n')
+        .map(s => s.replace(/\s*$/, ''));
+
+    main();
+});
+
+#+end_src
+
+#+name:node-readLine
+#+begin_src js +n
+function readLine () {
+    return inputString[currentLine++];
+}
+
+#+end_src
+
+*** Write Stream
+#+name:node-main-write-stream-ws
+#+begin_src js
+const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
+#+end_src
+
 * Data Structures
 ** Arrays
 *** Arrays
@@ -45,65 +111,32 @@ space-separated integers.
 
 : 2 3 4 1
 
-**** Arrays Processing Code
-#+name:arrays-prelim
-#+begin_src js -n :tangle arrays/node/arrays.js :mkdirp yes
-'use strict';
-
-const fs = require('fs');
-
-process.stdin.resume();
-process.stdin.setEncoding('utf-8');
-#+end_src
-
-#+name:arrays-declarations
-#+begin_src js +n :tangle arrays/node/arrays.js
-let inputString = '';
-let currentLine = 0;
-#+end_src
-
-#+name:arrays-process-command-line-args
-#+begin_src js +n :tangle arrays/node/arrays.js
-process.stdin.on('data', inputStdin => {
-    inputString += inputStdin;
-});
-
-process.stdin.on('end', function() {
-    inputString = inputString.replace(/\s*$/, '')
-        .split('\n')
-        .map(str => str.replace(/\s*$/, ''));
-
-    main();
-});
-#+end_src
-
-#+name:arrays-readLine
-#+begin_src js +n :tangle arrays/node/arrays.js
-function readLine() {
-    return inputString[currentLine++];
-}
-#+end_src
-
+**** Arrays Main Function
 #+name:arrays-main
-#+begin_src js +n :tangle arrays/node/arrays.js
-function main() {
-    const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
+#+header: :noweb yes
+#+begin_src js -n :tangle data-structures/arrays/node/arrays.js :mkdirp yes
+  <<node-process-command-line-arguments>>
 
-    const arrCount = parseInt(readLine(), 10);
+  function main () {
+      <<node-main-write-stream-ws>>
 
-    const arr = readLine().split(' ').map(arrTemp => parseInt(arrTemp, 10));
+      const arrCount = parseInt(readLine(), 10);
 
-    const res = reverseArray(arr);
+      const arr = readLine().split(' ')
+            .map(e => parseInt(e, 10));
 
-    ws.write(res.join(' ') + '\n');
+      const result = reverseArray(arr);
 
-    ws.end();
-}
+      ws.write(result.join(' ') + '\n');
+
+      ws.end();
+  }
 #+end_src
 
 **** Arrays Solution Code
 #+name:arrays-reverseArray
-#+begin_src js +n :tangle arrays/node/arrays.js
+#+header: :noweb yes
+#+begin_src js +n :tangle data-structures/arrays/node/arrays.js
   function reverseArray (a) {
       return a.reverse();
   }
@@ -112,7 +145,7 @@ function main() {
 **** Arrays Test Code
 #+name:arrays-test
 #+header: :shebang "#! /usr/bin/env bash"
-#+begin_src sh :tangle arrays/node/arrays_test.sh
+#+begin_src sh :tangle data-structures/arrays/node/arrays.test.sh
 export OUTPUT_PATH=./result
 echo '4
 1 4 3 2' | node arrays.js
@@ -121,7 +154,7 @@ cat result;
 #+end_src
 
 *** 2D Array
-**** 2D Problem Definition
+**** Array 2D Problem Definition
 Given a 6 \times 6 =2D Array=, ~arr~
 
 #+begin_src sh
@@ -224,7 +257,7 @@ Print the largest (maximum) hourglass sum found in ~arr~.
 
 #+caption:Description of hourglasses
 #+name:hourglasses
-[[file:figs/hourglasssum.png]]
+[[file:figs/hourglassum.png]]
 
 The hourglass with the maximum sum (19) is:
 
@@ -234,139 +267,39 @@ The hourglass with the maximum sum (19) is:
 1 2 4
 #+end_example
 
-**** 2D Code Framework
-
-{{{heading(Dependencies)}}}
-
-The preliminary code sets up the dependencies
-- Node.js =File System=,
-- the encoding of ~process.stdin~ as a =utf-8= string, and
-- an output file, ~result~
-
-#+name:2d-array-dependencies
-#+begin_src js -n :tangle array2d/node/index.js :mkdirp yes
-'use strict';
-
-const fs = require('fs');
-
-process.stdin.setEncoding('utf-8');
-#+end_src
-
-{{{heading(Declarations)}}}
-
-The /declarations/ section declares some variables that will be needed in the
-program:
-- ~inputString~ :: the 2D array as a multi-line string of numbers
-- ~currentLine~ :: a counter used in the ~readLine()~ function for each row of
-                   the 2D array
-- ~ROWS~ and ~COLUMNS~ :: maximum size of the 2D array
-
-#+name:2d-array-declarations
-#+begin_src js +n :tangle array2d/node/index.js
-let inputString = '';
-let currentLine = 0;
-const ROWS = 6, COLUMNS = 6;
-#+end_src
-
-{{{heading(Input)}}}
-
-The /Input/ section reads ~STDIN~ for a multi-line string of numbers.  It
-breaks the string into a single dimension array containing space-separated
-numbers using Node's ~process.stdin~ =StreamReader= built-in.
-
-The =readable= event indicates that some data is ready to be read.  The data is
-placed into an internal buffer.  The size of the internal buffer is unknown,
-and the size of the data stream is unknown.  Therefore, after receiving a
-=readable= event, the code calls the =ReadableStream='s ~read()~ method
-repeatedly until the buffer is empty.  This repeats until there is no more data
-to be read, at which point the program receives the =end= event.
-
-When the =end= event is received, the program splits the input on newlines,
-removing all trailing spaces, creating an array of rows in ~inputString~.  The
-individual rows are still in string form as space-separated numbers.  These
-will be turned into the second dimension array by the ~main()~ function, one by
-one.
-
-#+name:2d-array-process-input
-#+begin_src js +n :tangle array2d/node/index.js
-process.stdin.on('readable', () => {
-    console.log('readable ...');
-
-    let chunk;
-    while ((chunk = process.stdin.read()) !== null) {
-        console.log(`chunk:\n${chunk}`);
-        inputString += chunk;
-    }
-});
-
-process.stdin.on('end', () => {
-    console.log(`'end'\ninputString:\n${inputString}`);
-    inputString = inputString.replace(/\s*$/, '')
-        .split('\n')
-        .map(str => str.replace(/\s*$/, ''));
-
-    main();
-});
-#+end_src
-
-{{{heading(readLine() Function)}}}
-
-The /Process/ section described above runs immediately upon execution of the
-program to read the standard input and set up the ~inputString~ as a single
-dimension array of rows.  The ~main()~ function calls the ~readLine()~ function
-to obtain each row of the array.  It's function is simpy to return the next row
-to ~main()~.
-
-#+name:array2d-readline
-#+begin_src js +n :tangle array2d/node/index.js
-function readLine () {
-    return inputString[currentLine++];
-}
-#+end_src
-
-{{{heading(main() Function)}}}
-
-The ~main()~ function establishes a =WritableStream= (~OUTPUT_PATH~), creates
-a single-dimension array ~arr~ of size ~ROWS~, iterates over the array's rows,
-processes each row into an array of numbers, and ultimately obtains a
-two-dimensional array in ~arr[i][j]~.
-
-Then, it calls the function ~hourglassSum()~, passing in a reference to this
-two-dimensional array ~arr~, and receives back the result, which it then
-stores in the output file ~OUTPUT_PATH~.  Finally, it closes the output file,
-using the ~end()~ method of the =WritableStream=.
-
+**** Hourglass Sum Main Function
 #+name:array2d-main
-#+begin_src js +n :tangle array2d/node/index.js
-function main () {
-    console.log('main');
+#+header: :noweb yes
+#+begin_src js +n :tangle data-structures/array2d/node/array2d.js :mkdirp yes
+  <<node-process-command-line-arguments>>
 
-    const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
+  const ROWS = 6,
+  COLUMNS = 6;
 
-    let arr = Array(ROWS);
+  function main () {
+      <<node-main-write-stream-ws>>
 
-    for (let i = 0; i < ROWS; i++) {
-        arr[i] = readLine()
-            .split(' ')
-            .map(arrTemp => parseInt(arrTemp, 10));
+      let arr = Array(ROWS);
+      for (let i = 0; i < ROWS; i++) {
+          arr[i] = readLine()
+              .split(' ')
+              .map(s => parseInt(s, 10));
+      }
 
-        console.log(`i: ${i}\n${arr[i]}`);
-    }
+      let result = hourglassSum(arr);
 
-    let result = hourglassSum(arr);
-    console.log(`result: ${result}`);
+      ws.write(result + '\n');
 
-    ws.write(result + "\n");
-
-    ws.end();
-}
+      ws.end();
+  }
 #+end_src
 
-**** Hourglass Sum Function
+**** Hourglass Sum Solution Code
 
 This is the solution to the problem.  All of the other code simply supports
 it.  The ~hourglassSum()~ function receives a reference to a 2D array of equal
-rows and columns.  The problem defines its size as a 6 \times 6 2D array.
+rows and columns.  The problem defines its size as a 6 \times 6 2D array, set
+by the two constants =ROWS= and =COLUMNS=.
 
 The solution iterates over the center of each hourglass and counts up the sum
 of the elements of the hourglass, calculating whether a new maximum value has
@@ -374,35 +307,36 @@ been achieved, then returns the maximum value at the conclusion of checking all
 hourglasses.
 
 #+name:array2d-hourglassSum-function
-#+begin_src js +n :tangle array2d/node/index.js
-function hourglassSum (arr) {
-    let max, sum;
-    for (let row = 1; row  < ROWS - 1; row++) {
-        for (let col = 1; col < COLUMNS - 1; col++) {
-            console.log(`row=${row} col=${col}`);
-            sum = (
-                arr[row-1][col-1] +
-                arr[row-1][col]   +
-                arr[row-1][col+1] +
-                arr[row][col]     +
-                arr[row+1][col-1] +
-                arr[row+1][col]   +
-                arr[row+1][col+1]
-            );
-            if (typeof max === 'undefined' || sum > max) {
-                max = sum;
-            }
-            console.log(`sum=${sum} max=${max}`);
-        }
-    }
-    return max;
-}
+#+header: :noweb yes
+#+begin_src js +n :tangle data-structures/array2d/node/array2d.js :mkdirp yes
+  function hourglassSum (arr) {
+      let max, sum;
+      for (let row = 1; row  < ROWS - 1; row++) {
+          for (let col = 1; col < COLUMNS - 1; col++) {
+              console.log(`row=${row} col=${col}`);
+              sum = (
+                  arr[row-1][col-1] +
+                  arr[row-1][col]   +
+                  arr[row-1][col+1] +
+                  arr[row][col]     +
+                  arr[row+1][col-1] +
+                  arr[row+1][col]   +
+                  arr[row+1][col+1]
+              );
+              if (typeof max === 'undefined' || sum > max) {
+                  max = sum;
+              }
+              console.log(`sum=${sum} max=${max}`);
+          }
+      }
+      return max;
+  }
 #+end_src
 
 **** Hourglass Sum Test
 #+name:array2d-test
 #+header: :shebang "#!/usr/bin/env bash"
-#+begin_src sh -n :tangle array2d/node/index.test.sh
+#+begin_src sh -n :tangle data-structures/array2d/node/array2d.test.sh
 export OUTPUT_PATH='./result'
 echo \
 '1 1 1 0 0 0
@@ -410,7 +344,7 @@ echo \
 1 1 1 0 0 0
 0 0 2 4 4 0
 0 0 0 2 0 0
-0 0 1 2 4 0' | node index.js
+0 0 1 2 4 0' | node array2d.js
 
 echo Result:
 cat ./result
