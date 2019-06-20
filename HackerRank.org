@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-6-20 08:58
-#+macro:version Version 0.0.3
+#+date:2019-6-20 08:59
+#+macro:version Version 0.1.0
 * Data Structures
 ** Arrays
 *** 2D Array
