@@ -2,15 +2,15 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-6-21 06:08
-#+macro:version Version 0.1.5
+#+date:2019-6-21 06:38
+#+macro:version Version 0.1.6
 * Introduction
 - https://www.hackerrank.com/dashboard
 
-
+** Tree of Installed Directories and Files
 #+name:show-tree
 #+begin_src sh :results output :exports results
-tree -I '*.org|*.info|*.texi*|figs'
+tree -I '*.org|*.info|*.texi*|*.pdf|*.tex|figs'
 #+end_src
 
 #+name:tangle-all
@@ -19,7 +19,13 @@ tree -I '*.org|*.info|*.texi*|figs'
 #+end_src
 
 * Node
+Programs coded in JavaScript run in the Node.js environment.  The following
+code entails the boilerplate for processing command-line arguments using Node's
+built-in Streams and Process, in particular ~ReadStream~, ~WriteStream~,
+~process.stdin~, and ~process.env~.
 ** Node Command-Line Processing
+The first set of code processes command-line arguments.  The second code
+fragment sets up a ~WriteStream~ for writing the result to a file.
 
 #+begin_src js :noweb yes :exports none
 <<node-process-command-line-arguments>>
@@ -30,12 +36,25 @@ tree -I '*.org|*.info|*.texi*|figs'
 :header-args: :noweb-ref node-process-command-line-arguments
 :END:
 
+First are the Node dependencies:
+
+- ~FileSystem~
+
+- ~Process Stdin~ --- the default input encoding is to a buffer; setting the
+  encoding to =utf-8= means that the input encoding will be a ~String~.
+
 #+name:node-dependencies
-#+begin_src js +n
+#+begin_src js -n
 const fs = require('fs');
 process.stdin.setEncoding('utf-8');
 
 #+end_src
+
+- ~inputString~ will become an array holding each line of the input arguments
+  as strings.
+
+- ~currentLine~ is a simple counter will be used by the function ~readLine()~
+  to produce one line of input after another upon request.
 
 #+name:node-declarations
 #+begin_src js +n
@@ -43,6 +62,14 @@ let inputString = '';
 let currentLine = 0;
 
 #+end_src
+
+This code reads all of the command-line arguments into the variable
+~inputString~; upon finishing reading all of the input, the command-line
+arguments are broken into an array at newlines, but left in ~inputString~.
+During the process, all trailing spaces are removed.
+
+At the conclusion of breaking the arguments into an array, the program's
+~main()~ function is called.
 
 #+name:node-process-stdin
 #+begin_src js +n
@@ -61,6 +88,9 @@ process.stdin.on('end', () => {
 
 #+end_src
 
+The function ~readLine()~ is called by the ~main()~ function when it wants
+another line of input.
+
 #+name:node-readLine
 #+begin_src js +n
 function readLine () {
@@ -70,6 +100,12 @@ function readLine () {
 #+end_src
 
 *** Write Stream
+This little line of code sets up a ~WriteStream~ at a file established by the
+~process.env.OUTPUT_PATH~ environment variable.  The ~main()~ function will
+write the result into this file and then close the stream.  The environment
+variable must be created prior to running the program or an exception will be
+thrown when ~main()~ is entered.
+
 #+name:node-main-write-stream-ws
 #+begin_src js
 const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
@@ -521,5 +557,5 @@ $3$
 #+macro:var @@texinfo:@var{@@$1@@texinfo:}@@
 * Local Variables                                                  :noexport:
 # Local Variables:
-# time-stamp-pattern:"8/^\\#\\+date:%:y-%:m-%:d %02H:%02M$"
+# time-stamp-pattern:"8/^\\#\\+date:%:y-%02m-%02d %02H:%02M$"
 # End:
