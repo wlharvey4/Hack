@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-06-22 07:41
-#+macro:version Version 0.1.7
+#+date:2019-06-22 08:12
+#+macro:version Version 0.1.8
 * Introduction
 - https://www.hackerrank.com/dashboard
 
@@ -154,46 +154,58 @@ space-separated integers.
 
 : 2 3 4 1
 
+**** Arrays Node Process Code
+#+name:arrays-node-process
+#+header: :noweb yes
+#+begin_src js -n :tangle data-structures/arrays/node/arrays.js :mkdirp yes
+<<node-process-command-line-arguments>>
+#+end_src
+
 **** Arrays Main Function
 #+name:arrays-main
 #+header: :noweb yes
 #+begin_src js -n :tangle data-structures/arrays/node/arrays.js :mkdirp yes
-  <<node-process-command-line-arguments>>
 
-  function main () {
-      <<node-main-write-stream-ws>>
+function main () {
+    <<node-main-write-stream-ws>>
 
-      const arrCount = parseInt(readLine(), 10);
+    const arrCount = parseInt(readLine(), 10);
 
-      const arr = readLine().split(' ')
-            .map(e => parseInt(e, 10));
+    const arr = readLine().split(' ')
+          .map(e => parseInt(e, 10));
 
-      const result = reverseArray(arr);
+    const result = reverseArray(arr);
 
-      ws.write(result.join(' ') + '\n');
+    ws.write(result.join(' ') + '\n');
 
-      ws.end();
-  }
+    ws.end();
+}
 #+end_src
 
 **** Arrays Solution Code
 #+name:arrays-reverseArray
 #+header: :noweb yes
 #+begin_src js +n :tangle data-structures/arrays/node/arrays.js
-  function reverseArray (a) {
-      return a.reverse();
-  }
+function reverseArray (a) {
+    return a.reverse();
+}
 #+end_src
 
 **** Arrays Test Code
 #+name:arrays-test
 #+header: :shebang "#! /usr/bin/env bash"
-#+begin_src sh :tangle data-structures/arrays/node/arrays.test.sh
+#+begin_src sh -n :tangle data-structures/arrays/node/arrays.test.sh
 export OUTPUT_PATH=./result
 echo '4
 1 4 3 2' | node arrays.js
 echo Result:
 cat result;
+#+end_src
+
+**** Arrays Run Test
+#+name:arrays-run-test
+#+begin_src sh :dir data-structures/arrays/node :results output :exports results
+./arrays.test.sh
 #+end_src
 
 *** 2D Array
@@ -310,31 +322,36 @@ The hourglass with the maximum sum (19) is:
 1 2 4
 #+end_example
 
+**** Array 2D Node Process Code
+#+name:array2d-node-process
+#+header: :noweb yes
+#+begin_src js -n :tangle data-structures/array2d/node/array2d.js :mkdirp yes
+<<node-process-command-line-arguments>>
+#+end_src
+
 **** Hourglass Sum Main Function
 #+name:array2d-main
 #+header: :noweb yes
 #+begin_src js +n :tangle data-structures/array2d/node/array2d.js :mkdirp yes
-  <<node-process-command-line-arguments>>
+const ROWS = 6,
+COLUMNS = 6;
 
-  const ROWS = 6,
-  COLUMNS = 6;
+function main () {
+    <<node-main-write-stream-ws>>
 
-  function main () {
-      <<node-main-write-stream-ws>>
+    let arr = Array(ROWS);
+    for (let i = 0; i < ROWS; i++) {
+        arr[i] = readLine()
+            .split(' ')
+            .map(s => parseInt(s, 10));
+    }
 
-      let arr = Array(ROWS);
-      for (let i = 0; i < ROWS; i++) {
-          arr[i] = readLine()
-              .split(' ')
-              .map(s => parseInt(s, 10));
-      }
+    let result = hourglassSum(arr);
 
-      let result = hourglassSum(arr);
+    ws.write(result + '\n');
 
-      ws.write(result + '\n');
-
-      ws.end();
-  }
+    ws.end();
+}
 #+end_src
 
 **** Hourglass Sum Solution Code
@@ -352,28 +369,28 @@ hourglasses.
 #+name:array2d-hourglassSum-function
 #+header: :noweb yes
 #+begin_src js +n :tangle data-structures/array2d/node/array2d.js :mkdirp yes
-  function hourglassSum (arr) {
-      let max, sum;
-      for (let row = 1; row  < ROWS - 1; row++) {
-          for (let col = 1; col < COLUMNS - 1; col++) {
-              console.log(`row=${row} col=${col}`);
-              sum = (
-                  arr[row-1][col-1] +
-                  arr[row-1][col]   +
-                  arr[row-1][col+1] +
-                  arr[row][col]     +
-                  arr[row+1][col-1] +
-                  arr[row+1][col]   +
-                  arr[row+1][col+1]
-              );
-              if (typeof max === 'undefined' || sum > max) {
-                  max = sum;
-              }
-              console.log(`sum=${sum} max=${max}`);
-          }
-      }
-      return max;
-  }
+function hourglassSum (arr) {
+    let max, sum;
+    for (let row = 1; row  < ROWS - 1; row++) {
+        for (let col = 1; col < COLUMNS - 1; col++) {
+            console.log(`row=${row} col=${col}`);
+            sum = (
+                arr[row-1][col-1] +
+                arr[row-1][col]   +
+                arr[row-1][col+1] +
+                arr[row][col]     +
+                arr[row+1][col-1] +
+                arr[row+1][col]   +
+                arr[row+1][col+1]
+            );
+            if (typeof max === 'undefined' || sum > max) {
+                max = sum;
+            }
+            console.log(`sum=${sum} max=${max}`);
+        }
+    }
+    return max;
+}
 #+end_src
 
 **** Hourglass Sum Test
@@ -391,6 +408,12 @@ echo \
 
 echo Result:
 cat ./result
+#+end_src
+
+**** Hourglass Sum Run Test
+#+name:array2d-run-test
+#+begin_src sh :dir data-structures/array2d/node :results output :exports results
+./array2d.test.sh
 #+end_src
 *** Dynamic Array
 **** Dynamic Array Problem Definition
