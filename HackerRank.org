@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-6-21 06:38
-#+macro:version Version 0.1.6
+#+date:2019-06-22 07:41
+#+macro:version Version 0.1.7
 * Introduction
 - https://www.hackerrank.com/dashboard
 
@@ -74,8 +74,10 @@ At the conclusion of breaking the arguments into an array, the program's
 #+name:node-process-stdin
 #+begin_src js +n
 process.stdin.on('readable', () => {
-    let chunk = process.stdin.read();
-    inputString += chunk;
+    let chunk;
+
+    while ((chunk = process.stdin.read()) != null)
+        inputString += chunk;
 });
 
 process.stdin.on('end', () => {
