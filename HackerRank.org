@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-06-22 18:45
-#+macro:version Version 0.2.0
+#+date:2019-06-23 07:57
+#+macro:version Version 0.2.1
 * Introduction
 - https://www.hackerrank.com/dashboard
 
@@ -534,7 +534,89 @@ $S_0 = [5,3]$
 $S_1 = [7]$
 
 $3$
+**** Dynamic Array Node Process
+#+name:dynamic-array-node-process
+#+header: :noweb yes
+#+begin_src js -n :tangle data-structures/dynamic_array/node/dynamic.js :mkdirp yes
+<<node-process-command-line-arguments>>
+#+end_src
+**** Dynamic Array Main Function
+#+name:dynamic-array-main-function
+#+begin_src js +n :tangle data-structures/dynamic_array/node/dynamic.js
+function main() {
+    const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
 
+    const firstMultipleInput = readLine().replace(/\s+$/g, '').split(' ');
+
+    const n = parseInt(firstMultipleInput[0], 10);
+
+    const q = parseInt(firstMultipleInput[1], 10);
+
+    let queries = Array(q);
+
+    for (let i = 0; i < q; i++) {
+        queries[i] = readLine().replace(/\s+$/g, '').split(' ').map(queriesTemp => parseInt(queriesTemp, 10));
+    }
+
+    const result = dynamicArray(n, queries);
+
+    ws.write(result.join('\n') + '\n');
+
+    ws.end();
+}
+#+end_src
+**** Dynamic Array Solution Code
+#+name:dynamic-array-solution
+#+begin_src js +n :tangle data-structures/dynamic_array/node/dynamic.js
+/*
+ ,* Complete the 'dynamicArray' function below.
+ ,*
+ ,* The function is expected to return an INTEGER_ARRAY.
+ ,* The function accepts following parameters:
+ ,*  1. INTEGER n
+ ,*  2. 2D_INTEGER_ARRAY queries
+ ,*/
+
+function dynamicArray(n, queries) {
+    // Write your code here
+    let seqList = Array(n);
+    let lastAnswer = 0;
+
+    queries.forEach(query => {
+        const queryType = query[0];
+        const x = query[1], y = query[2];
+        const seq = ((x ^ lastAnswer) % n);
+        console.log(`lastAnswer: ${lastAnswer}`);
+        console.log(`queryType: ${queryType}\tx: ${x}\ty: ${y}\tseq: ${seq}`);
+
+        switch (queryType) {
+            case 1:
+              seqList[seq].push(y);
+              console.log(`seqList: ${seqList}`);
+            break;
+            case 2:
+              const seq2 = y % seqList[seq].length;
+              lastAnswer = seqList[seq][seq2];
+              console.log(`new lastAnswer: ${lastAnswer}`);
+            break;
+        }
+    });
+    console.log(`result: ${seqList}`);
+    return seqList;
+}
+#+end_src
+**** Dynamic Array Test
+#+name:dynamic-array-test
+#+header: :shebang "#!/usr/bin/env bash"
+#+begin_src sh -n :tangle data-structures/dynamic_array/node/dynamic.test.js
+export OUTPUT_PATH=result
+echo '2 5
+1 0 5
+1 1 7
+1 0 3
+2 1 0
+2 1 1' | node dynamic.js
+#+end_src
 * Concept Index
 :PROPERTIES:
 :index:    cp
