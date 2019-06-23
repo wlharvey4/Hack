@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-06-23 07:57
-#+macro:version Version 0.2.1
+#+date:2019-06-23 08:14
+#+macro:version Version 0.2.2
 * Introduction
 - https://www.hackerrank.com/dashboard
 
@@ -580,28 +580,32 @@ function main() {
 function dynamicArray(n, queries) {
     // Write your code here
     let seqList = Array(n);
+    // console.log(`N: ${n}`);
     let lastAnswer = 0;
+    // console.log(`lastAnswer: ${lastAnswer}\n`)
 
     queries.forEach(query => {
         const queryType = query[0];
         const x = query[1], y = query[2];
         const seq = ((x ^ lastAnswer) % n);
-        console.log(`lastAnswer: ${lastAnswer}`);
-        console.log(`queryType: ${queryType}\tx: ${x}\ty: ${y}\tseq: ${seq}`);
+        // console.log(`lastAnswer: ${lastAnswer}`);
+        // console.log(`queryType: ${queryType}\tx: ${x}\ty: ${y}\tseq: ${seq}`);
 
         switch (queryType) {
             case 1:
+              if (typeof seqList[seq] == 'undefined') seqList[seq] = Array();
               seqList[seq].push(y);
-              console.log(`seqList: ${seqList}`);
+              // console.log(`seqList: ${seqList}`);
             break;
             case 2:
               const seq2 = y % seqList[seq].length;
               lastAnswer = seqList[seq][seq2];
-              console.log(`new lastAnswer: ${lastAnswer}`);
+              // console.log(`new lastAnswer: ${lastAnswer}`);
+              console.log(lastAnswer);
             break;
         }
     });
-    console.log(`result: ${seqList}`);
+    // console.log(`result: ${seqList}`);
     return seqList;
 }
 #+end_src
