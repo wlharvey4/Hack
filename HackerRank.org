@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-06-25 09:42
-#+macro:version Version 0.3.3
+#+date:2019-06-25 09:46
+#+macro:version Version 0.3.4
 * Introduction
 - https://www.hackerrank.com/dashboard
 
@@ -762,6 +762,7 @@ echo '5 4
 :max-score: 25
 :level:    medium
 :success-rate: 96.75%
+:score:    25
 :END:
 Determine the number of times a string has previously appeared.
 **** Sparse Arrays Problem Statement
@@ -951,7 +952,7 @@ function main() {
 #+begin_src js +n :tangle data-structures/sparse_arrays/node/sparse_arrays.js
 function matchingStrings(strings, queries) {
     strings.sort();
-    results = [];
+    let results = [];
     queries.forEach((e,i) => {
         let count = 0;
         let j;
