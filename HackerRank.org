@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-06-25 09:05
-#+macro:version Version 0.3.2
+#+date:2019-06-25 09:42
+#+macro:version Version 0.3.3
 * Introduction
 - https://www.hackerrank.com/dashboard
 
@@ -950,7 +950,18 @@ function main() {
 #+name:sparse-arrays-matchingStrings-function
 #+begin_src js +n :tangle data-structures/sparse_arrays/node/sparse_arrays.js
 function matchingStrings(strings, queries) {
-    return [];
+    strings.sort();
+    results = [];
+    queries.forEach((e,i) => {
+        let count = 0;
+        let j;
+        if ((j = strings.findIndex(e1 => e1 === e)) >= 0) {
+            count++;
+            while (strings[++j] === e) count++;
+        }
+        results[i] = count;
+    });
+    return results;
 }
 #+end_src
 
