@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-06-26 09:57
-#+macro:version Version 0.4.2
+#+date:2019-06-26 14:04
+#+macro:version Version 0.4.3
 * Introduction
 - https://www.hackerrank.com/dashboard
 
@@ -710,7 +710,7 @@ sequence of changes:
 Thus, we print the array's final state as a single line of space-separated
 values, which is ~5 1 2 3 4~.
 
-**** Left Rotation Node Command-Line Processing
+**** Left Rotation Node CL Processing
 #+name:left-rotation-command-line-process
 #+header: :noweb yes
 #+begin_src js -n :tangle data-structures/left_rotation/node/left_rotation.js :mkdirp yes
@@ -903,7 +903,7 @@ basdn
 2
 #+end_example
 
-**** Sparse Arrays Node CL Process
+**** Sparse Arrays Node CL Processing
 #+name:sparse-arrays-node-cl-process
 #+header: :noweb yes
 #+begin_src js -n :tangle data-structures/sparse_arrays/node/sparse_arrays.js :mkdirp yes
@@ -1023,6 +1023,165 @@ echo Results 3
 cat results
 echo
 #+end_src
+*** Array Manipulation
+:PROPERTIES:
+:max-score: 60
+:level:    hard
+:success-rate: 51.96%
+:score:    60
+:END:
+Perform ~m~ operations on an array and print the maximum of the values.
+**** Array Manipulation Problem Statement
+Starting with a 1-indexed array of zeros and a list of operations, for each
+operation add a value to each of the array elements between two given indices,
+inclusive.  Once all operations have been performed, return the maximum value
+in your array.
+
+For example, the length of your array of zeros ~n = 10~.  Your list of queries
+is as follows:
+
+#+begin_example
+a b k
+1 5 3
+4 8 7
+6 9 1
+#+end_example
+
+Add the values of ~k~ between the indices ~a~  and ~b~ inclusive:
+
+#+begin_example
+index->	 1 2 3  4  5 6 7 8 9 10
+	[0,0,0, 0, 0,0,0,0,0, 0]
+	[3,3,3, 3, 3,0,0,0,0, 0]
+	[3,3,3,10,10,7,7,7,0, 0]
+	[3,3,3,10,10,8,8,8,1, 0]
+#+end_example
+
+The largest value is ~10~ after all operations are performed.
+
+{{{heading(Function Description)}}}
+
+The first line contains two space-separated integers ~n~ and ~m~, the size of
+the array and the number of operations.
+
+Each of the next ~m~ lines contains three space-separated integers ~a~, ~b~ and
+~k~, the left index, right index and summand.
+
+{{{subheading(Sample Input)}}}
+
+#+begin_example
+5 3
+1 2 100
+2 5 100
+3 4 100
+#+end_example
+
+{{{heading(Constraints)}}}
+
+- 3 \le ~n~ \le 10^7
+
+- 1 \le ~m~ \le 2 * 10^5
+
+- 1 \le ~a~ \le ~b~ \le ~n~
+
+- 0 \le ~k~ \le 10^9
+
+
+{{{heading(Output Format)}}}
+
+Return the integer maximum value in the finished array.
+
+{{{subheading(Sample Output)}}}
+
+: 200
+
+{{{heading(Explanation)}}}
+
+- After the first update list will be ~100 100 0 0 0~.
+
+- After the second update list will be ~100 200 100 100 100~.
+
+- After the third update list will be ~100 200 200 200 100~.
+
+- The required answer will be ~200~.
+
+**** Array Manipulation Node CL Processing
+#+name:array-manipulation-node-process-cl
+#+header: :noweb yes
+#+begin_src js -n :tangle data-structures/array_manipulation/node/array_manipulation.js :mkdirp yes
+<<node-process-command-line-arguments>>
+#+end_src
+
+**** Array Manipulation Main Function
+#+name:array-manipulation-main
+#+begin_src js +n :tangle data-structures/array_manipulation/node/array_manipulation.js
+function main() {
+    const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
+
+    const nm = readLine().split(' ');
+
+    const n = parseInt(nm[0], 10);
+    console.log(`n = ${n}`);
+
+    const m = parseInt(nm[1], 10);
+    console.log(`m = ${m}`);
+
+    let queries = Array(m);
+
+    for (let i = 0; i < m; i++) {
+        queries[i] = readLine().split(' ').map(queriesTemp => parseInt(queriesTemp, 10));
+        console.log(`query: ${queries[i]}`);
+    }
+
+    let result = arrayManipulation(n, queries);
+
+    ws.write(result + "\n");
+
+    ws.end();
+}
+#+end_src
+
+**** Array Manipulation Solution Code
+#+name:array-manipulation-solution
+#+begin_src js +n :tangle data-structures/array_manipulation/node/array_manipulation.js
+// Complete the arrayManipulation function below.
+function arrayManipulation(n, queries) {
+    const arr = Array(n);
+    arr.fill(0);
+
+    for (let [a, b, k] of queries) {
+        arr[a-1] += k;
+        if (b < n) arr[b] -= k;
+    }
+
+    let max = 0, x = 0;
+    for (let i = 0; i < n; i++) {
+        x += arr[i];
+        if (x > max) max = x;
+    }
+
+    return max;
+}
+#+end_src
+
+**** Array Manipulation Test Code
+#+name:array-manipulation-test
+#+header: :shebang "#!/usr/bin/env bash"
+#+header: :dir data-structures/array_manipulation/node
+#+header: :results output :exports results
+#+begin_src sh -n :tangle data-structures/array_manipulation/node/array_manipulation.sh
+export OUTPUT_PATH=result
+echo Input:
+echo '5 3
+1 2 100
+2 5 100
+3 4 100' | node array_manipulation.js
+echo
+echo Result:
+cat result
+#+end_src
+
+** Linked Lists
 *** Print the Elements of a Linked List
 :PROPERTIES:
 :level:    easy
@@ -1179,6 +1338,7 @@ echo '2
 :max-score: 5
 :level:    easy
 :success-rate: 95.28%
+:score:    5
 :END:
 #+cindex:linked list
 #+cindex:head node
@@ -1380,7 +1540,153 @@ Results
 530
 474
 #+end_example
+*** Insert a Node at the Head of Linked List
+:PROPERTIES:
+:max-score: 5
+:level:    easy
+:success-rate: 98.50%
+:END:
+You’re given the pointer to the head node of a linked list and an integer to
+add to the list.  Create a new node with the given integer, insert this node at
+the head of the linked list and return the new head node.  The head pointer
+given may be null meaning that the initial list is empty.
 
+{{{heading(Input Format)}}}
+
+You have to complete the ~SinglyLinkedListNode Insert(SinglyLinkedListNode
+head, int data)~ method which takes two arguments --- the head of the linked
+list and the integer to insert.  You should NOT read any input from
+stdin/console.
+
+The input is handled by code in the editor and is as follows:
+
+- The first line contains an integer ~n~, denoting the number of elements to be
+  inserted at the head of the list.
+
+- The next ~n~ lines contain an integer each, denoting the elements to be
+  inserted.
+
+
+{{{subheading(Sample Input)}}}
+
+#+begin_example
+5
+383
+484
+392
+975
+321
+#+end_example
+
+{{{heading(Constraints)}}}
+
+- 1 \le n \le 1000
+
+- 1 \le list_i \le 1000
+
+
+{{{heading(Output Format)}}}
+
+Insert the new node at the head and return the head of the updated linked list.
+Do NOT print anything to stdout/console.  The output is handled by the code in
+the editor and it is as follows:
+
+- Print the elements of linked list from head to tail, each in a new line.
+
+
+{{{subheading(Sample Output)}}}
+
+#+begin_example
+321
+975
+392
+484
+383
+#+end_example
+
+{{{heading(Explanation)}}}
+
+- Intially the list in NULL. After inserting 383, the list is 383 -> NULL.
+- After inserting 484, the list is 484 -> 383 -> NULL.
+- After inserting 392, the list is 392 -> 484 -> 383 -> NULL.
+- After inserting 975, the list is 975 -> 392 -> 484 -> 383 -> NULL.
+- After inserting 321, the list is 321 -> 975 -> 392 -> 484 -> 383 -> NULL.
+
+**** Insert Node at Head of Linked List Node CL Processing
+#+name:insert-node-head-linked-list-node-cl-processing
+#+header: :noweb yes
+#+begin_src js -n :tangle data-structures/insert_head_linked_list/node/insert_head_llist.js :mkdirp yes
+<<node-process-command-line-arguments>>
+#+end_src
+
+**** Insert Node at Head of Linked List Classes
+***** Insert Node at Head of Singly Linked List Node Class
+#+name:insert-node-head-llist-node-class
+#+header: :noweb yes
+#+begin_src js +n :tangle data-structures/insert_head_linked_list/node/insert_head_llist.js
+<<singly-linked-list-node-class>>
+#+end_src
+
+***** Insert Node at Head of Singly Linked List Class
+#+name:insert-node-head-llist-class
+#+header: :noweb yes
+#+begin_src js +n :tangle data-structures/insert_head_linked_list/node/insert_head_llist.js
+<<singly-linked-list-class>>
+#+end_src
+
+***** Insert Node at Head of Singly Linked List Print Function
+#+name:insert-node-head-llist-print
+#+begin_src js +n :tangle data-structures/insert_head_linked_list/node/insert_head_llist.js
+<<print-singly-linked-list>>
+#+end_src
+
+**** Insert Node at Head of Linked List Main Function
+#+name:insert-node-head-llist-main
+#+begin_src js +n :tangle data-structures/insert_head_linked_list/node/insert_head_llist.js
+function main() {
+    const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
+
+    const llistCount = parseInt(readLine(), 10);
+    console.log(`n = ${llistCount}`);
+
+    let llist = new SinglyLinkedList();
+
+    for (let i = 0; i < llistCount; i++) {
+        const llistItem = parseInt(readLine(), 10);
+        console.log(`data: ${llistItem}`);
+    	const llist_head = insertNodeAtHead(llist.head, llistItem);
+      	llist.head = llist_head;
+    }
+
+    printSinglyLinkedList(llist.head, '\n', ws);
+    ws.write('\n');
+
+    ws.end();
+}
+#+end_src
+
+**** Insert Node at Head of Linked List insertNodeAtHead Function
+#+name:insert-node-head-llist-insertNodeAtHead
+#+begin_src js +n :tangle data-structures/insert_head_linked_list/node/insert_head_llist.js
+// Complete the insertNodeAtHead function below.
+
+/*
+ ,* For your reference:
+ ,*
+ ,* SinglyLinkedListNode {
+ ,*     int data;
+ ,*     SinglyLinkedListNode next;
+ ,* }
+ ,*
+ ,*/
+function insertNodeAtHead(head, data) {
+    const newNode = new SinglyLinkedListNode(data);
+    newNode.next = head;
+    head = newNode;
+
+    return head;
+}
+#+end_src
 * Concept Index
 :PROPERTIES:
 :index:    cp
