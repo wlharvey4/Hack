@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-06-25 09:46
-#+macro:version Version 0.4.0
+#+date:2019-06-26 08:53
+#+macro:version Version 0.4.1
 * Introduction
 - https://www.hackerrank.com/dashboard
 
@@ -213,7 +213,6 @@ cat result;
 #+begin_src sh :dir data-structures/arrays/node :results output :exports results
 ./arrays.test.sh
 #+end_src
-
 *** 2D Array
 :PROPERTIES:
 :level:    easy
@@ -1024,6 +1023,156 @@ echo Results 3
 cat results
 echo
 #+end_src
+*** Print the Elements of a Linked List
+:PROPERTIES:
+:level:    easy
+:max-score: 5
+:score:    5
+:END:
+#+cindex:linked list
+#+cindex:head node
+If you're new to linked lists, this is a great exercise for learning about
+them.  Given a pointer to the head node of a linked list, print its elements in
+order, one element per line.  If the head pointer is null (indicating the list
+is empty), don’t print anything.
+
+{{{heading(Input Format)}}}
+
+The first line of input contains ~n~, the number of elements in the linked
+list.  The next ~n~ lines contain one element each, which are the elements of
+the linked list.
+
+*Note*: Do not read any input from stdin/console.  Complete the
+~printLinkedList~ function in the editor below.
+
+{{{subheading(Sample Input)}}}
+
+#+begin_example
+1
+16
+13
+#+end_example
+
+{{{heading(Constraints)}}}
+
+- 1 \le n \le 1000
+
+- 1 \le list_i \le 1000, where list_i is the i^th element of the linked
+  list.
+
+
+{{{heading(Output Format)}}}
+
+Print the integer data for each element of the linked list to stdout/console
+(e.g.: using ~printf~, ~cout~, etc.).  There should be one element per line.
+
+{{{subheading(Sample Output)}}}
+
+#+begin_example
+16
+13
+#+end_example
+
+{{{heading(Explanation)}}}
+
+There are two elements in the linked list.  They are represented as ~16 -> 13
+-> NULL~.  So, the ~printLinkedList~ function should print 16 and 13 each in a
+new line.
+
+**** Print Linked List Node CL Processing
+#+name:print-linked-list-node-cl-processing
+#+header: :noweb yes
+#+begin_src js -n :tangle data-structures/print_linked_list/node/print_linked_list.js :mkdirp yes
+<<node-process-command-line-arguments>>
+#+end_src
+
+**** Print Linked List Main Function
+#+name:print-linked-list-main
+#+begin_src js +n :tangle data-structures/print_linked_list/node/print_linked_list.js
+function main() {
+    const llistCount = parseInt(readLine(), 10);
+    console.log(`n = ${llistCount}`);
+
+    let llist = new SinglyLinkedList();
+
+    for (let i = 0; i < llistCount; i++) {
+        const llistItem = parseInt(readLine(), 10);
+        console.log(`data = ${llistItem}`);
+        llist.insertNode(llistItem);
+    }
+
+    printLinkedList(llist.head);
+}
+#+end_src
+
+**** Print Linked List Node Classes
+
+***** Singly Linked List Node Class
+#+name: singly-linked-list-node-class
+#+begin_src js +n :tangle data-structures/print_linked_list/node/print_linked_list.js
+const SinglyLinkedListNode = class {
+    constructor(nodeData) {
+        this.data = nodeData;
+        this.next = null;
+    }
+};
+#+end_src
+
+***** Singly Linked List Class
+#+name: singly-linked-list-class
+#+begin_src js +n :tangle data-structures/print_linked_list/node/print_linked_list.js
+const SinglyLinkedList = class {
+    constructor() {
+        this.head = null;
+        this.tail = null;
+    }
+
+    insertNode(nodeData) {
+        const node = new SinglyLinkedListNode(nodeData);
+
+        if (this.head == null) {
+            this.head = node;
+        } else {
+            this.tail.next = node;
+        }
+
+        this.tail = node;
+    }
+};
+#+end_src
+
+**** Print Linked List Solution
+#+name:print-linked-list-printLinkedList
+#+begin_src js +n :tangle data-structures/print_linked_list/node/print_linked_list.js
+// Complete the printLinkedList function below.
+
+/*
+ ,* For your reference:
+ ,*
+ ,* SinglyLinkedListNode {
+ ,*     int data;
+ ,*     SinglyLinkedListNode next;
+ ,* }
+ ,*
+ ,*/
+function printLinkedList(head) {
+    if (!head) return;
+    const data = head.data;
+    const next = head.next;
+    console.log(data);
+    printLinkedList(next);
+}
+#+end_src
+
+**** Print Linked List Test Data
+#+name:print-linked-list-test
+#+header: :dir data-structures/print_linked_list/node
+#+header: :results output :exports results
+#+begin_src sh -n :tangle data-structures/print_linked_list/node/print_linked_list.test.sh
+echo '2
+16
+13' | node print_linked_list.js
+#+end_src
 
 * Concept Index
 :PROPERTIES:
@@ -1038,7 +1187,11 @@ echo
 :END:
 
 * Export Settings                                                  :noexport:
+** Options
+#+options: html-link-use-abs-url:nil html-postamble:auto html-preamble:t
+#+options: html-scripts:t html-style:t html5-fancy:t tex:t
 #+options: H:4
+
 ** Texinfo Export Settings
 #+texinfo_filename:hackerrank.info
 #+texinfo_class: info
@@ -1050,8 +1203,6 @@ echo
 #+texinfo_printed_title:HackerRank Coding Problems
 
 ** HTML Export Settings
-#+options: html-link-use-abs-url:nil html-postamble:auto html-preamble:t
-#+options: html-scripts:t html-style:t html5-fancy:t tex:t H:6
 #+html_doctype: html5
 #+html_container: div
 #+description:
