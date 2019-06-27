@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-06-27 09:11
-#+macro:version Version 0.5.3
+#+date:2019-06-27 11:08
+#+macro:version Version 0.5.4
 * Introduction
 - https://www.hackerrank.com/dashboard
 
@@ -1477,14 +1477,14 @@ function main() {
 #+end_src
 
 **** Insert Node at Tail Node Classes
-***** Singly Linked List Node
+***** Singly Linked List Node Class
 #+name:insert-node-singly-linked-list-node
 #+header: :noweb yes
 #+begin_src js +n :tangle data-structures/linked_lists/node/insert_node_llist.js
 <<singly-linked-list-node-class>>
 #+end_src
 
-***** Singly Linked List
+***** Singly Linked List Class
 #+name:insert-node-singly-linked-list
 #+header: :noweb yes
 #+begin_src +n :tangle data-structures/linked_lists/node/insert_node_llist.js
@@ -1627,8 +1627,8 @@ the editor and it is as follows:
 
 **** Insert Node at Head of Linked List Node CL Processing
 #+name:insert-node-head-linked-list-node-cl-processing
-#+header: :noweb yes
-#+begin_src js -n :tangle data-structures/linked_lists/node/insert_head_llist.js :mkdirp yes
+#+header: :noweb yes :mkdirp yes
+#+begin_src js -n :tangle data-structures/linked_lists/node/insert_head_llist.js
 <<node-process-command-line-arguments>>
 #+end_src
 
@@ -1718,6 +1718,182 @@ echo '5
 echo
 echo Results:
 cat results_insert_head_llist
+#+end_src
+*** Delete a Node
+:PROPERTIES:
+:level:    easy
+:max-score: 5
+:success-rate: 97.22%
+:END:
+You’re given the pointer to the head node of a linked list and the position of
+a node to delete.  Delete the node at the given position and return the head
+node.  A position of 0 indicates head, a position of 1 indicates one node away
+from the head and so on.  The list may become empty after you delete the node.
+
+{{{heading(Input Format)}}}
+
+You have to complete the ~deleteNode(SinglyLinkedListNode* llist, int
+position)~ method which takes two arguments --- the head of the linked list and
+the position of the node to delete.  You should NOT read any input from
+stdin/console.  ~position~ will always be at least 0 and less than the number
+of the elements in the list.
+
+- The first line of input contains an integer ~n~, denoting the number of
+  elements in the linked list.
+
+- The next ~n~ lines contain an integer each in a new line, denoting the
+  elements of the linked list in the order.
+
+- The last line contains an integer ~position~ denoting the position of the
+  node that has to be deleted form the linked list.
+
+
+{{{subheading(Sample Input)}}}
+
+#+begin_example
+8
+20
+6
+2
+19
+7
+4
+15
+9
+3
+#+end_example
+
+{{{heading(Constraints)}}}
+
+- 1 \le ~n~ \le 1000
+
+- 1 \le ~list_i~ \le 1000, where ~list_i~ is the ~i^th~ element of the linked
+  list
+
+
+{{{heading(Output Format)}}}
+
+Delete the node at the given position and return the head of the updated linked
+list.  Do NOT print anything to stdout/console.  The code in the editor will
+print the updated linked list in a single line separated by spaces.
+
+{{{subheading(Sample Output)}}}
+
+: 20 6 2 7 4 15 9
+
+{{{heading(Explanation)}}}
+
+The given linked list is =20->6->2->19->7->4->15->9=.  We have to delete the
+node at ~position~ 3, which is 19.  After deleting that node, the updated
+linked list is: =20->6->2->7->4->15->9=.
+
+**** Delete a Node from a Linked List Node CL Processing
+#+name:delete-node-llist-node-cl
+#+header: :noweb yes :mkdirp yes
+#+begin_src js -n :tangle data-structures/linked_lists/node/delete_node_llist.js
+<<node-process-command-line-arguments>>
+#+end_src
+
+**** Delete a Node from a Linked List Classes
+***** Delete a Node Node Class
+#+name:delete-node-llist-node-class
+#+header: :noweb yes
+#+begin_src js +n :tangle data-structures/linked_lists/node/delete_node_llist.js
+<<singly-linked-list-node-class>>
+#+end_src
+
+***** Delete a Node Class
+#+name:delete-node-llist-class
+#+header: :noweb yes
+#+begin_src js +n :tangle data-structures/linked_lists/node/delete_node_llist.js
+<<singly-linked-list-class>>
+#+end_src
+
+***** Delete a Node Print a Linked List Function
+#+name:delete-node-llist-print
+#+header: :noweb yes
+#+begin_src js +n :tangle data-structures/linked_lists/node/delete_node_llist.js
+<<print-singly-linked-list>>
+#+end_src
+
+**** Delete a Node from a Linked List Main Function
+#+name:delete-node-llist-main
+#+begin_src js +n :tangle data-structures/linked_lists/node/delete_node_llist.js
+function main() {
+    const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
+
+    const llistCount = parseInt(readLine(), 10);
+    console.log(`n = ${llistCount}`);
+
+    let llist = new SinglyLinkedList();
+
+    for (let i = 0; i < llistCount; i++) {
+        const llistItem = parseInt(readLine(), 10);
+        llist.insertNode(llistItem);
+        console.log(`data: ${llistItem}`);
+    }
+
+    const position = parseInt(readLine(), 10);
+    console.log(`position = ${position}`);
+
+    let llist1 = deleteNode(llist.head, position);
+
+    printSinglyLinkedList(llist1, " ", ws)
+    ws.write("\n");
+
+    ws.end();
+}
+#+end_src
+
+**** Delete a Node from a Linked List deleteNode Function
+#+name:delete-node-llist-deleteNode
+#+begin_src js +n :tangle data-structures/linked_lists/node/delete_node_llist.js
+// Complete the deleteNode function below.
+
+/*
+ ,* For your reference:
+ ,*
+ ,* SinglyLinkedListNode {
+ ,*     int data;
+ ,*     SinglyLinkedListNode next;
+ ,* }
+ ,*
+ ,*/
+function deleteNode(head, position) {
+    let prior = null;
+    let current = head;
+    while (position--) {
+        prior = current;
+        current = current.next;
+    }
+    if (prior === null) head = current.next;
+    else prior.next = current.next;
+    return head;
+}
+#+end_src
+
+**** Delete a Node from a Linked List Test
+#+name:delete-node_llist_test
+#+header: :shebang "#!/usr/bin/env bash" :results output :exports results
+#+header: :dir data-structures/linked_lists/node
+#+begin_src sh -n :tangle data-structures/linked_lists/node/delete_node_llist.test.sh
+export OUTPUT_PATH=results_delete_llist
+echo Input:
+echo \
+'8
+20
+6
+2
+19
+7
+4
+15
+9
+3' | node delete_node_llist.js
+
+echo
+echo Results:
+cat results_delete_llist
 #+end_src
 
 * Concept Index
