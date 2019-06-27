@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-06-27 07:57
-#+macro:version Version 0.5.1
+#+date:2019-06-27 08:44
+#+macro:version Version 0.5.2
 * Introduction
 - https://www.hackerrank.com/dashboard
 
@@ -200,6 +200,7 @@ function reverseArray (a) {
 **** Arrays Test Code
 #+name:arrays-test
 #+header: :shebang "#! /usr/bin/env bash"
+#+header: :dir data-structures/arrays/node :results output :exports results
 #+begin_src sh -n :tangle data-structures/arrays/node/arrays.test.sh
 export OUTPUT_PATH=./result
 echo '4
@@ -208,11 +209,6 @@ echo Result:
 cat result;
 #+end_src
 
-**** Arrays Run Test
-#+name:arrays-run-test
-#+begin_src sh :dir data-structures/arrays/node :results output :exports results
-./arrays.test.sh
-#+end_src
 *** 2D Array
 :PROPERTIES:
 :level:    easy
@@ -333,17 +329,17 @@ The hourglass with the maximum sum (19) is:
 1 2 4
 #+end_example
 
-**** Array 2D Node Process Code
+**** Array 2D Node CL Processing
 #+name:array2d-node-process
 #+header: :noweb yes
-#+begin_src js -n :tangle data-structures/array2d/node/array2d.js :mkdirp yes
+#+begin_src js -n :tangle data-structures/arrays/node/array2d.js :mkdirp yes
 <<node-process-command-line-arguments>>
 #+end_src
 
-**** Hourglass Sum Main Function
+**** Array2D Hourglass Sum Main Function
 #+name:array2d-main
 #+header: :noweb yes
-#+begin_src js +n :tangle data-structures/array2d/node/array2d.js :mkdirp yes
+#+begin_src js +n :tangle data-structures/arrays/node/array2d.js :mkdirp yes
 const ROWS = 6,
 COLUMNS = 6;
 
@@ -355,6 +351,7 @@ function main () {
         arr[i] = readLine()
             .split(' ')
             .map(s => parseInt(s, 10));
+        console.log(`Row: ${arr[i]}`);
     }
 
     let result = hourglassSum(arr);
@@ -365,8 +362,7 @@ function main () {
 }
 #+end_src
 
-**** Hourglass Sum Solution Code
-
+**** Array2D Hourglass Sum Solution Code
 This is the solution to the problem.  All of the other code simply supports
 it.  The ~hourglassSum()~ function receives a reference to a 2D array of equal
 rows and columns.  The problem defines its size as a 6 \times 6 2D array, set
@@ -379,7 +375,7 @@ hourglasses.
 
 #+name:array2d-hourglassSum-function
 #+header: :noweb yes
-#+begin_src js +n :tangle data-structures/array2d/node/array2d.js :mkdirp yes
+#+begin_src js +n :tangle data-structures/arrays/node/array2d.js :mkdirp yes
 function hourglassSum (arr) {
     let max, sum;
     for (let row = 1; row  < ROWS - 1; row++) {
@@ -407,8 +403,10 @@ function hourglassSum (arr) {
 **** Hourglass Sum Test
 #+name:array2d-test
 #+header: :shebang "#!/usr/bin/env bash"
-#+begin_src sh -n :tangle data-structures/array2d/node/array2d.test.sh
-export OUTPUT_PATH='./result'
+#+header: :dir data-structures/arrays/node :results output :exports results
+#+begin_src sh -n :tangle data-structures/arrays/node/array2d.test.sh
+export OUTPUT_PATH=result_array2d
+echo Input:
 echo \
 '1 1 1 0 0 0
 0 1 0 0 0 0
@@ -417,15 +415,57 @@ echo \
 0 0 0 2 0 0
 0 0 1 2 4 0' | node array2d.js
 
+echo
 echo Result:
-cat ./result
+cat result_array2d
 #+end_src
 
-**** Hourglass Sum Run Test
-#+name:array2d-run-test
-#+begin_src sh :dir data-structures/array2d/node :results output :exports results
-./array2d.test.sh
-#+end_src
+#+RESULTS: array2d-test
+#+begin_example
+Input:
+Row: 1,1,1,0,0,0
+Row: 0,1,0,0,0,0
+Row: 1,1,1,0,0,0
+Row: 0,0,2,4,4,0
+Row: 0,0,0,2,0,0
+Row: 0,0,1,2,4,0
+row=1 col=1
+sum=7 max=7
+row=1 col=2
+sum=4 max=7
+row=1 col=3
+sum=2 max=7
+row=1 col=4
+sum=0 max=7
+row=2 col=1
+sum=4 max=7
+row=2 col=2
+sum=8 max=8
+row=2 col=3
+sum=10 max=10
+row=2 col=4
+sum=8 max=10
+row=3 col=1
+sum=3 max=10
+row=3 col=2
+sum=6 max=10
+row=3 col=3
+sum=7 max=10
+row=3 col=4
+sum=6 max=10
+row=4 col=1
+sum=3 max=10
+row=4 col=2
+sum=9 max=10
+row=4 col=3
+sum=19 max=19
+row=4 col=4
+sum=14 max=19
+
+Result:
+19
+#+end_example
+
 *** Dynamic Array
 :PROPERTIES:
 :level:    easy
@@ -555,13 +595,13 @@ $3$
 **** Dynamic Array Node Process
 #+name:dynamic-array-node-process
 #+header: :noweb yes
-#+begin_src js -n :tangle data-structures/dynamic_array/node/dynamic.js :mkdirp yes
+#+begin_src js -n :tangle data-structures/arrays/node/dynamic.js :mkdirp yes
 <<node-process-command-line-arguments>>
 #+end_src
 
 **** Dynamic Array Main Function
 #+name:dynamic-array-main-function
-#+begin_src js +n :tangle data-structures/dynamic_array/node/dynamic.js
+#+begin_src js +n :tangle data-structures/arrays/node/dynamic.js
 function main() {
     // const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
     const ws = process.stdout;
@@ -588,7 +628,7 @@ function main() {
 
 **** Dynamic Array Solution Code
 #+name:dynamic-array-solution
-#+begin_src js +n :tangle data-structures/dynamic_array/node/dynamic.js
+#+begin_src js +n :tangle data-structures/arrays/node/dynamic.js
 /*
  ,* Complete the 'dynamicArray' function below.
  ,*
@@ -629,7 +669,8 @@ function dynamicArray(n, queries) {
 **** Dynamic Array Test
 #+name:dynamic-array-test
 #+header: :shebang "#!/usr/bin/env bash"
-#+begin_src sh -n :tangle data-structures/dynamic_array/node/dynamic.test.js
+#+header: :dir data-structures/arrays/node :results output :exports results
+#+begin_src sh -n :tangle data-structures/arrays/node/dynamic.test.js
 echo '2 5
 1 0 5
 1 1 7
@@ -638,14 +679,6 @@ echo '2 5
 2 1 1' | node dynamic.js
 #+end_src
 
-#+name:dynamic-array-run-test
-#+begin_src sh :dir data-structures/dynamic_array/node :results output :exports results
-./dynamic.test.js
-#+end_src
-
-#+RESULTS: dynamic-array-run-test
-: 7
-: 3
 *** Left Rotation
 :PROPERTIES:
 :level:    easy
@@ -654,6 +687,7 @@ echo '2 5
 :score:    20
 :END:
 Given an array and a number, ~d~, perform ~d~ left rotations on the array.
+
 **** Left Rotation Problem Statement
 A left rotation operation on an array of size ~n~ shifts each of the array's
 elements ~1~ unit to the left.  For example, if ~2~ left rotations are
@@ -713,13 +747,13 @@ values, which is ~5 1 2 3 4~.
 **** Left Rotation Node CL Processing
 #+name:left-rotation-command-line-process
 #+header: :noweb yes
-#+begin_src js -n :tangle data-structures/left_rotation/node/left_rotation.js :mkdirp yes
+#+begin_src js -n :tangle data-structures/arrays/node/left_rotation.js :mkdirp yes
 <<node-process-command-line-arguments>>
 #+end_src
 
 **** Left Rotation Main Function
 #+name:left-rotation-main-function
-#+begin_src js +n :tangle data-structures/left_rotation/node/left_rotation.js
+#+begin_src js +n :tangle data-structures/arrays/node/left_rotation.js
 function main() {
     const nd = readLine().split(' ');
 
@@ -737,7 +771,7 @@ function main() {
 
 **** Left Rotation Solution
 #+name:left-rotation-solution
-#+begin_src js +n :tangle data-structures/left_rotation/node/left_rotation.js
+#+begin_src js +n :tangle data-structures/arrays/node/left_rotation.js
 function left_rotation (arr, n, d) {
     return arr.map( (e,i,a) => {
         return a[(i + d) % n];
@@ -747,15 +781,13 @@ function left_rotation (arr, n, d) {
 
 **** Left Rotation Test
 #+name:left-rotation-test
-#+header: :shebang "#!/usr/bin/env bash" :dir data-structures/left_rotation/node
+#+header: :shebang "#!/usr/bin/env bash" :dir data-structures/arrays/node
 #+header: :results output :exports results
-#+begin_src sh -n :tangle data-structures/left_rotation/node/left_rotation.test.sh
+#+begin_src sh -n :tangle data-structures/arrays/node/left_rotation.test.sh
 echo '5 4
 1 2 3 4 5' | node left_rotation.js
 #+end_src
 
-#+RESULTS: left-rotation-test
-: 5 1 2 3 4
 *** Sparse Arrays
 :PROPERTIES:
 :max-score: 25
@@ -906,13 +938,13 @@ basdn
 **** Sparse Arrays Node CL Processing
 #+name:sparse-arrays-node-cl-process
 #+header: :noweb yes
-#+begin_src js -n :tangle data-structures/sparse_arrays/node/sparse_arrays.js :mkdirp yes
+#+begin_src js -n :tangle data-structures/arrays/node/sparse_arrays.js :mkdirp yes
 <<node-process-command-line-arguments>>
 #+end_src
 
 **** Sparse Arrays ~main~ Function
 #+name:sparse-arrays-main
-#+begin_src js +n :tangle data-structures/sparse_arrays/node/sparse_arrays.js
+#+begin_src js +n :tangle data-structures/arrays/node/sparse_arrays.js
 function main() {
     const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
 
@@ -948,7 +980,7 @@ function main() {
 
 **** Sparse Arrays ~matchingStrings~ Function
 #+name:sparse-arrays-matchingStrings-function
-#+begin_src js +n :tangle data-structures/sparse_arrays/node/sparse_arrays.js
+#+begin_src js +n :tangle data-structures/arrays/node/sparse_arrays.js
 function matchingStrings(strings, queries) {
     strings.sort();
     let results = [];
@@ -968,8 +1000,8 @@ function matchingStrings(strings, queries) {
 **** Sparse Arrays Test Code
 #+name:sparse-arrays-test-code
 #+header: :shebang "#!/usr/bin/env bash"
-#+header: :results output :exports both :dir data-structures/sparse_arrays/node
-#+begin_src sh -n :tangle data-structures/sparse_arrays/node/sparse_arrays.test.sh
+#+header: :results output :exports both :dir data-structures/arrays/node
+#+begin_src sh -n :tangle data-structures/arrays/node/sparse_arrays.test.sh
 export OUTPUT_PATH=results
 echo Input 1
 echo '4
@@ -1023,6 +1055,7 @@ echo Results 3
 cat results
 echo
 #+end_src
+
 *** Array Manipulation
 :PROPERTIES:
 :max-score: 60
@@ -1108,13 +1141,13 @@ Return the integer maximum value in the finished array.
 **** Array Manipulation Node CL Processing
 #+name:array-manipulation-node-process-cl
 #+header: :noweb yes
-#+begin_src js -n :tangle data-structures/array_manipulation/node/array_manipulation.js :mkdirp yes
+#+begin_src js -n :tangle data-structures/arrays/node/array_manipulation.js :mkdirp yes
 <<node-process-command-line-arguments>>
 #+end_src
 
 **** Array Manipulation Main Function
 #+name:array-manipulation-main
-#+begin_src js +n :tangle data-structures/array_manipulation/node/array_manipulation.js
+#+begin_src js +n :tangle data-structures/arrays/node/array_manipulation.js
 function main() {
     const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
 
@@ -1143,7 +1176,7 @@ function main() {
 
 **** Array Manipulation Solution Code
 #+name:array-manipulation-solution
-#+begin_src js +n :tangle data-structures/array_manipulation/node/array_manipulation.js
+#+begin_src js +n :tangle data-structures/arrays/node/array_manipulation.js
 // Complete the arrayManipulation function below.
 function arrayManipulation(n, queries) {
     const arr = Array(n);
@@ -1167,9 +1200,9 @@ function arrayManipulation(n, queries) {
 **** Array Manipulation Test Code
 #+name:array-manipulation-test
 #+header: :shebang "#!/usr/bin/env bash"
-#+header: :dir data-structures/array_manipulation/node
+#+header: :dir data-structures/arrays/node
 #+header: :results output :exports results
-#+begin_src sh -n :tangle data-structures/array_manipulation/node/array_manipulation.sh
+#+begin_src sh -n :tangle data-structures/arrays/node/array_manipulation.sh
 export OUTPUT_PATH=result
 echo Input:
 echo '5 3
@@ -1325,13 +1358,21 @@ function printLinkedList(head) {
 
 **** Print Linked List Test Data
 #+name:print-linked-list-test
-#+header: :dir data-structures/print_linked_list/node
+#+header: :dir data-structures/linked_lists/node
 #+header: :results output :exports results
 #+begin_src sh -n :tangle data-structures/linked_lists/node/print_linked_list.test.sh
 echo '2
 16
 13' | node print_linked_list.js
 #+end_src
+
+#+RESULTS: print-linked-list-test
+: n = 2
+: data = 16
+: data = 13
+: 16
+: 13
+
 *** Insert a Node at the Tail of Linked List
 :PROPERTIES:
 :max-score: 5
@@ -1375,7 +1416,7 @@ The input is handled by code editor and is as follows:
 474
 #+end_example
 
-{{{Constraints}}}
+{{{heading(Constraints)}}}
 
 - 1 \le n \le 1000
 
@@ -1509,9 +1550,9 @@ function insertNodeAtTail(head, data) {
 **** Insert Node at Tail Test
 #+name:insert-node-at-tail-test
 #+header: :results output :exports results
-#+header: :dir data-structures/insert_node_linked_list/node
+#+header: :dir data-structures/linked_lists/node
 #+begin_src sh -n :tangle data-structures/linked_lists/node/insert_node_llist.test.sh
-export OUTPUT_PATH=results
+export OUTPUT_PATH=results_insert_node_llist
 echo '5
 141
 302
@@ -1520,25 +1561,9 @@ echo '5
 474' | node insert_node_llist.js
 echo
 echo Results
-cat results
+cat results_insert_node_llist
 #+end_src
 
-#+RESULTS: insert-node-at-tail-test
-#+begin_example
-n = 5
-data: 141
-data: 302
-data: 164
-data: 530
-data: 474
-
-Results
-141
-302
-164
-530
-474
-#+end_example
 *** Insert a Node at the Head of Linked List
 :PROPERTIES:
 :max-score: 5
@@ -1635,6 +1660,7 @@ the editor and it is as follows:
 
 ***** Insert Node at Head of Singly Linked List Print Function
 #+name:insert-node-head-llist-print
+#+header: :noweb yes
 #+begin_src js +n :tangle data-structures/linked_lists/node/insert_head_llist.js
 <<print-singly-linked-list>>
 #+end_src
@@ -1686,6 +1712,25 @@ function insertNodeAtHead(head, data) {
     return head;
 }
 #+end_src
+
+**** Insert Node at Head of Linked List Test
+#+name:insert-node-head-llist-insert_head_llist.test.sj
+#+header: :shebang "#!/usr/bin/env bash"
+#+header: :dir data-structures/linked_lists/node :results output :exports results
+#+begin_src sh -n :tangle data-structures/linked_lists/node/insert_head_llist.test.sh
+export OUTPUT_PATH=results_insert_head_llist
+echo Input:
+echo '5
+383
+484
+392
+975
+321' | node insert_head_llist.js
+echo
+echo Results:
+cat results_insert_head_llist
+#+end_src
+
 * Concept Index
 :PROPERTIES:
 :index:    cp
