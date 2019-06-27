@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-06-27 08:44
-#+macro:version Version 0.5.2
+#+date:2019-06-27 09:11
+#+macro:version Version 0.5.3
 * Introduction
 - https://www.hackerrank.com/dashboard
 
@@ -176,9 +176,11 @@ function main () {
     <<node-main-write-stream-ws>>
 
     const arrCount = parseInt(readLine(), 10);
+    console.log(`N = ${arrCount}`);
 
     const arr = readLine().split(' ')
           .map(e => parseInt(e, 10));
+    console.log(`A = ${arr}`);
 
     const result = reverseArray(arr);
 
@@ -202,11 +204,15 @@ function reverseArray (a) {
 #+header: :shebang "#! /usr/bin/env bash"
 #+header: :dir data-structures/arrays/node :results output :exports results
 #+begin_src sh -n :tangle data-structures/arrays/node/arrays.test.sh
-export OUTPUT_PATH=./result
-echo '4
+export OUTPUT_PATH=results_arrays
+echo Input:
+echo \
+'4
 1 4 3 2' | node arrays.js
-echo Result:
-cat result;
+
+echo
+echo Results:
+cat results_arrays;
 #+end_src
 
 *** 2D Array
@@ -319,7 +325,7 @@ Print the largest (maximum) hourglass sum found in ~arr~.
 
 #+caption:Description of hourglasses
 #+name:hourglasses
-[[file:figs/hourglassum.png]]
+[[file:figs/hourglasssum.png]]
 
 The hourglass with the maximum sum (19) is:
 
@@ -416,55 +422,9 @@ echo \
 0 0 1 2 4 0' | node array2d.js
 
 echo
-echo Result:
+echo Results:
 cat result_array2d
 #+end_src
-
-#+RESULTS: array2d-test
-#+begin_example
-Input:
-Row: 1,1,1,0,0,0
-Row: 0,1,0,0,0,0
-Row: 1,1,1,0,0,0
-Row: 0,0,2,4,4,0
-Row: 0,0,0,2,0,0
-Row: 0,0,1,2,4,0
-row=1 col=1
-sum=7 max=7
-row=1 col=2
-sum=4 max=7
-row=1 col=3
-sum=2 max=7
-row=1 col=4
-sum=0 max=7
-row=2 col=1
-sum=4 max=7
-row=2 col=2
-sum=8 max=8
-row=2 col=3
-sum=10 max=10
-row=2 col=4
-sum=8 max=10
-row=3 col=1
-sum=3 max=10
-row=3 col=2
-sum=6 max=10
-row=3 col=3
-sum=7 max=10
-row=3 col=4
-sum=6 max=10
-row=4 col=1
-sum=3 max=10
-row=4 col=2
-sum=9 max=10
-row=4 col=3
-sum=19 max=19
-row=4 col=4
-sum=14 max=19
-
-Result:
-19
-#+end_example
 
 *** Dynamic Array
 :PROPERTIES:
@@ -609,15 +569,19 @@ function main() {
     const firstMultipleInput = readLine().replace(/\s+$/g, '').split(' ');
 
     const n = parseInt(firstMultipleInput[0], 10);
+    console.log(`N = ${n}`);
 
     const q = parseInt(firstMultipleInput[1], 10);
+    console.log(`Q = ${q}`);
 
     let queries = Array(q);
 
     for (let i = 0; i < q; i++) {
         queries[i] = readLine().replace(/\s+$/g, '').split(' ').map(queriesTemp => parseInt(queriesTemp, 10));
+        console.log(`Query: ${queries[i]}`);
     }
 
+    console.log('\nResults:');
     const result = dynamicArray(n, queries);
 
     ws.write(result.join('\n') + '\n');
@@ -671,13 +635,31 @@ function dynamicArray(n, queries) {
 #+header: :shebang "#!/usr/bin/env bash"
 #+header: :dir data-structures/arrays/node :results output :exports results
 #+begin_src sh -n :tangle data-structures/arrays/node/dynamic.test.js
-echo '2 5
+echo Input:
+echo \
+'2 5
 1 0 5
 1 1 7
 1 0 3
 2 1 0
 2 1 1' | node dynamic.js
 #+end_src
+
+#+RESULTS: dynamic-array-test
+#+begin_example
+Input:
+N = 2
+Q = 5
+Query: 1,0,5
+Query: 1,1,7
+Query: 1,0,3
+Query: 2,1,0
+Query: 2,1,1
+
+Results:
+7
+3
+#+end_example
 
 *** Left Rotation
 :PROPERTIES:
@@ -758,13 +740,17 @@ function main() {
     const nd = readLine().split(' ');
 
     const n = parseInt(nd[0], 10);
+    console.log(`N = ${n}`);
 
     const d = parseInt(nd[1], 10);
+    console.log(`D = ${d}`);
 
     const a = readLine().split(' ').map(aTemp => parseInt(aTemp, 10));
+    console.log(`A = ${a}`);
 
     const result = left_rotation(a, n, d);
 
+    console.log('\nResults:');
     console.log(result.join(' '));
 }
 #+end_src
@@ -784,7 +770,9 @@ function left_rotation (arr, n, d) {
 #+header: :shebang "#!/usr/bin/env bash" :dir data-structures/arrays/node
 #+header: :results output :exports results
 #+begin_src sh -n :tangle data-structures/arrays/node/left_rotation.test.sh
-echo '5 4
+echo Input:
+echo \
+'5 4
 1 2 3 4 5' | node left_rotation.js
 #+end_src
 
@@ -1002,9 +990,10 @@ function matchingStrings(strings, queries) {
 #+header: :shebang "#!/usr/bin/env bash"
 #+header: :results output :exports both :dir data-structures/arrays/node
 #+begin_src sh -n :tangle data-structures/arrays/node/sparse_arrays.test.sh
-export OUTPUT_PATH=results
+export OUTPUT_PATH=results_sparse_arrays
 echo Input 1
-echo '4
+echo \
+'4
 aba
 baba
 aba
@@ -1014,7 +1003,7 @@ aba
 xzxb
 ab' | node sparse_arrays.js
 echo Results 1
-cat results
+cat results_sparse_arrays
 echo
 
 echo Input 2
@@ -1027,7 +1016,7 @@ de
 lmn
 fgh' | node sparse_arrays.js
 echo Results 2
-cat results
+cat results_sparse_arrays
 echo
 
 echo Input 3
@@ -1052,7 +1041,7 @@ asdjf
 na
 basdn' | node sparse_arrays.js
 echo Results 3
-cat results
+cat results_sparse_arrays
 echo
 #+end_src
 
@@ -1203,15 +1192,15 @@ function arrayManipulation(n, queries) {
 #+header: :dir data-structures/arrays/node
 #+header: :results output :exports results
 #+begin_src sh -n :tangle data-structures/arrays/node/array_manipulation.sh
-export OUTPUT_PATH=result
+export OUTPUT_PATH=results_array_manipulation
 echo Input:
 echo '5 3
 1 2 100
 2 5 100
 3 4 100' | node array_manipulation.js
 echo
-echo Result:
-cat result
+echo Results:
+cat results_array_manipulation
 #+end_src
 
 ** Linked Lists
@@ -1690,7 +1679,7 @@ function main() {
 }
 #+end_src
 
-**** Insert Node at Head of Linked List insertNodeAtHead Function
+**** insertNodeAtHead Function
 #+name:insert-node-head-llist-insertNodeAtHead
 #+begin_src js +n :tangle data-structures/linked_lists/node/insert_head_llist.js
 // Complete the insertNodeAtHead function below.
