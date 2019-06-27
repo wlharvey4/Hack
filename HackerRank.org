@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-06-26 14:05
-#+macro:version Version 0.5.0
+#+date:2019-06-27 07:57
+#+macro:version Version 0.5.1
 * Introduction
 - https://www.hackerrank.com/dashboard
 
@@ -1242,13 +1242,13 @@ new line.
 **** Print Linked List Node CL Processing
 #+name:print-linked-list-node-cl-processing
 #+header: :noweb yes
-#+begin_src js -n :tangle data-structures/print_linked_list/node/print_linked_list.js :mkdirp yes
+#+begin_src js -n :tangle data-structures/linked_lists/node/print_linked_list.js :mkdirp yes
 <<node-process-command-line-arguments>>
 #+end_src
 
 **** Print Linked List Main Function
 #+name:print-linked-list-main
-#+begin_src js +n :tangle data-structures/print_linked_list/node/print_linked_list.js
+#+begin_src js +n :tangle data-structures/linked_lists/node/print_linked_list.js
 function main() {
     const llistCount = parseInt(readLine(), 10);
     console.log(`n = ${llistCount}`);
@@ -1266,10 +1266,9 @@ function main() {
 #+end_src
 
 **** Print Linked List Node Classes
-
 ***** Singly Linked List Node Class
 #+name:singly-linked-list-node-class
-#+begin_src js +n :tangle data-structures/print_linked_list/node/print_linked_list.js
+#+begin_src js +n :tangle data-structures/linked_lists/node/print_linked_list.js
 const SinglyLinkedListNode = class {
     constructor(nodeData) {
         this.data = nodeData;
@@ -1280,7 +1279,7 @@ const SinglyLinkedListNode = class {
 
 ***** Singly Linked List Class
 #+name: singly-linked-list-class
-#+begin_src js +n :tangle data-structures/print_linked_list/node/print_linked_list.js
+#+begin_src js +n :tangle data-structures/linked_lists/node/print_linked_list.js
 const SinglyLinkedList = class {
     constructor() {
         this.head = null;
@@ -1303,7 +1302,7 @@ const SinglyLinkedList = class {
 
 **** Print Linked List Solution
 #+name:print-linked-list-printLinkedList
-#+begin_src js +n :tangle data-structures/print_linked_list/node/print_linked_list.js
+#+begin_src js +n :tangle data-structures/linked_lists/node/print_linked_list.js
 // Complete the printLinkedList function below.
 
 /*
@@ -1328,7 +1327,7 @@ function printLinkedList(head) {
 #+name:print-linked-list-test
 #+header: :dir data-structures/print_linked_list/node
 #+header: :results output :exports results
-#+begin_src sh -n :tangle data-structures/print_linked_list/node/print_linked_list.test.sh
+#+begin_src sh -n :tangle data-structures/linked_lists/node/print_linked_list.test.sh
 echo '2
 16
 13' | node print_linked_list.js
@@ -1418,13 +1417,13 @@ in the editor and is as follows:
 **** Insert Node at Tail Node CL Processing
 #+name:insert-node-at-tail-node-cl-processing
 #+header: :noweb yes
-#+begin_src js -n :tangle data-structures/insert_node_linked_list/node/insert_node_llist.js :mkdirp yes
+#+begin_src js -n :tangle data-structures/linked_lists/node/insert_node_llist.js :mkdirp yes
 <<node-process-command-line-arguments>>
 #+end_src
 
 **** Insert Node at Tail Main
 #+name:insert-node-at-tail-main
-#+begin_src js +n :tangle data-structures/insert_node_linked_list/node/insert_node_llist.js
+#+begin_src js +n :tangle data-structures/linked_lists/node/insert_node_llist.js
 function main() {
     const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
 
@@ -1451,20 +1450,20 @@ function main() {
 ***** Singly Linked List Node
 #+name:insert-node-singly-linked-list-node
 #+header: :noweb yes
-#+begin_src js +n :tangle data-structures/insert_node_linked_list/node/insert_node_llist.js
+#+begin_src js +n :tangle data-structures/linked_lists/node/insert_node_llist.js
 <<singly-linked-list-node-class>>
 #+end_src
 
 ***** Singly Linked List
 #+name:insert-node-singly-linked-list
 #+header: :noweb yes
-#+begin_src +n :tangle data-structures/insert_node_linked_list/node/insert_node_llist.js
+#+begin_src +n :tangle data-structures/linked_lists/node/insert_node_llist.js
 <<singly-linked-list-class>>
 #+end_src
 
 ***** Print Singly Linked List
 #+name:print-singly-linked-list
-#+begin_src js +n :tangle data-structures/insert_node_linked_list/node/insert_node_llist.js
+#+begin_src js +n :tangle data-structures/linked_lists/node/insert_node_llist.js
 function printSinglyLinkedList(node, sep, ws) {
     while (node != null) {
         ws.write(String(node.data));
@@ -1480,7 +1479,7 @@ function printSinglyLinkedList(node, sep, ws) {
 
 **** Insert Node at Tail insertNodeAtTail
 #+name:insert-node-at-tail-insertNodeAtTail
-#+begin_src js +n :tangle data-structures/insert_node_linked_list/node/insert_node_llist.js
+#+begin_src js +n :tangle data-structures/linked_lists/node/insert_node_llist.js
 // Complete the insertNodeAtTail function below.
 
 /*
@@ -1511,7 +1510,7 @@ function insertNodeAtTail(head, data) {
 #+name:insert-node-at-tail-test
 #+header: :results output :exports results
 #+header: :dir data-structures/insert_node_linked_list/node
-#+begin_src sh -n :tangle data-structures/insert_node_linked_list/node/insert_node_llist.test.sh
+#+begin_src sh -n :tangle data-structures/linked_lists/node/insert_node_llist.test.sh
 export OUTPUT_PATH=results
 echo '5
 141
@@ -1615,7 +1614,7 @@ the editor and it is as follows:
 **** Insert Node at Head of Linked List Node CL Processing
 #+name:insert-node-head-linked-list-node-cl-processing
 #+header: :noweb yes
-#+begin_src js -n :tangle data-structures/insert_head_linked_list/node/insert_head_llist.js :mkdirp yes
+#+begin_src js -n :tangle data-structures/linked_lists/node/insert_head_llist.js :mkdirp yes
 <<node-process-command-line-arguments>>
 #+end_src
 
@@ -1623,26 +1622,26 @@ the editor and it is as follows:
 ***** Insert Node at Head of Singly Linked List Node Class
 #+name:insert-node-head-llist-node-class
 #+header: :noweb yes
-#+begin_src js +n :tangle data-structures/insert_head_linked_list/node/insert_head_llist.js
+#+begin_src js +n :tangle data-structures/linked_lists/node/insert_head_llist.js
 <<singly-linked-list-node-class>>
 #+end_src
 
 ***** Insert Node at Head of Singly Linked List Class
 #+name:insert-node-head-llist-class
 #+header: :noweb yes
-#+begin_src js +n :tangle data-structures/insert_head_linked_list/node/insert_head_llist.js
+#+begin_src js +n :tangle data-structures/linked_lists/node/insert_head_llist.js
 <<singly-linked-list-class>>
 #+end_src
 
 ***** Insert Node at Head of Singly Linked List Print Function
 #+name:insert-node-head-llist-print
-#+begin_src js +n :tangle data-structures/insert_head_linked_list/node/insert_head_llist.js
+#+begin_src js +n :tangle data-structures/linked_lists/node/insert_head_llist.js
 <<print-singly-linked-list>>
 #+end_src
 
 **** Insert Node at Head of Linked List Main Function
 #+name:insert-node-head-llist-main
-#+begin_src js +n :tangle data-structures/insert_head_linked_list/node/insert_head_llist.js
+#+begin_src js +n :tangle data-structures/linked_lists/node/insert_head_llist.js
 function main() {
     const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
 
@@ -1667,7 +1666,7 @@ function main() {
 
 **** Insert Node at Head of Linked List insertNodeAtHead Function
 #+name:insert-node-head-llist-insertNodeAtHead
-#+begin_src js +n :tangle data-structures/insert_head_linked_list/node/insert_head_llist.js
+#+begin_src js +n :tangle data-structures/linked_lists/node/insert_head_llist.js
 // Complete the insertNodeAtHead function below.
 
 /*
