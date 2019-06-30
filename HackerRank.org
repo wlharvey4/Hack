@@ -1,9 +1,9 @@
 # -*- mode:org; fill-column:79; -*-
-n
+
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-06-29 23:35
-#+macro:version Version 0.5.5
+#+date:2019-06-30 07:12
+#+macro:version Version 0.5.6
 * Introduction
 - https://www.hackerrank.com/dashboard
 
@@ -1901,7 +1901,8 @@ cat results_delete_llist
 :level:    easy
 :max-score: 5
 :success-rate: 97.89%
-:END:
+  :score:    5
+  :END:
 You are given the pointer to the head node of a linked list and you need to
 print all its elements in reverse order from tail to head, one element per
 line.  The head pointer may be null meaning that the list is empty---in that
@@ -1991,6 +1992,7 @@ in reverse order will produce: =13 -> 3 -> 18 -> 1 -> 5=.
 
 **** Print in Reverse Node CL Processing
 #+name:print-in-reverse-node-cl-processing
+#+header: :noweb yes
 #+begin_src js -n :tangle data-structures/linked_lists/node/reverseSinglyLinkedList.js :mkdirp yes
 <<node-process-command-line-arguments>>
 #+end_src
@@ -2049,20 +2051,26 @@ function printSinglyLinkedList(node, sep) {
 **** Print in Reverse Linked List Main Function
 #+name:print-in-reverse-linked-list-main
 #+begin_src js +n :tangle data-structures/linked_lists/node/reverseSinglyLinkedList.js
-unction main() {
+function main() {
     const tests = parseInt(readLine(), 10);
+    console.log(`tests: ${tests}\n`);
 
     for (let testsItr = 0; testsItr < tests; testsItr++) {
+        console.log(`test: ${testsItr}`);
         const llistCount = parseInt(readLine(), 10);
+        console.log(`n: ${llistCount}`);
 
         let llist = new SinglyLinkedList();
+        console.log(`new list:`);
 
         for (let i = 0; i < llistCount; i++) {
             const llistItem = parseInt(readLine(), 10);
+            console.log(`data: ${llistItem}`);
             llist.insertNode(llistItem);
         }
 
         reversePrint(llist.head);
+        console.log('');
     }
 }
 #+end_src
@@ -2073,23 +2081,26 @@ unction main() {
 // Complete the reversePrint function below.
 
 /*
- * For your reference:
- *
- * SinglyLinkedListNode {
- *     int data;
- *     SinglyLinkedListNode next;
- * }
- *
- */
+ ,* For your reference:
+ ,*
+ ,* SinglyLinkedListNode {
+ ,*     int data;
+ ,*     SinglyLinkedListNode next;
+ ,* }
+ ,*
+ ,*/
 function reversePrint(head) {
-
+    if (head === null) return;
+    reversePrint(head.next);
+    console.log(head.data);
 }
 #+end_src
 
 **** Print in Reverse Linked List Test
 #+name:print-in-reverse-linked-list-test
-#+header: dir data-structure/linked_lists/node :results output :exports results
-#+begin_src js -n :tangle data-structures/linked_lists/node/reverseSinglyLinkedList.test.js
+#+header: :shebang "#!/usr/bin/env bash"
+#+header: :dir data-structures/linked_lists/node :results output :exports results
+#+begin_src sh -n :tangle data-structures/linked_lists/node/reverseSinglyLinkedList.test.sh
 echo \
 '3
 5
