@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-06-30 07:12
-#+macro:version Version 0.5.6
+#+date:2019-06-30 15:51
+#+macro:version Version 0.5.7
 * Introduction
 - https://www.hackerrank.com/dashboard
 
@@ -2119,6 +2119,218 @@ echo \
 18
 3
 13' | node reverseSinglyLinkedList.js
+#+end_src
+
+*** Reverse a Linked List
+:PROPERTIES:
+:level:    easy
+:max-score: 5
+:success-rate: 98.04%
+:END:
+You’re given the pointer to the head node of a linked list.  Change the next
+pointers of the nodes so that their order is reversed.  The head pointer given
+may be null meaning that the initial list is empty.
+
+**** Reverse a Linked List Problem Statement
+{{{heading(Input Format)}}}
+
+You have to complete the ~SinglyLinkedListNode reverse(SinglyLinkedListNode
+head)~ method which takes one argument---the head of the linked list.  You
+should NOT read any input from stdin/console.
+
+The input is handled by the code in the editor and the format is as follows:
+
+- The first line contains an integer ~t~, denoting the number of test cases.
+
+- Each test case is of the following format:
+
+  - The first line contains an integer ~n~, denoting the number of elements in
+    the linked list.
+
+  - The next ~n~ lines contain an integer each, denoting the elements of the
+    linked list.
+
+
+{{{subheading(Sample Input)}}}
+
+#+begin_example
+1
+5
+1
+2
+3
+4
+5
+#+end_example
+
+{{{heading(Constraints)}}}
+
+- 1 \le ~t~ \le 10
+
+- 1 \le ~n~ \le 1000
+
+- 1 \le list_i \le 1000, where list_i is the i^th element in the list
+
+
+{{{heading(Output Format)}}}
+
+Change the next pointers of the nodes so that their order is reversed; return
+the head of the reversed linked list.  Do NOT print anything to stdout/console.
+
+The output is handled by the code in the editor.  The output format is as
+follows:
+
+- For each test case, print in a new line the elements of the linked list after
+  reversing it, separated by spaces.
+
+
+{{{subheading(Sample Output)}}}
+
+: 5 4 3 2 1 
+
+{{{heading(Explanation)}}}
+
+The initial linked list is: =1 -> 2 -> 3 -> 4 -> 5 -> NULL=
+
+The reversed linked list is: =5 -> 4 -> 3 -> 2 -> 1 -> NULL=
+
+**** Reverse a Linked List Node CL Processing
+#+name:reverse-llist-node-cl-processing
+#+header: :noweb yes
+#+begin_src js -n :tangle data-structures/linked_lists/node/reverse_llist.js :mkdirp yes
+<<node-process-command-line-arguments>>
+#+end_src
+
+**** Reverse a Linked List Classes
+***** Reverse a Linked List Node Class
+#+name:reverse-llist-node-class
+#+begin_src js +n :tangle data-structures/linked_lists/node/reverse_llist.js
+const SinglyLinkedListNode = class {
+    constructor(nodeData) {
+        this.data = nodeData;
+        this.next = null;
+    }
+};
+#+end_src
+
+***** Reverse a Linked List Class
+#+name:reverse-llist-class
+#+begin_src js +n :tangle data-structures/linked_lists/node/reverse_llist.js
+const SinglyLinkedList = class {
+    constructor() {
+        this.head = null;
+        this.tail = null;
+    }
+
+    insertNode(nodeData) {
+        const node = new SinglyLinkedListNode(nodeData);
+
+        if (this.head == null) {
+            this.head = node;
+        } else {
+            this.tail.next = node;
+        }
+
+        this.tail = node;
+    }
+};
+#+end_src
+
+***** Reverse a Linked List Print
+#+name:reverse-llist-print
+#+begin_src js +n :tangle data-structures/linked_lists/node/reverse_llist.js
+function printSinglyLinkedList(node, sep, ws) {
+    while (node != null) {
+        console.log(`write node: ${node.data}`);
+        ws.write(String(node.data));
+
+        node = node.next;
+
+        if (node != null) {
+            ws.write(sep);
+        }
+    }
+}
+#+end_src
+
+**** Reverse a Linked List Main Function
+#+name:reverse-lliist-main
+#+begin_src js +n :tangle data-structures/linked_lists/node/reverse_llist.js
+function main() {
+    const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
+
+    const tests = parseInt(readLine(), 10);
+    console.log(`tests: ${tests}\n`);
+
+    for (let testsItr = 0; testsItr < tests; testsItr++) {
+        console.log(`test: ${testsItr}`);
+        const llistCount = parseInt(readLine(), 10);
+        console.log(`n: ${llistCount}`);
+
+        let llist = new SinglyLinkedList();
+
+        for (let i = 0; i < llistCount; i++) {
+            const llistItem = parseInt(readLine(), 10);
+            console.log(`data: ${llistItem}`);
+            llist.insertNode(llistItem);
+        }
+
+        let llist1 = reverse(llist.head);
+
+        printSinglyLinkedList(llist1, " ", ws)
+        ws.write("\n");
+    }
+
+    ws.end();
+}
+#+end_src
+
+#+RESULTS: reverse-lliist-main
+
+**** Reverse a Linked List reverse Function
+#+name:reverse-llisi-reverse
+#+begin_src js +n :tangle data-structures/linked_lists/node/reverse_llist.js
+// Complete the reverse function below.
+
+/*
+ ,* For your reference:
+ ,*
+ ,* SinglyLinkedListNode {
+ ,*     int data;
+ ,*     SinglyLinkedListNode next;
+ ,* }
+ ,*
+ ,*/
+function reverse(head) {
+    const rev_llist = new SinglyLinkedList();
+    function rev(node) {
+        const stackNode = node;
+        if (stackNode === null) return;
+        rev(node.next);
+        rev_llist.insertNode(stackNode.data);
+    }
+    rev(head);
+    return rev_llist.head;
+}
+#+end_src
+
+**** Reverse a Linked List Test Function
+#+name:reverse-llist-test
+#+header: :shebang "#!/usr/bin/env bash"
+#+header: :dir data-structures/linked_lists/node :results output :exports results
+#+begin_src sh -n :tangle data-structures/linked_lists/node/reverse_llist.test.sh
+export OUTPUT_PATH=reverse_llist_results
+echo \
+'1
+5
+1
+2
+3
+4
+5' | node reverse_llist.js
+echo
+echo 'Results:'
+cat reverse_llist_results
 #+end_src
 
 * Concept Index
