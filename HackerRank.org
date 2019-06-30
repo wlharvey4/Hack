@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-06-30 15:51
-#+macro:version Version 0.5.7
+#+date:2019-06-30 16:56
+#+macro:version Version 0.5.8
 * Introduction
 - https://www.hackerrank.com/dashboard
 
@@ -2302,15 +2302,22 @@ function main() {
  ,*
  ,*/
 function reverse(head) {
-    const rev_llist = new SinglyLinkedList();
+
     function rev(node) {
-        const stackNode = node;
-        if (stackNode === null) return;
+        if (node === null)
+            return;
         rev(node.next);
-        rev_llist.insertNode(stackNode.data);
+
+        if (node.next === null)
+            head = node;
+        else {
+            node.next.next = node;
+            node.next = null;
+        }
     }
+
     rev(head);
-    return rev_llist.head;
+    return head;
 }
 #+end_src
 
@@ -2332,6 +2339,27 @@ echo
 echo 'Results:'
 cat reverse_llist_results
 #+end_src
+
+#+RESULTS: reverse-llist-test
+#+begin_example
+tests: 1
+
+test: 0
+n: 5
+data: 1
+data: 2
+data: 3
+data: 4
+data: 5
+write node: 5
+write node: 4
+write node: 3
+write node: 2
+write node: 1
+
+Results:
+5 4 3 2 1
+#+end_example
 
 * Concept Index
 :PROPERTIES:
