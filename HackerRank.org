@@ -1,9 +1,9 @@
 # -*- mode:org; fill-column:79; -*-
-
+n
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-06-27 11:08
-#+macro:version Version 0.5.4
+#+date:2019-06-29 23:35
+#+macro:version Version 0.5.5
 * Introduction
 - https://www.hackerrank.com/dashboard
 
@@ -1894,6 +1894,220 @@ echo \
 echo
 echo Results:
 cat results_delete_llist
+#+end_src
+
+*** Print in Reverse
+:PROPERTIES:
+:level:    easy
+:max-score: 5
+:success-rate: 97.89%
+:END:
+You are given the pointer to the head node of a linked list and you need to
+print all its elements in reverse order from tail to head, one element per
+line.  The head pointer may be null meaning that the list is empty---in that
+case, do not print anything!
+
+{{{heading(Input Format)}}}
+
+You have to complete the ~void reversePrint(SinglyLinkedListNode* head)~ method
+which takes one argument---the head of the linked list.  You should NOT read any
+input from stdin/console.
+
+The first line of input contains ~t~, the number of test cases.
+
+The input of each test case is as follows:
+
+- The first line contains an integer ~n~, denoting the number of elements in
+  the list.
+
+- The next ~n~ lines contain one element each, denoting the elements of the
+  linked list in the order.
+
+
+{{{subheading(Sample Input)}}}
+
+#+begin_example
+3
+5
+16
+12
+4
+2
+5
+3
+7
+3
+9
+5
+5
+1
+18
+3
+13
+#+end_example
+
+{{{heading(Constraints)}}}
+
+- 1 \le ~n~ \le 1000
+
+- 1 \le list_i \le 1000, where list_i is the i^th element in the list.
+
+
+{{{heading(Output Format)}}}
+
+Complete the ~reversePrint~ function in the editor below and print the elements
+of the linked list in the reverse order, each in a new line.
+
+{{{subheading(Sample Output)}}}
+
+#+begin_example
+5
+2
+4
+12
+16
+9
+3
+7
+13
+3
+18
+1
+5
+#+end_example
+
+{{{heading(Explanation)}}}
+
+There are three test cases.
+
+The first linked list has 5 elements: =16 -> 12 -> 4 -> 2 -> 5=.  Printing this
+in reverse order will produce: =5 -> 2 -> 4 -> 12 -> 16=.
+
+The second linked list has 3 elements: =7 -> 3 -> 9=.  Printing this in reverse
+order will produce: =9 -> 3 -> 7=.
+
+The third linked list has 5 elements: =5 -> 1 -> 18 -> 3 -> 13=.  Printing this
+in reverse order will produce: =13 -> 3 -> 18 -> 1 -> 5=.
+
+**** Print in Reverse Node CL Processing
+#+name:print-in-reverse-node-cl-processing
+#+begin_src js -n :tangle data-structures/linked_lists/node/reverseSinglyLinkedList.js :mkdirp yes
+<<node-process-command-line-arguments>>
+#+end_src
+
+**** Print in Reverse Node Classes
+***** Print in Reverse Linked List Node Class
+#+name:print-in-reverse-linked-list-node-class
+#+begin_src js +n :tangle data-structures/linked_lists/node/reverseSinglyLinkedList.js
+const SinglyLinkedListNode = class {
+    constructor(nodeData) {
+        this.data = nodeData;
+        this.next = null;
+    }
+};
+#+end_src
+
+***** Print in Reverse Linked List Class
+#+name:print-in-reverse-linked-list-class
+#+begin_src js +n :tangle data-structures/linked_lists/node/reverseSinglyLinkedList.js
+const SinglyLinkedList = class {
+    constructor() {
+        this.head = null;
+        this.tail = null;
+    }
+
+    insertNode(nodeData) {
+        const node = new SinglyLinkedListNode(nodeData);
+
+        if (this.head == null) {
+            this.head = node;
+        } else {
+            this.tail.next = node;
+        }
+
+        this.tail = node;
+    }
+};
+#+end_src
+
+***** Print in Reverse Linked List Print
+#+name:print-in-reverse-linked-list-print
+#+begin_src js +n :tangle data-structures/linked_lists/node/reverseSinglyLinkedList.js
+function printSinglyLinkedList(node, sep) {
+    while (node != null) {
+        process.stdout.write(String(node.data));
+
+        node = node.next;
+
+        if (node != null) {
+            process.stdout.write(sep);
+        }
+    }
+}
+#+end_src
+
+**** Print in Reverse Linked List Main Function
+#+name:print-in-reverse-linked-list-main
+#+begin_src js +n :tangle data-structures/linked_lists/node/reverseSinglyLinkedList.js
+unction main() {
+    const tests = parseInt(readLine(), 10);
+
+    for (let testsItr = 0; testsItr < tests; testsItr++) {
+        const llistCount = parseInt(readLine(), 10);
+
+        let llist = new SinglyLinkedList();
+
+        for (let i = 0; i < llistCount; i++) {
+            const llistItem = parseInt(readLine(), 10);
+            llist.insertNode(llistItem);
+        }
+
+        reversePrint(llist.head);
+    }
+}
+#+end_src
+
+**** Print in Reverse Linked List reversePrint Function
+#+name:print-in-reverse-linked-list-reversePrint
+#+begin_src js +n :tangle data-structures/linked_lists/node/reverseSinglyLinkedList.js
+// Complete the reversePrint function below.
+
+/*
+ * For your reference:
+ *
+ * SinglyLinkedListNode {
+ *     int data;
+ *     SinglyLinkedListNode next;
+ * }
+ *
+ */
+function reversePrint(head) {
+
+}
+#+end_src
+
+**** Print in Reverse Linked List Test
+#+name:print-in-reverse-linked-list-test
+#+header: dir data-structure/linked_lists/node :results output :exports results
+#+begin_src js -n :tangle data-structures/linked_lists/node/reverseSinglyLinkedList.test.js
+echo \
+'3
+5
+16
+12
+4
+2
+5
+3
+7
+3
+9
+5
+5
+1
+18
+3
+13' | node reverseSinglyLinkedList.js
 #+end_src
 
 * Concept Index
