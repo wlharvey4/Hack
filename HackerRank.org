@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-01 20:47
-#+macro:version Version 0.5.9
+#+date:2019-07-01 20:58
+#+macro:version Version 0.5.10
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -2480,61 +2480,69 @@ In the second case, linked lists are: =1 -> 2 -> NULL= and =1 -> 2 -> NULL=
 **** Compare Linked Lists Main Function
 #+name:compare-llist-main-function
 #+begin_src js +n :tangle data-structures/linked_lists/node/compareLLists.js
-function main() {
-    const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
+  function main() {
+      const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
 
-    const tests = parseInt(readLine(), 10);
+      const tests = parseInt(readLine(), 10);
+      console.log(`number of tests t = ${tests}`);
 
-    for (let testsItr = 0; testsItr < tests; testsItr++) {
-        const llist1Count = parseInt(readLine(), 10);
+      for (let testsItr = 0; testsItr < tests; testsItr++) {
+          console.log(`\ntest: ${testsItr}`);
 
-        let llist1 = new SinglyLinkedList();
+          const llist1Count = parseInt(readLine(), 10);
+          console.log(`n: ${llist1Count}`);
 
-        for (let i = 0; i < llist1Count; i++) {
-            const llist1Item = parseInt(readLine(), 10);
-            llist1.insertNode(llist1Item);
-        }
+          let llist1 = new SinglyLinkedList();
 
-      	const llist2Count = parseInt(readLine(), 10);
+          for (let i = 0; i < llist1Count; i++) {
+              const llist1Item = parseInt(readLine(), 10);
+              console.log(`data: ${llist1Item}`);
+              llist1.insertNode(llist1Item);
+          }
 
-        let llist2 = new SinglyLinkedList();
+          const llist2Count = parseInt(readLine(), 10);
+          console.log(`m: ${llist2Count}`);
 
-        for (let i = 0; i < llist2Count; i++) {
-            const llist2Item = parseInt(readLine(), 10);
-            llist2.insertNode(llist2Item);
-        }
+          let llist2 = new SinglyLinkedList();
 
-        let result = CompareLists(llist1.head, llist2.head);
+          for (let i = 0; i < llist2Count; i++) {
+              const llist2Item = parseInt(readLine(), 10);
+              console.log(`data: ${llist2Item}`);
+              llist2.insertNode(llist2Item);
+          }
 
-        ws.write((result ? 1 : 0) + "\n");
-    }
+          let result = CompareLists(llist1.head, llist2.head);
+          console.log(`result: ${result}`);
 
-    ws.end();
-}
+          ws.write((result ? 1 : 0) + "\n");
+      }
+
+      ws.end();
+  }
 #+end_src
 
 **** Compare Linked Lists compareLists Function
 #+name:compare-llists-compareLists-function
 #+begin_src js +n :tangle data-structures/linked_lists/node/compareLLists.js
-// Complete the CompareLists function below.
+  // Complete the CompareLists function below.
 
-/*
- * For your reference:
- *
- * SinglyLinkedListNode {
- *     int data;
- *     SinglyLinkedListNode next;
- * }
- *
- */
-function CompareLists(llist1, llist2) {
-
-
-}
+  /*
+   ,* For your reference:
+   ,*
+   ,* SinglyLinkedListNode {
+   ,*     int data;
+   ,*     SinglyLinkedListNode next;
+   ,* }
+   ,*
+   ,*/
+  function CompareLists(llist1, llist2) {
+      return 0;
+  }
 #+end_src
 
 **** Compare Linked Lists Tests
 #+name:compare-llists-tests
+#+header: :shebang "#!/usr/bin/env bash"
 #+header: :dir data-structures/linked_lists/node
 #+header: :results output :exports results
 #+begin_src sh :tangle data-structures/linked_lists/node/compareLLists.tests.sh
