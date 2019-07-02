@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-02 10:01
-#+macro:version Version 0.7.0
+#+date:2019-07-02 11:14
+#+macro:version Version 0.7.1
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -2605,6 +2605,8 @@ Results
 :max-score: 5
 :success-rate: 96.38%
 :score:    5
+:cummulative-points: 185
+:current-rank: 412511
 :END:
 **** Insert Node at a Set Position in a LList Problem Statement
 You’re given the pointer to the head node of a linked list, an integer to add
@@ -2784,6 +2786,188 @@ at position: 2
 Results
 16 13 1 7
 #+end_example
+
+*** Merge Two Sorted Linked Lists
+:PROPERTIES:
+:level:    easy
+:max-score: 5
+:success-rate: 95.40%
+:END:
+Given the heads of two sorted linked lists, change their links to get a single
+sorted linked list.
+
+**** Merge Two Sorted Linked Lists Problem Statement
+You’re given the pointer to the head nodes of two sorted linked lists.  The
+data in both lists will be sorted in ascending order.  Change the next pointers
+to obtain a single, merged linked list which also has data in ascending order.
+Either head pointer given may be null meaning that the corresponding list is
+empty.
+
+{{{heading(Input Format)}}}
+
+You have to complete the ~SinglyLinkedListNode MergeLists(SinglyLinkedListNode
+headA, SinglyLinkedListNode headB)~ method which takes two arguments---the
+heads of the two sorted linked lists to merge.  You should NOT read any input
+from stdin/console.
+
+The input is handled by the code in the editor and the format is as follows:
+
+- The first line contains an integer ~t~, denoting the number of test cases.
+
+
+The format for each test case is as follows:
+
+- The first line contains an integer ~n~, denoting the length of the first
+  linked list.
+
+- The next ~n~ lines contain an integer each, denoting the elements of the
+  linked list.
+
+- The next line contains an integer ~m~, denoting the length of the second
+  linked list.
+
+- The next ~m~ lines contain an integer each, denoting the elements of the
+  second linked list.
+
+
+{{{subheading(Sample Input)}}}
+
+#+begin_example
+1
+3
+1
+2
+3
+2
+3
+4
+#+end_example
+
+{{{heading(Constraints)}}}
+
+- 1 \le t \le 10
+
+- 1 \le n \le 1000
+
+- 1 \le list_i \le 1000, where list_i is the i^th element of the list.
+
+
+{{{heading(Output Format)}}}
+
+Change the next pointer of individual nodes so that nodes from both lists are
+merged into a single list.  Then return the head of this merged list.  Do NOT
+print anything to stdout/console.
+
+The output is handled by the editor and the format is as follows:
+
+- For each test case, print in a new line, the linked list after merging them
+  separated by spaces.
+
+
+{{{subheading(Sample Output)}}}
+
+: 1 2 3 3 4
+
+{{{heading(Explanation)}}}
+
+The first linked list is: =1 -> 2 -> 3 -> NULL=
+
+The second linked list is: =3 -> 4 -> NULL=
+
+Hence, the merged linked list is: =1 -> 2 -> 3 -> 3 -> 4 -> NULL=
+
+**** Merge Two Sorted Linked Lists Node CL Processing and Classes
+#+name:merge-two-sorted-llists-node-cl-processing-and-classes
+#+header: :noweb yes
+#+begin_src js -n :tangle data-structures/linked_lists/node/merge_2_sorted_llists.js :mkdirp yes
+<<node-process-command-line-arguments>>
+<<singly-linked-list-node-class>>
+<<singly-linked-list-class>>
+<<print-singly-linked-list>>
+#+end_src
+
+**** Merge Two Sorted Linked Lists Main Function
+#+name:merge-two-sorted-llists-main-function
+#+begin_src js +n :tangle data-structures/linked_lists/node/merge_2_sorted_llists.js
+function main() {
+    const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
+
+    const tests = parseInt(readLine(), 10);
+    console.log(`t: ${tests}`);
+
+    for (let testsItr = 0; testsItr < tests; testsItr++) {
+        const llist1Count = parseInt(readLine(), 10);
+        console.log(`n: ${llist1Count}`);
+
+        let llist1 = new SinglyLinkedList();
+
+        for (let i = 0; i < llist1Count; i++) {
+            const llist1Item = parseInt(readLine(), 10);
+            console.log(`data: ${llist1Item}`);
+            llist1.insertNode(llist1Item);
+        }
+
+      	const llist2Count = parseInt(readLine(), 10);
+        console.log(`m: ${llist2Count}`);
+
+        let llist2 = new SinglyLinkedList();
+
+        for (let i = 0; i < llist2Count; i++) {
+            const llist2Item = parseInt(readLine(), 10);
+            console.log(`data: ${llist2Item}`);
+            llist2.insertNode(llist2Item);
+        }
+
+        let llist3 = mergeLists(llist1.head, llist2.head);
+
+        printSinglyLinkedList(llist3, " ", ws)
+        ws.write("\n");
+    }
+
+    ws.end();
+}
+#+end_src
+
+**** Merge Two Sorted Linked Lists mergeLists Function
+#+name:merge-two-sorted-llists-mergeLists-function
+#+begin_src js +n :tangle data-structures/linked_lists/node/merge_2_sorted_llists.js
+// Complete the mergeLists function below.
+
+/*
+ ,* For your reference:
+ ,*
+ ,* SinglyLinkedListNode {
+ ,*     int data;
+ ,*     SinglyLinkedListNode next;
+ ,* }
+ ,*
+ ,*/
+function mergeLists(head1, head2) {
+    return head1;
+}
+#+end_src
+
+**** Merge Two Sorted Linked Lists Test
+#+name:merge-two-sorted-llists-test
+#+header: :shebang "#!/usr/bin/env bash"
+#+header: :dir data-structures/linked_lists/node
+#+header: :results output :exports results
+#+begin_src sh :tangle data-structures/linked_lists/node/merge_2_sorted_llists.test.sh
+export OUTPUT_PATH=merge-2-sorted-llists-results
+echo Inputs:
+echo \
+'1
+3
+1
+2
+3
+2
+3
+4' | node merge_2_sorted_llists.js
+echo
+echo Results
+cat merge-2-sorted-llists-results
+#+end_src
 
 * Concept Index
 :PROPERTIES:
