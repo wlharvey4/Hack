@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-02 11:14
-#+macro:version Version 0.7.1
+#+date:2019-07-02 11:55
+#+macro:version Version 0.7.2
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -2792,6 +2792,8 @@ Results
 :level:    easy
 :max-score: 5
 :success-rate: 95.40%
+:score:    5
+:current-rank: 404494
 :END:
 Given the heads of two sorted linked lists, change their links to get a single
 sorted linked list.
@@ -2943,7 +2945,40 @@ function main() {
  ,*
  ,*/
 function mergeLists(head1, head2) {
-    return head1;
+
+    if (head1 === null || head2 === null) {
+        if (head1 === null && head2 === null)
+            return null;
+        return (head1 === null) ? head2 : head1;
+    }
+
+    let current1 = head1,
+        current2 = head2,
+        head,
+        prior;
+
+    if (head1.data <= head2.data)
+        head = head1,
+        current1 = current1.next;
+    else
+        head = head2,
+        current2 = current2.next;
+    prior = head;
+
+    while (current1 !== null && current2 !== null) {
+        if (current1.data <= current2.data)
+            prior.next = current1,
+            current1 = current1.next;
+        else
+            prior.next = current2,
+            current2 = current2.next;
+
+        prior = prior.next;
+    }
+
+    prior.next = (current1 === null) ? current2 : current1;
+
+    return head;
 }
 #+end_src
 
