@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-02 12:19
-#+macro:version Version 0.7.3
+#+date:2019-07-02 12:43
+#+macro:version Version 0.7.4
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -3009,6 +3009,9 @@ cat merge-2-sorted-llists-results
 :level:    easy
 :max-score: 5
 :success-rate: 98.81%
+:score:    5
+:current-rank: 397294
+:current-score: 195
 :END:
 Given the head of a linked list, get the value of the node at a given position
 when counting backwards from the tail.
@@ -3139,16 +3142,31 @@ function main() {
 // Complete the getNode function below.
 
 /*
- * For your reference:
- *
- * SinglyLinkedListNode {
- *     int data;
- *     SinglyLinkedListNode next;
- * }
- *
- */
+ ,* For your reference:
+ ,*
+ ,* SinglyLinkedListNode {
+ ,*     int data;
+ ,*     SinglyLinkedListNode next;
+ ,* }
+ ,*
+ ,*/
 function getNode(head, positionFromTail) {
-    return 0;
+
+    let n = 1,
+        pos = 0,
+        data;
+
+    function findTail(node) {
+        if (node.next !== null) {
+            n++;
+            findTail(node.next);
+        }
+
+        if (positionFromTail === pos++)
+            data = node.data;
+    }
+    findTail(head);
+    return data;
 }
 #+end_src
 
@@ -3174,6 +3192,28 @@ echo
 echo Results:
 cat get-node-value-results
 #+end_src
+
+#+RESULTS: get-node-value-tests
+#+begin_example
+Inputs:
+tests: 2
+
+test: 0
+n: 1
+data: 1
+find data at position: 0
+
+test: 1
+n: 3
+data: 3
+data: 2
+data: 1
+find data at position: 2
+
+Results:
+1
+3
+#+end_example
 
 * Concept Index
 :PROPERTIES:
