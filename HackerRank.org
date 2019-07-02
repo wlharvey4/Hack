@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-02 00:45
-#+macro:version Version 0.6.1
+#+date:2019-07-02 01:03
+#+macro:version Version 0.6.2
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -2366,8 +2366,9 @@ Results:
 :PROPERTIES:
 :level:    easy
 :max-score: 5
+:rate:     98.86%
+:score:    5
 :END:
-
 **** Problem Statement
 You’re given the pointer to the head nodes of two linked lists.  Compare the
 data in the nodes of the linked lists to check if they are equal.  The lists
@@ -2536,7 +2537,13 @@ In the second case, linked lists are: =1 -> 2 -> NULL= and =1 -> 2 -> NULL=
    ,*
    ,*/
   function CompareLists(llist1, llist2) {
-      return 0;
+      if (llist1 === null && llist2 === null)
+          return 1;
+      if (llist1 == null || llist2 == null)
+          return 0;
+      if (llist1.data !== llist2.data)
+          return 0;
+      return CompareLists(llist1.next, llist2.next);
   }
 #+end_src
 
@@ -2565,6 +2572,33 @@ echo
 echo Results
 cat compare-llists-results
 #+end_src
+
+#+RESULTS: compare-llists-tests
+#+begin_example
+Inputs
+number of tests t = 2
+
+test: 0
+n: 2
+data: 1
+data: 2
+m: 1
+data: 1
+result: 0
+
+test: 1
+n: 2
+data: 1
+data: 2
+m: 2
+data: 1
+data: 2
+result: 1
+
+Results
+0
+1
+#+end_example
 
 * Concept Index
 :PROPERTIES:
