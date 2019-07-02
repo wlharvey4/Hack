@@ -2,8 +2,9 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-06-30 16:56
-#+macro:version Version 0.5.8
+#+date:2019-07-01 20:47
+#+macro:version Version 0.5.9
+
 * Introduction
 - https://www.hackerrank.com/dashboard
 
@@ -2360,6 +2361,202 @@ write node: 1
 Results:
 5 4 3 2 1
 #+end_example
+
+*** Compare Two Linked Lists
+:PROPERTIES:
+:level:    easy
+:max-score: 5
+:END:
+
+**** Problem Statement
+You’re given the pointer to the head nodes of two linked lists.  Compare the
+data in the nodes of the linked lists to check if they are equal.  The lists
+are equal only if they have the same number of nodes and corresponding nodes
+contain the same data.  Either head pointer given may be null meaning that the
+corresponding list is empty.
+
+{{{heading(Input Format)}}}
+
+You have to complete the ~int CompareLists(Node* headA, Node* headB)~ method
+which takes two arguments---the heads of the two linked lists to compare.  You
+should NOT read any input from stdin/console.
+
+The input is handled by the code in the editor and the format is as follows:
+
+- The first line contains ~t~, the number of test cases.  The format for each
+  test case is as follows:
+
+- The first line contains an integer ~n~, denoting the number of elements in
+  the first linked list.
+
+- The next ~n~ lines contain an integer each, denoting the elements of the
+  first linked list.
+
+- The next line contains an integer ~m~, denoting the number of elements in the
+  second linked list.
+
+- The next ~m~ lines contain an integer each, denoting the elements of the
+  second linked list.
+
+
+{{{subheading(Sample Input)}}}
+
+#+begin_example
+2
+2
+1
+2
+1
+1
+2
+1
+2
+2
+1
+2
+#+end_example
+
+{{{heading(Constraints)}}}
+
+- 1 \le t \le 10
+
+- 1 \le n \le 1000
+
+- 1 \le list_i \le 1000, where list_i is the i^th element in the list
+
+
+{{{heading(Output Format)}}}
+
+Compare the two linked lists and return 1 if the lists are equal.  Otherwise,
+return 0.  Do NOT print anything to stdout/console.  The output is handled by
+the code in the editor and it is as follows:
+
+- For each test case, in a new line, print 1 if the two lists are equal, else
+  print 0.
+
+
+{{{heading(Sample Output)}}}
+
+#+begin_example
+0
+1
+#+end_example
+
+{{{heading(Explanation)}}}
+
+In the first case, linked lists are: =1 -> 2 -> NULL= and =1 -> NULL=
+
+In the second case, linked lists are: =1 -> 2 -> NULL= and =1 -> 2 -> NULL=
+
+**** Compare Linked Lists Node CL Processing
+#+name:compare-llists-node-cl-processing
+#+header: :noweb yes
+#+begin_src js -n :tangle data-structures/linked_lists/node/compareLLists.js :mkdirp yes
+<<node-process-command-line-arguments>>
+#+end_src
+
+**** Compare Linked Lists Classes
+***** Compare Linked Lists Node Class
+#+name:compare-llist-node-class
+#+header: :noweb yes
+#+begin_src js +n :tangle data-structures/linked_lists/node/compareLLists.js
+<<singly-linked-list-node-class>>
+#+end_src
+
+***** Compare Linked Lists Class
+#+name:compare-llist-class
+#+header: :noweb yes
+#+begin_src js +n :tangle data-structures/linked_lists/node/compareLLists.js
+<<singly-linked-list-class>>
+#+end_src
+
+***** Compare Linked Lists Print Function
+#+name:compare-llist-print-function
+#+header: :noweb yes
+#+begin_src js +n :tangle data-structures/linked_lists/node/compareLLists.js
+<<print-singly-linked-list>>
+#+end_src
+
+**** Compare Linked Lists Main Function
+#+name:compare-llist-main-function
+#+begin_src js +n :tangle data-structures/linked_lists/node/compareLLists.js
+function main() {
+    const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
+
+    const tests = parseInt(readLine(), 10);
+
+    for (let testsItr = 0; testsItr < tests; testsItr++) {
+        const llist1Count = parseInt(readLine(), 10);
+
+        let llist1 = new SinglyLinkedList();
+
+        for (let i = 0; i < llist1Count; i++) {
+            const llist1Item = parseInt(readLine(), 10);
+            llist1.insertNode(llist1Item);
+        }
+
+      	const llist2Count = parseInt(readLine(), 10);
+
+        let llist2 = new SinglyLinkedList();
+
+        for (let i = 0; i < llist2Count; i++) {
+            const llist2Item = parseInt(readLine(), 10);
+            llist2.insertNode(llist2Item);
+        }
+
+        let result = CompareLists(llist1.head, llist2.head);
+
+        ws.write((result ? 1 : 0) + "\n");
+    }
+
+    ws.end();
+}
+#+end_src
+
+**** Compare Linked Lists compareLists Function
+#+name:compare-llists-compareLists-function
+#+begin_src js +n :tangle data-structures/linked_lists/node/compareLLists.js
+// Complete the CompareLists function below.
+
+/*
+ * For your reference:
+ *
+ * SinglyLinkedListNode {
+ *     int data;
+ *     SinglyLinkedListNode next;
+ * }
+ *
+ */
+function CompareLists(llist1, llist2) {
+
+
+}
+#+end_src
+
+**** Compare Linked Lists Tests
+#+name:compare-llists-tests
+#+header: :dir data-structures/linked_lists/node
+#+header: :results output :exports results
+#+begin_src sh :tangle data-structures/linked_lists/node/compareLLists.tests.sh
+export OUTPUT_PATH=compare-llists-results
+echo Inputs
+echo \
+'2
+2
+1
+2
+1
+1
+2
+1
+2
+2
+1
+2' | node compareLLists.js
+echo
+echo Results
+cat compare-llists-results
+#+end_src
 
 * Concept Index
 :PROPERTIES:
