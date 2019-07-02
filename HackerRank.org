@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-02 09:43
-#+macro:version Version 0.6.3
+#+date:2019-07-02 09:57
+#+macro:version Version 0.6.4
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -2604,8 +2604,9 @@ Results
 :level:    easy
 :max-score: 5
 :success-rate: 96.38%
+:score:    5
 :END:
-**** Problem Statement
+**** Insert Node at a Set Position in a LList Problem Statement
 You’re given the pointer to the head node of a linked list, an integer to add
 to the list and the position at which the integer must be inserted.  Create a
 new node with the given integer, insert this node at the desired position and
@@ -2722,15 +2723,30 @@ function main() {
 // Complete the insertNodeAtPosition function below.
 
 /*
- * For your reference:
- *
- * SinglyLinkedListNode {
- *     int data;
- *     SinglyLinkedListNode next;
- * }
- *
- */
+ ,* For your reference:
+ ,*
+ ,* SinglyLinkedListNode {
+ ,*     int data;
+ ,*     SinglyLinkedListNode next;
+ ,* }
+ ,*
+ ,*/
 function insertNodeAtPosition(head, data, position) {
+    const node = new SinglyLinkedListNode(data);
+    if (head === null) {
+        head = node;
+        return head;
+    }
+
+    let prior = null;
+    let current = head;
+    let pos = 0;
+    while (current !== null && pos++ < position) {
+        prior = current
+        current = current.next;
+    }
+    node.next = current;
+    prior.next = node;
     return head;
 }
 #+end_src
@@ -2754,6 +2770,21 @@ echo
 echo Results
 cat insert-node-pos-results
 #+end_src
+
+#+RESULTS: insert-node-set-pos-llist-test
+#+begin_example
+Inputs:
+n: 3
+data: 16
+data: 13
+data: 7
+data to insert: 1
+at position: 2
+
+Results
+16 13 1 7
+#+end_example
+
 
 * Concept Index
 :PROPERTIES:
