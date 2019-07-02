@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-02 09:57
-#+macro:version Version 0.6.4
+#+date:2019-07-02 10:01
+#+macro:version Version 0.7.0
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -2784,7 +2784,6 @@ at position: 2
 Results
 16 13 1 7
 #+end_example
-
 
 * Concept Index
 :PROPERTIES:
