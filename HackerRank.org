@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-02 01:03
-#+macro:version Version 0.6.2
+#+date:2019-07-02 09:43
+#+macro:version Version 0.6.3
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -2599,6 +2599,161 @@ Results
 0
 1
 #+end_example
+*** Insert a Node at a Specific Position in a Linked List
+:PROPERTIES:
+:level:    easy
+:max-score: 5
+:success-rate: 96.38%
+:END:
+**** Problem Statement
+You’re given the pointer to the head node of a linked list, an integer to add
+to the list and the position at which the integer must be inserted.  Create a
+new node with the given integer, insert this node at the desired position and
+return the head node.
+
+A position of 0 indicates head; a position of 1 indicates one node away from
+the head, and so on.  The head pointer given may be null, meaning that the
+initial list is empty.
+
+As an example, if your list starts as =1->2->3= and you want to insert a node
+at position 2 with data = 4, your new list should be =1->2-4->3=.
+
+{{{heading(Function Description)}}}
+
+Complete the function ~insertNodeAtPosition~ in the editor below.  It must
+return a reference to the head node of your finished list.
+
+~insertNodeAtPosition~ has the following parameters:
+
+- =head=: a ~SinglyLinkedListNode~ pointer to the head of the list
+
+- =data=: an integer value to insert as data in your new node
+
+- =position=: an integer position to insert the new node, zero based indexing
+
+
+{{{heading(Input Format)}}}
+
+The first line contains an integer ~n~, the number of elements in the linked
+list.
+
+Each of the next ~n~ lines contains an integer ~SinglyLinkedListNode[i].data~.
+
+The last line contains an integer ~posittion~.
+
+{{{subheading(Sample Input)}}}
+
+#+begin_example
+3
+16
+13
+7
+1
+2
+#+end_example
+
+{{{heading(Constraints)}}}
+
+- 1 \le n \le 1000
+
+- 1 \le list_i \le 1000, where list_i is the i^th element of the linked list
+
+- 0 \le position \le n
+
+
+{{{heading(Output Format)}}}
+
+Return a reference to the list head.  Locked code prints the list for you.
+
+{{{subheading(Sample Output)}}}
+
+: 16 13 1 7
+
+{{{heading(Explanation)}}}
+
+The initial linked list is =16 13 7=.  We have to insert 1 at the position 2
+which currently has 7 in it.  The updated linked list will be =16 13 1 7=.
+
+**** Insert Node at a Set Position in a LList Node CL Processing and Classes
+#+name:insert-node-set-pos-llist-node-cl-classes
+#+header: :noweb yes
+#+begin_src js -n :tangle data-structures/linked_lists/node/insert_node_pos_llist.js :mkdirp yes
+<<node-process-command-line-arguments>>
+<<singly-linked-list-node-class>>
+<<singly-linked-list-class>>
+<<print-singly-linked-list>>
+#+end_src
+
+**** Insert Node at a Set Position in a LList Main Function
+#+name:insert-node-set-pos-llist-main-function
+#+begin_src js +n :tangle data-structures/linked_lists/node/insert_node_pos_llist.js
+function main() {
+    const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
+
+    const llistCount = parseInt(readLine(), 10);
+    console.log(`n: ${llistCount}`);
+
+    let llist = new SinglyLinkedList();
+
+    for (let i = 0; i < llistCount; i++) {
+        const llistItem = parseInt(readLine(), 10);
+        console.log(`data: ${llistItem}`);
+        llist.insertNode(llistItem);
+    }
+
+    const data = parseInt(readLine(), 10);
+    console.log(`data to insert: ${data}`);
+
+    const position = parseInt(readLine(), 10);
+    console.log(`at position: ${position}`);
+
+    let llist_head = insertNodeAtPosition(llist.head, data, position);
+
+    printSinglyLinkedList(llist_head, " ", ws)
+    ws.write("\n");
+
+    ws.end();
+}
+#+end_src
+
+**** Insert Node at a Set Position in a LList insertNodeAtPosition Function
+#+name:insert-node-set-pos-llist-insertNodeAtPosition-function
+#+begin_src js +n :tangle data-structures/linked_lists/node/insert_node_pos_llist.js
+// Complete the insertNodeAtPosition function below.
+
+/*
+ * For your reference:
+ *
+ * SinglyLinkedListNode {
+ *     int data;
+ *     SinglyLinkedListNode next;
+ * }
+ *
+ */
+function insertNodeAtPosition(head, data, position) {
+    return head;
+}
+#+end_src
+
+**** Insert Node at a Set Position in a LList Test
+#+name:insert-node-set-pos-llist-test
+#+header: :shebang "#!/usr/bin/env bash"
+#+header: :dir data-structures/linked_lists/node
+#+header: :results output :exports results
+#+begin_src sh :tangle data-structures/linked_lists/node/insert_node_pos_llist.test.sh
+export OUTPUT_PATH=insert-node-pos-results
+echo Inputs:
+echo \
+'3
+16
+13
+7
+1
+2' | node insert_node_pos_llist.js
+echo
+echo Results
+cat insert-node-pos-results
+#+end_src
 
 * Concept Index
 :PROPERTIES:
