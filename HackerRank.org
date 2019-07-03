@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-02 17:33
-#+macro:version Version 0.7.5
+#+date:2019-07-02 18:19
+#+macro:version Version 0.7.6
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -3211,6 +3211,211 @@ cat get-node-value-results
 : find data at position: 0
 : 
 : Results:
+
+*** Delete Duplicate Value Nodes from a Sorted Linked List
+:PROPERTIES:
+:level:    easy
+:max-score: 5
+:success-rate: 98.36%
+:score:    5
+:current-rank: 390303
+:END:
+Given a linked list whose nodes have data in ascending order, delete some nodes
+so that no value occurs more than once.
+
+**** Delete Duplicate Value Nodes Problem Statement
+You're given the pointer to the head node of a sorted linked list, where the
+data in the nodes is in ascending order.  Delete as few nodes as possible so
+that the list does not contain any value more than once.  The given head
+pointer may be null indicating that the list is empty.
+
+{{{heading(Input Format)}}}
+
+You have to complete the ~SinglyLinkedListNode*
+removeDuplicates(SinglyLinkedListNode* head)~ method which takes one
+argument---the head of the sorted linked list.  You should NOT read any input
+from stdin/console.
+
+The input is handled by the code in the editor and the format is as follows:
+
+- The first line contains an integer ~t~, denoting the number of test
+  cases.  The format for each test case is as follows:
+
+- The first line contains an integer ~n~, denoting the number of elements in
+  the linked list.
+
+- The next ~n~ lines contain an integer each, denoting the elements of the
+  linked list.
+
+
+{{{subheading(Sample Input)}}}
+
+#+begin_example
+1
+5
+1
+2
+2
+3
+4
+#+end_example
+
+{{{heading(Constraints)}}}
+
+- 1 \le t \le 10
+
+- 1 \le n \le 1000
+
+- 1 \le list_i \le 1000
+
+
+{{{heading(Output Format)}}}
+
+Delete as few nodes as possible to ensure that no two nodes have the same data.
+Adjust the next pointers to ensure that the remaining nodes form a single
+sorted linked list.  Then return the head of the sorted updated linked list.
+Do NOT print anything to stdout/console.  The output is handled by the code in
+the editor and the format is as follows:
+
+- For each test case, print in a new line, the data of the linked list after
+  removing the duplicates separated by space.
+
+
+{{{subheading(Sample Output)}}}
+
+: 1 2 3 4
+
+{{{heading(Explanation)}}}
+
+The initial linked list is: =1 -> 2 -> 2 -> 3 -> 4 -> NULL=
+
+The final linked list is: =1 -> 2 -> 3 -> 4 -> NULL=
+
+**** Delete Duplicate Value Nodes Node CL Processing and Classes
+#+name:delete-duplicate-value-nodes-node-cl-processing-and-classes
+#+header: :noweb yes :mkdirp yes
+#+begin_src js -n :tangle data-structures/linked_lists/node/delete_duplicate_value_nodes.js
+<<node-process-command-line-arguments>>
+<<singly-linked-list-node-class>>
+<<singly-linked-list-class>>
+<<print-singly-linked-list>>
+#+end_src
+
+**** Delete Duplicate Value Nodes Main Funtion
+#+name:delete-duplicate-value-nodes-main-function
+#+begin_src js +n :tangle data-structures/linked_lists/node/delete_duplicate_value_nodes.js
+function main() {
+    const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
+
+    const t = parseInt(readLine(), 10);
+    console.log(`tests: ${t}`);
+
+    for (let tItr = 0; tItr < t; tItr++) {
+        console.log(`\ntest: ${tItr}`);
+        const llistCount = parseInt(readLine(), 10);
+        console.log(`n: ${llistCount}`);
+
+        let llist = new SinglyLinkedList();
+
+        for (let i = 0; i < llistCount; i++) {
+            const llistItem = parseInt(readLine(), 10);
+            console.log(`data: ${llistItem}`);
+            llist.insertNode(llistItem);
+        }
+
+        let llist1 = removeDuplicates(llist.head);
+
+        printSinglyLinkedList(llist1, " ", ws)
+        ws.write("\n");
+    }
+
+    ws.end();
+}
+#+end_src
+
+**** Delete Duplicate Value Nodes removeDuplicates Function
+#+name:delete-duplicate-value-nodes-removeDuplicates-function
+#+begin_src js +n :tangle data-structures/linked_lists/node/delete_duplicate_value_nodes.js
+// Complete the removeDuplicates function below.
+
+/*
+ ,* For your reference:
+ ,*
+ ,* SinglyLinkedListNode {
+ ,*     int data;
+ ,*     SinglyLinkedListNode next;
+ ,* }
+ ,*
+ ,*/
+function removeDuplicates(head) {
+    if (head === null)
+        return null;
+
+    let current = head.next,
+        prior = head,
+        data = head.data;
+
+    while (current !== null) {
+        if (current.data === data)
+            prior.next = current.next;
+        else
+            data = current.data,
+            prior = current;
+
+        current = current.next;
+    }
+    return head;
+}
+#+end_src
+
+**** Delete Duplicate Value Nodes Tests
+#+name:delete-duplicate-value-nodes-tests
+#+header: :shebang "#!/usr/bin/env bash"
+#+header: :dir data-structures/linked_lists/node
+#+header: :results output :exports results
+#+begin_src sh :tangle data-structures/linked_lists/node/delete_duplicate_value_nodes.test.sh
+export OUTPUT_PATH=delete-duplicate-results
+echo Inputs:
+echo \
+'2
+5
+1
+2
+2
+3
+4
+3
+1
+1
+1' | node delete_duplicate_value_nodes.js
+echo
+echo Results:
+cat delete-duplicate-results
+#+end_src
+
+#+RESULTS: delete-duplicate-value-nodes-tests
+#+begin_example
+Inputs:
+tests: 2
+
+test: 0
+n: 5
+data: 1
+data: 2
+data: 2
+data: 3
+data: 4
+
+test: 1
+n: 3
+data: 1
+data: 1
+data: 1
+
+Results:
+1 2 3 4
+1
+#+end_example
 
 * Concept Index
 :PROPERTIES:
