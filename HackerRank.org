@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-03 20:55
-#+macro:version Version 0.8.2
+#+date:2019-07-03 21:12
+#+macro:version Version 0.8.3
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -3575,6 +3575,9 @@ cat cycle-detection-results
 :level:    easy
 :max-score: 5
 :success-rate: 94.82%
+:score:    5
+:current-rank: 381747
+:current-score: 205
 :END:
 **** Find Merge Point Problem Statement
 Given pointers to the head nodes of linked lists that merge together at some
@@ -3692,7 +3695,7 @@ function main() {
 
         for (let i = 0; i < llist1Count; i++) {
             const llist1Item = parseInt(readLine(), 10);
-            console.log(`data #${i}: ${llist1Item}`);
+            console.log(`data[${i}]: ${llist1Item}`);
             llist1.insertNode(llist1Item);
         }
 
@@ -3703,7 +3706,7 @@ function main() {
 
         for (let i = 0; i < llist2Count; i++) {
             const llist2Item = parseInt(readLine(), 10);
-            console.log(`data #${i}: ${llist2Item}`);
+            console.log(`data[${i}]: ${llist2Item}`);
             llist2.insertNode(llist2Item);
         }
 
@@ -3734,6 +3737,9 @@ function main() {
 #+end_src
 
 **** Find Merge Point findMergeNode Function
+Treat this similarly to detecting a cycle: repeatedly cycle through the two
+nodes until their =next= pointers point to the same node.
+
 #+name:find-merge-point-findMergeNode-function
 #+begin_src js +n :tangle data-structures/linked_lists/node/find_merge_point.js
 /*
@@ -3750,7 +3756,22 @@ function main() {
 // You only need to complete this method.
 
 function findMergeNode(headA, headB) {
-    return headA.data;
+
+    let nodeA = headA,
+        nodeB = headB,
+        nextA, nextB;
+
+    while (true) {
+        nextA = nodeA.next === null ? headA : nodeA.next;
+        nextB = nodeB.next === null ? headB : nodeB.next;
+
+        if (nextA == nextB)
+            return nextA.data;
+
+        nodeA = nextA,
+        nodeB = nextB;
+    }
+
 }
 #+end_src
 
@@ -3763,7 +3784,7 @@ function findMergeNode(headA, headB) {
 export OUTPUT_PATH=find-merge-point-results
 echo Inputs:
 echo \
-'2
+'3
 1
 3
 1
@@ -3777,7 +3798,25 @@ echo \
 2
 3
 1
-1' | node find_merge_point.js
+1
+6
+9
+1
+2
+3
+4
+5
+6
+7
+8
+9
+6
+11
+12
+13
+14
+15
+16' | node find_merge_point.js
 echo
 echo Results:
 cat find-merge-point-results
