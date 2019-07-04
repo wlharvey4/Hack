@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-02 13:40
-#+macro:version Version 0.7.5
+#+date:2019-07-03 20:55
+#+macro:version Version 0.8.2
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -2945,10 +2945,7 @@ function main() {
  ,*
  ,*/
 function mergeLists(head1, head2) {
-
     if (head1 === null || head2 === null) {
-        if (head1 === null && head2 === null)
-            return null;
         return (head1 === null) ? head2 : head1;
     }
 
@@ -3003,6 +3000,22 @@ echo
 echo Results
 cat merge-2-sorted-llists-results
 #+end_src
+
+#+RESULTS: merge-two-sorted-llists-test
+#+begin_example
+Inputs:
+t: 1
+n: 3
+data: 1
+data: 2
+data: 3
+m: 2
+data: 3
+data: 4
+
+Results
+1 2 3 3 4
+#+end_example
 
 *** Get Node Value
 :PROPERTIES:
@@ -3198,6 +3211,577 @@ cat get-node-value-results
 : find data at position: 0
 : 
 : Results:
+
+*** Delete Duplicate Value Nodes from a Sorted Linked List
+:PROPERTIES:
+:level:    easy
+:max-score: 5
+:success-rate: 98.36%
+:score:    5
+:current-rank: 390303
+:END:
+Given a linked list whose nodes have data in ascending order, delete some nodes
+so that no value occurs more than once.
+
+**** Delete Duplicate Value Nodes Problem Statement
+You're given the pointer to the head node of a sorted linked list, where the
+data in the nodes is in ascending order.  Delete as few nodes as possible so
+that the list does not contain any value more than once.  The given head
+pointer may be null indicating that the list is empty.
+
+{{{heading(Input Format)}}}
+
+You have to complete the ~SinglyLinkedListNode*
+removeDuplicates(SinglyLinkedListNode* head)~ method which takes one
+argument---the head of the sorted linked list.  You should NOT read any input
+from stdin/console.
+
+The input is handled by the code in the editor and the format is as follows:
+
+- The first line contains an integer ~t~, denoting the number of test
+  cases.  The format for each test case is as follows:
+
+- The first line contains an integer ~n~, denoting the number of elements in
+  the linked list.
+
+- The next ~n~ lines contain an integer each, denoting the elements of the
+  linked list.
+
+
+{{{subheading(Sample Input)}}}
+
+#+begin_example
+1
+5
+1
+2
+2
+3
+4
+#+end_example
+
+{{{heading(Constraints)}}}
+
+- 1 \le t \le 10
+
+- 1 \le n \le 1000
+
+- 1 \le list_i \le 1000
+
+
+{{{heading(Output Format)}}}
+
+Delete as few nodes as possible to ensure that no two nodes have the same data.
+Adjust the next pointers to ensure that the remaining nodes form a single
+sorted linked list.  Then return the head of the sorted updated linked list.
+Do NOT print anything to stdout/console.  The output is handled by the code in
+the editor and the format is as follows:
+
+- For each test case, print in a new line, the data of the linked list after
+  removing the duplicates separated by space.
+
+
+{{{subheading(Sample Output)}}}
+
+: 1 2 3 4
+
+{{{heading(Explanation)}}}
+
+The initial linked list is: =1 -> 2 -> 2 -> 3 -> 4 -> NULL=
+
+The final linked list is: =1 -> 2 -> 3 -> 4 -> NULL=
+
+**** Delete Duplicate Value Nodes Node CL Processing and Classes
+#+name:delete-duplicate-value-nodes-node-cl-processing-and-classes
+#+header: :noweb yes :mkdirp yes
+#+begin_src js -n :tangle data-structures/linked_lists/node/delete_duplicate_value_nodes.js
+<<node-process-command-line-arguments>>
+<<singly-linked-list-node-class>>
+<<singly-linked-list-class>>
+<<print-singly-linked-list>>
+#+end_src
+
+**** Delete Duplicate Value Nodes Main Funtion
+#+name:delete-duplicate-value-nodes-main-function
+#+begin_src js +n :tangle data-structures/linked_lists/node/delete_duplicate_value_nodes.js
+function main() {
+    const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
+
+    const t = parseInt(readLine(), 10);
+    console.log(`tests: ${t}`);
+
+    for (let tItr = 0; tItr < t; tItr++) {
+        console.log(`\ntest: ${tItr}`);
+        const llistCount = parseInt(readLine(), 10);
+        console.log(`n: ${llistCount}`);
+
+        let llist = new SinglyLinkedList();
+
+        for (let i = 0; i < llistCount; i++) {
+            const llistItem = parseInt(readLine(), 10);
+            console.log(`data: ${llistItem}`);
+            llist.insertNode(llistItem);
+        }
+
+        let llist1 = removeDuplicates(llist.head);
+
+        printSinglyLinkedList(llist1, " ", ws)
+        ws.write("\n");
+    }
+
+    ws.end();
+}
+#+end_src
+
+**** Delete Duplicate Value Nodes removeDuplicates Function
+#+name:delete-duplicate-value-nodes-removeDuplicates-function
+#+begin_src js +n :tangle data-structures/linked_lists/node/delete_duplicate_value_nodes.js
+// Complete the removeDuplicates function below.
+
+/*
+ ,* For your reference:
+ ,*
+ ,* SinglyLinkedListNode {
+ ,*     int data;
+ ,*     SinglyLinkedListNode next;
+ ,* }
+ ,*
+ ,*/
+function removeDuplicates(head) {
+    if (head === null)
+        return null;
+
+    let current = head.next,
+        prior = head,
+        data = head.data;
+
+    while (current !== null) {
+        if (current.data === data)
+            prior.next = current.next;
+        else
+            data = current.data,
+            prior = current;
+
+        current = current.next;
+    }
+    return head;
+}
+
+#+end_src
+
+**** Delete Duplicate Value Nodes Tests
+#+name:delete-duplicate-value-nodes-tests
+#+header: :shebang "#!/usr/bin/env bash"
+#+header: :dir data-structures/linked_lists/node
+#+header: :results output :exports results
+#+begin_src sh :tangle data-structures/linked_lists/node/delete_duplicate_value_nodes.test.sh
+export OUTPUT_PATH=delete-duplicate-results
+echo Inputs:
+echo \
+'2
+5
+1
+2
+2
+3
+4
+3
+1
+1
+1' | node delete_duplicate_value_nodes.js
+echo
+echo Results:
+cat delete-duplicate-results
+#+end_src
+
+*** Cycle Detection
+:PROPERTIES:
+:level:    medium
+:max-score: 5
+:success-rate: 98.80%
+:END:
+Given a pointer to the head of a linked list, determine whether the linked list
+loops back on itself.
+**** Cycle Detection Problem Statement
+A linked list is said to contain a cycle if any node is visited more than once
+while traversing the list.
+
+Complete the function provided for you in your editor.  It has one parameter: a
+pointer to a Node object named =head= that points to the head of a linked list.
+Your function must return a boolean denoting whether or not there is a cycle in
+the list.  If there is a cycle, return =true=; otherwise, return =false=.
+
+*Note*: If the list is empty, =head= will be =null=.
+
+{{{heading(Input Format)}}}
+
+Our hidden code checker passes the appropriate argument to your function. You
+are not responsible for reading any input from stdin.
+
+{{{subheading(Sample Input)}}}
+
+: 1 -> Null
+
+: 1 => 2 -> 3 |
+:      ^<-----v
+
+{{{heading(Constraints)}}}
+
+- 0 \le list size \le 1000
+
+{{{heading(Output Format)}}}
+
+If the list contains a cycle, your function must return =true=.  If the list
+does not contain a cycle, it must return =false=.  The binary integer
+corresponding to the boolean value returned by your function is printed to
+stdout by our hidden code checker.
+
+{{{subheading(Sample Output)}}}
+
+: 0
+: 1
+
+{{{heading(Explanation)}}}
+
+1. The first list has no cycle, so we return =false= and the hidden code
+   checker prints 0 to stdout.
+
+2. The second list has a cycle, so we return =true= and the hidden code checker
+   prints 1 to stdout.
+
+**** Cycle Detection Node CL Process and Classes
+#+name:cycle-detection-node-cl-processing-and-classes
+#+header: :noweb yes :mkdirp yes
+#+begin_src js -n :tangle data-structures/linked_lists/node/cycleDetection.js
+<<node-process-command-line-arguments>>
+<<singly-linked-list-node-class>>
+<<singly-linked-list-class>>
+<<print-singly-linked-list>>
+#+end_src
+
+**** Cycle Detection Main Function
+#+name:cycle-detection-main-function
+#+begin_src js +n :tangle data-structures/linked_lists/node/cycleDetection.js
+function main() {
+    const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
+
+    const tests = parseInt(readLine(), 10);
+    console.log(`tests: ${tests}`);
+
+    for (let testsItr = 0; testsItr < tests; testsItr++) {
+        console.log(`\ntest: ${testsItr}`);
+
+        const index = parseInt(readLine(), 10);
+        console.log(`index: ${index}`);
+
+        const llistCount = parseInt(readLine(), 10);
+        console.log(`n: ${llistCount}`);
+
+        let llist = new SinglyLinkedList();
+
+        for (let i = 0; i < llistCount; i++) {
+            const llistItem = parseInt(readLine(), 10);
+            console.log(`data ${i}: ${llistItem}`);
+            llist.insertNode(llistItem);
+        }
+
+      	let extra = new SinglyLinkedListNode(-1);
+        let temp = llist.head;
+
+        console.log(`starting indexing loop; index is ${index}; temp is ${temp.data}`);
+        for (let i = 0; i < llistCount; i++) {
+            console.log(`i: ${i}`);
+            if (i == index) {
+            	extra = temp;
+                console.log(`extra is now temp: ${extra.data}`);
+            }
+
+            if (i != llistCount-1) {
+            	temp = temp.next;
+                console.log(`temp is now ${temp.data}`);
+            }
+        }
+
+        temp.next = extra;
+        console.log(`temp.next.data is ${temp.next.data}`);
+
+        let result = hasCycle(llist.head);
+
+        ws.write((result ? 1 : 0) + "\n");
+    }
+
+    ws.end();
+}
+#+end_src
+
+**** Cycle Detection hasCycle Function
+#+name:cycle-detection-hasCycle-Function
+#+begin_src js +n :tangle data-structures/linked_lists/node/cycleDetection.js
+// Complete the hasCycle function below.
+
+/*
+ ,* For your reference:
+ ,*
+ ,* SinglyLinkedListNode {
+ ,*     int data;
+ ,*     SinglyLinkedListNode next;
+ ,* }
+ ,*
+ ,*/
+function hasCycle(head) {
+    if (head === null)
+        return false;
+
+    let fast = head,
+        slow = head;
+
+    while (fast.next !== null && fast.next.next !== null) {
+        fast = fast.next.next,
+        slow = slow.next;
+
+        if (slow == fast)
+            return true;
+    }
+    return false;
+}
+#+end_src
+
+**** Cycle Detection Test
+#+name:cycle-detection-test
+#+header: :shebang "#!/usr/bin/env bash"
+#+header: :dir data-structures/linked_lists/node
+#+header: :results output :exports results
+#+begin_src sh :tangle data-structures/linked_lists/node/cycleDetection.test.sh
+export OUTPUT_PATH=cycle-detection-results
+echo Inputs
+echo \
+'2
+3
+3
+0
+1
+2
+1
+3
+3
+4
+5' | node cycleDetection.js
+echo
+echo Results
+cat cycle-detection-results
+#+end_src
+*** Find Merge Point of Two Lists
+:PROPERTIES:
+:level:    easy
+:max-score: 5
+:success-rate: 94.82%
+:END:
+**** Find Merge Point Problem Statement
+Given pointers to the head nodes of linked lists that merge together at some
+point, find the Node where the two lists merge.  It is guaranteed that the two
+head Nodes will be different, and neither will be =NULL=.
+
+In the diagram below, the two lists converge at Node ~x~:
+
+#+begin_example
+[List #1] a--->b--->c
+                     \
+                      x--->y--->z--->NULL
+                     /
+     [List #2] p--->q
+#+end_example
+
+Complete the ~int findMergeNode(SinglyLinkedListNode* head1,
+SinglyLinkedListNode* head2)~ method so that it finds and returns the data
+value of the Node where the two lists merge.
+
+{{{heading(Input Format)}}}
+
+Do not read any input from stdin/console.
+
+The ~findMergeNode(SinglyLinkedListNode,SinglyLinkedListNode)~ method has two
+parameters, ~head1~ and ~head2~, which are the non-null head Nodes of two
+separate linked lists that are guaranteed to converge.
+
+{{{subheading(Sample Input)}}}
+
+The diagrams below are graphical representations of the lists that input Nodes
+~headA~ and ~headB~ are connected to.  Recall that this is a method-only
+challenge; the method only has initial visibility to those Nodes and must
+explore the rest of the Nodes using some algorithm of your own design.
+
+Test Case 0:
+
+#+begin_example
+ 1
+  \
+   2--->3--->NULL
+  /
+ 1
+#+end_example
+
+Test Case 1:
+
+#+begin_example
+1--->2
+      \
+       3--->Null
+      /
+     1
+#+end_example
+
+{{{heading(Constraints)}}}
+
+- The lists will merge.
+
+- ~head1~, ~head2! \ne =null=
+
+- ~head1~ \ne ~head2~
+
+
+{{{heading(Output Format)}}}
+
+Do not write any output to stdout/console.
+
+Each Node has a data field containing an integer.  Return the integer data for
+the Node where the two lists merge.
+
+{{{subheading(Sample Output)}}}
+
+#+begin_example
+2
+3
+#+end_example
+
+{{{heading(Explanation)}}}
+
+- Test Case 0: As demonstrated in the diagram above, the merge Node's data
+  field contains the integer 2.
+
+- Test Case 1: As demonstrated in the diagram above, the merge Node's data
+  field contains the integer 3.
+
+**** Find Merge Point Node CL Processing and Classes
+#+name:find-merge-point-node-cl-processing-and-classes
+#+header: :noweb yes :mkdirp yes
+#+begin_src js -n :tangle data-structures/linked_lists/node/find_merge_point.js
+<<node-process-command-line-arguments>>
+<<singly-linked-list-node-class>>
+<<singly-linked-list-class>>
+<<print-singly-linked-list>>
+#+end_src
+
+**** Find Merge Point Main Function
+#+name:find-merge-point-node-main-function
+#+begin_src js +n :tangle data-structures/linked_lists/node/find_merge_point.js
+function main() {
+    const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
+
+    const tests = parseInt(readLine(), 10);
+    console.log(`tests: ${tests}`);
+
+    for (let testsItr = 0; testsItr < tests; testsItr++) {
+        console.log(`\ntest # ${testsItr}`);
+        const index = parseInt(readLine(), 10);
+        console.log(`index: ${index}`);
+
+        const llist1Count = parseInt(readLine(), 10);
+        console.log(`n: ${llist1Count}`);
+
+        let llist1 = new SinglyLinkedList();
+
+        for (let i = 0; i < llist1Count; i++) {
+            const llist1Item = parseInt(readLine(), 10);
+            console.log(`data #${i}: ${llist1Item}`);
+            llist1.insertNode(llist1Item);
+        }
+
+      	const llist2Count = parseInt(readLine(), 10);
+        console.log(`m: ${llist2Count}`);
+
+        let llist2 = new SinglyLinkedList();
+
+        for (let i = 0; i < llist2Count; i++) {
+            const llist2Item = parseInt(readLine(), 10);
+            console.log(`data #${i}: ${llist2Item}`);
+            llist2.insertNode(llist2Item);
+        }
+
+      	let ptr1 = llist1.head;
+        let ptr2 = llist2.head;
+
+        for (let i = 0; i < llist1Count; i++) {
+          if (i < index) {
+            ptr1 = ptr1.next;
+          }
+        }
+
+        for (let i = 0; i < llist2Count; i++) {
+          if (i != llist2Count-1) {
+            ptr2 = ptr2.next;
+          }
+        }
+
+        ptr2.next = ptr1;
+
+        let result = findMergeNode(llist1.head, llist2.head);
+
+        ws.write(result + "\n");
+    }
+
+    ws.end();
+}
+#+end_src
+
+**** Find Merge Point findMergeNode Function
+#+name:find-merge-point-findMergeNode-function
+#+begin_src js +n :tangle data-structures/linked_lists/node/find_merge_point.js
+/*
+    Find merge point of two linked lists
+    Note that the head may be 'null' for the empty list.
+    Node is defined as
+    var Node = function(data) {
+        this.data = data;
+        this.next = null;
+    }
+*/
+
+// This is a "method-only" submission.
+// You only need to complete this method.
+
+function findMergeNode(headA, headB) {
+    return headA.data;
+}
+#+end_src
+
+**** Find Merge Point Tests
+#+name:find-merge-point-tests
+#+header: :shebang "#!/usr/bin/env bash"
+#+header: :dir data-structures/linked_lists/node
+#+header: :results output :exports results
+#+begin_src sh :tangle data-structures/linked_lists/node/find_merge_point.test.sh
+export OUTPUT_PATH=find-merge-point-results
+echo Inputs:
+echo \
+'2
+1
+3
+1
+2
+3
+1
+1
+2
+3
+1
+2
+3
+1
+1' | node find_merge_point.js
+echo
+echo Results:
+cat find-merge-point-results
+#+end_src
 
 * Concept Index
 :PROPERTIES:
