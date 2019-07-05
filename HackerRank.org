@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-05 09:16
-#+macro:version Version 0.9.0
+#+date:2019-07-05 10:21
+#+macro:version Version 0.9.1
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -4214,22 +4214,19 @@ The reversed doubly linked list is: 4 \leftrightarrow 3 \leftrightarrow 2 \leftr
    ,*
    ,*/
   function reverse(head) {
-      if (head === null)
-          return null;
-
       let current = head,
           next = null,
-          newHead = null;
+          prev = null;
 
       while (current !== null) {
           next = current.next;
-          if (next === null)
-              newHead = current;
-          current.next = current.prev,
+          prev = current;
+
+          current.next = current.prev;
           current.prev = next;
           current = next;
       }
-      return newHead;;
+      return prev;
   }
 #+end_src
 
