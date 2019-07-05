@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-05 07:54
-#+macro:version Version 0.8.4
+#+date:2019-07-05 08:31
+#+macro:version Version 0.8.5
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -3826,6 +3826,9 @@ cat find-merge-point-results
 :level:    easy
 :max-score: 5
 :success-rate: 93.17%
+:score:    5
+:current-rank: 374277
+:current-score: 210
 :END:
 **** Insert Node Sorted Doubly LList Problem Statement
 Given a reference to the head of a doubly-linked list and an integer, ~data~,
@@ -4004,21 +4007,49 @@ function printDoublyLinkedList(node, sep, ws) {
 **** Insert Node Sorted Doubly LList sortedInsert Function
 #+name:insert-node-sorted-doubly-llist-sortedInsert
 #+begin_src js +n :tangle data-structures/linked_lists/node/insert_sorted_doubly_llist.js
-// Complete the sortedInsert function below.
+  // Complete the sortedInsert function below.
 
-/*
- * For your reference:
- *
- * DoublyLinkedListNode {
- *     int data;
- *     DoublyLinkedListNode next;
- *     DoublyLinkedListNode prev;
- * }
- *
- */
-function sortedInsert(head, data) {
-    return head;
-}
+  /*
+   ,* For your reference:
+   ,*
+   ,* DoublyLinkedListNode {
+   ,*     int data;
+   ,*     DoublyLinkedListNode next;
+   ,*     DoublyLinkedListNode prev;
+   ,* }
+   ,*
+   ,*/
+  function sortedInsert(head, data) {
+      const node = new DoublyLinkedListNode(data);
+
+      if (head === null)
+          return node;
+
+      let current = head;
+
+      while (current.data < data && current.next !== null) {
+          current = current.next;
+      }
+
+      if (current.data < data) {
+          current.next = node;
+          node.prev = current;
+          return head;
+      }
+
+      if (current.prev === null) {
+          head = node;
+          node.next = current;
+          return head;
+      }
+
+      node.prev = current.prev;
+      node.next = current;
+      current.prev.next = node,
+      current.prev = node;
+
+      return head;;
+  }
 #+end_src
 
 **** Insert Node Sorted Doubly LList Tests
@@ -4027,19 +4058,31 @@ function sortedInsert(head, data) {
 #+header: :dir data-structures/linked_lists/node
 #+header: :results output :exports results
 #+begin_src sh :tangle data-structures/linked_lists/node/insert_sorted_doubly_llist.tests.sh
-export OUTPUT_PATH=insert-sorted-doubly-llist-results
-echo Inputs:
-echo \
-'1
-4
-1
-3
-4
-10
-5' | node insert_sorted_doubly_llist.js
-echo
-echo Results:
-cat insert-sorted-doubly-llist-results
+  export OUTPUT_PATH=insert-sorted-doubly-llist-results
+  echo Inputs:
+  echo \
+  '3
+  4
+  1
+  3
+  4
+  10
+  5
+  4
+  1
+  3
+  4
+  10
+  0
+  4
+  1
+  3
+  4
+  10
+  11' | node insert_sorted_doubly_llist.js
+  echo
+  echo Results:
+  cat insert-sorted-doubly-llist-results
 #+end_src
 
 * Concept Index
