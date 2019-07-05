@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-05 11:03
-#+macro:version Version 0.9.2
+#+date:2019-07-05 11:41
+#+macro:version Version 0.9.3
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -4257,7 +4257,13 @@ The reversed doubly linked list is: 4 \leftrightarrow 3 \leftrightarrow 2 \leftr
 #+end_src
 
 * Ten Days of JavaScript
-** Ten Days of JavaScript---Day 0
+** Ten Days of JavaScript---Day 0 Greeting
+:PROPERTIES:
+:level:    easy
+:max-score: 10
+:score:    10
+:current-score: 10
+:END:
 *** Ten Days of JavaScript---Day 0 Overview
 This series focuses on learning and practicing JavaScript.  Each challenge comes
 with a tutorial article, and you can view these articles by clicking either the
@@ -4370,6 +4376,168 @@ function main() {
 echo Input:
 echo 'Welcome to 10 Days of JavaScript!' | node hello_world.js
 #+end_src
+** Ten Days of JavaScript---Day 0 DataTypes
+:PROPERTIES:
+:level:    easy
+:max-score: 10
+:score:    10
+:current-score: 20
+:END:
+
+{{{heading(Objective)}}}
+
+Today, we're discussing data types.  Check out the attached tutorial for more
+details.
+
+{{{heading(Task)}}}
+
+Variables named ~firstInteger~, ~firstDecimal~, and ~firstString~ are declared
+for you in the editor below.  You must use the =+= operator to perform the
+following sequence of operations:
+
+1. Convert ~secondInteger~ to an integer (=Number= type), then sum it with
+   ~firstInteger~ and print the result on a new line using ~console.log~.
+
+2. Convert ~secondDecimal~ to a floating-point number (=Number= type), then sum
+   it with ~firstDecimal~ and print the result on a new line using
+   ~console.log~.
+
+3. Print the concatenation of ~firstString~ and ~secondString~ on a new line
+   using ~console.log~.  Note that ~firstString~ must be printed first.
+
+
+{{{heading(Input Format)}}}
+
+| Data Type | Parameter       | Description                                                                            |
+|-----------+-----------------+----------------------------------------------------------------------------------------|
+| string    | ~secondInteger~ | The string representation of an integer you must sum with ~firstInteger~.              |
+| string    | ~secondDecimal~ | The string representation of a floating-point number you must sum with ~firstDecimal~. |
+| string    | ~secondString~  | A string of one or more space-separated words you must append to ~firstString~         |
+|-----------+-----------------+----------------------------------------------------------------------------------------|
+
+{{{subheading(Sample Input)}}}
+
+#+begin_example
+12
+4.32
+is the best place to learn and practice coding!
+#+end_example
+
+{{{heading(Output Format)}}}
+
+Print the following three lines of output:
+
+1. On the first line, print the sum of ~firstInteger~ and the integer
+   representation of ~secondInteger~.
+
+2. On the second line, print the sum of ~firstDecimal~ and the floating-point
+   representation of ~secondDecimal~.
+
+3. On the third line, print ~firstString~ concatenated with ~secondString~.
+   You must print ~firstString~ before ~secondString~.
+
+
+{{{subheading(Sample Output)}}}
+
+#+begin_example
+16
+8.32
+HackerRank is the best place to learn and practice coding!
+#+end_example
+
+{{{heading(Explanation)}}}
+
+When we sum the integers 4 and 12, we get the integer 16.
+
+When we sum the floating-point numbers 4.0 and 4.32, we get 8.32.
+
+When we concatenate =HackerRank= with =is the best place to learn and practice
+coding!=, we get =HackerRank is the best place to learn and practice coding!=.
+
+*You will not pass this challenge if you attempt to assign the Sample Case
+values to your variables instead of following the instructions above.*
+
+*** Ten Days of JavaScript---Day 0 DataTypes Node CL Processing
+#+name:ten-days-of-javascript-day-0-data-types-cl-processing
+#+header: :noweb yes :mkdirp yes
+#+begin_src js -n :tangle ten-days-of-javascript/day-0/data_types.js
+<<node-process-command-line-arguments>>
+#+end_src
+
+*** Ten Days of JavaScript---Day 0 Data Types Main Function
+#+name:ten-days-of-javascript-day-0-data-types-main
+#+begin_src js +n :tangle ten-days-of-javascript/day-0/data_types.js
+function main() {
+    const secondInteger = readLine();
+    console.log(`secondInteger: ${secondInteger}`);
+    const secondDecimal = readLine();
+    console.log(`secondDecimal: ${secondDecimal}`);
+    const secondString = readLine();
+    console.log(`secondString: ${secondString}`);
+
+    console.log('\nOutput:');
+    performOperation(secondInteger, secondDecimal, secondString);
+}
+#+end_src
+
+*** Ten Days of JavaScript---Day 0 Data Types performOperation Function
+#+name:ten-days-of-javascript-day-0-data-types-performOperation
+#+begin_src js +n :tangle ten-days-of-javascript/day-0/data_types.js
+  /*
+  ,*   The variables 'firstInteger', 'firstDecimal', and 'firstString' are declared for you -- do not modify them.
+  ,*   Print three lines:
+  ,*   1. The sum of 'firstInteger' and the Number representation of 'secondInteger'.
+  ,*   2. The sum of 'firstDecimal' and the Number representation of 'secondDecimal'.
+  ,*   3. The concatenation of 'firstString' and 'secondString' ('firstString' must be first).
+  ,*
+  ,*	Parameter(s):
+  ,*   secondInteger - The string representation of an integer.
+  ,*   secondDecimal - The string representation of a floating-point number.
+  ,*   secondString - A string consisting of one or more space-separated words.
+  ,**/
+  function performOperation(secondInteger, secondDecimal, secondString) {
+      // Declare a variable named 'firstInteger' and initialize with integer value 4.
+      const firstInteger = 4;
+
+      // Declare a variable named 'firstDecimal' and initialize with floating-point value 4.0.
+      const firstDecimal = 4.0;
+
+      // Declare a variable named 'firstString' and initialize with the string "HackerRank".
+      const firstString = 'HackerRank ';
+
+      // Write code that uses console.log to print the sum of the
+      // 'firstInteger' and 'secondInteger' (converted to a Number type)
+      // on a new line.
+
+      console.log(firstInteger + Number(secondInteger));
+
+      // Write code that uses console.log to print the sum of
+      // 'firstDecimal' and 'secondDecimal' (converted to a Number type)
+      // on a new line.
+
+      console.log(firstDecimal + Number(secondDecimal));
+
+      // Write code that uses console.log to print the concatenation of
+      // 'firstString' and 'secondString' on a new line. The variable
+      // 'firstString' must be printed first.
+
+      console.log(firstString + secondString);
+  }
+#+end_src
+
+*** Ten Days of JavaScript---Day 0 Data Types Test
+#+name:ten-days-of-javascript-day-0-data-types-test
+#+header: :shebang "#!/usr/bin/env bash"
+#+header: :dir ten-days-of-javascript/day-0
+#+header: :results output :output results
+#+begin_src sh :tangle ten-days-of-javascript/day-0/data_types.test.sh
+echo Input:
+echo \
+'12
+4.32
+is the best place to learn and practice coding!' | node data_types.js
+#+end_src
+
 * Concept Index
 :PROPERTIES:
 :index:    cp
