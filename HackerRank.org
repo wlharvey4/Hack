@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-05 08:31
-#+macro:version Version 0.8.5
+#+date:2019-07-05 09:02
+#+macro:version Version 0.8.6
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -3917,9 +3917,8 @@ The doubly linked list after insertion is: 1 \leftrightarrow 3 \leftrightarrow 4
 #+end_src
 
 **** Insert Node Sorted Doubly LList Classes
-
 ***** Sorted Doubly Linked List Node Class
-#+name:sorted-doubly-llist-node-class
+#+name:doubly-llist-node-class
 #+begin_src js +n :tangle data-structures/linked_lists/node/insert_sorted_doubly_llist.js
 const DoublyLinkedListNode = class {
     constructor(nodeData) {
@@ -3931,7 +3930,7 @@ const DoublyLinkedListNode = class {
 #+end_src
 
 ***** Sorted Doubly Linked List Class
-#+name:sorted-doubly-llist-class
+#+name:doubly-llist-class
 #+begin_src js +n :tangle data-structures/linked_lists/node/insert_sorted_doubly_llist.js
 const DoublyLinkedList = class {
     constructor() {
@@ -3955,7 +3954,7 @@ const DoublyLinkedList = class {
 #+end_src
 
 ***** Sorted Doubly Linked List Print Function
-#+name:sorted-doubly-llist-print-function
+#+name:doubly-llist-print-function
 #+begin_src +n :tangle data-structures/linked_lists/node/insert_sorted_doubly_llist.js
 function printDoublyLinkedList(node, sep, ws) {
     while (node != null) {
@@ -4083,6 +4082,163 @@ function printDoublyLinkedList(node, sep, ws) {
   echo
   echo Results:
   cat insert-sorted-doubly-llist-results
+#+end_src
+*** Reverse a Doubly Linked List
+:PROPERTIES:
+:level:    easy
+:max-score: 5
+:success-rate: 97.52%
+:END:
+**** Reverse a Double Linked List Problem Statement
+You’re given the pointer to the head node of a doubly linked list.  Reverse the
+order of the nodes in the list.  The head node might be NULL to indicate that
+the list is empty.  Change the next and prev pointers of all the nodes so that
+the direction of the list is reversed.  Return a reference to the head node of
+the reversed list.
+
+{{{heading(Function Description)}}}
+
+Complete the reverse function in the editor below. It should return a reference
+to the head of your reversed list.  ~reverse~ has the following parameter(s):
+
+- ~head~: a reference to the head of a ~DoublyLinkedList~
+
+
+{{{heading(Input Format)}}}
+
+The first line contains an integer ~t~, the number of test cases.
+
+Each test case is of the following format:
+
+- The first line contains an integer ~n~, the number of elements in the linked
+  list.
+
+- The next ~n~ lines contain an integer each denoting an element of the linked
+  list.
+
+
+{{{subheading(Sample Input)}}}
+
+#+begin_example
+1
+4
+1
+2
+3
+4
+#+end_example
+
+{{{heading(Constraints)}}}
+
+- 1 \le t \le  10
+
+- 0 \le n \le  1000
+
+- 0 \le data \le 1000
+
+
+{{{heading(Output Format)}}}
+
+Return a reference to the head of your reversed list.  The provided code will
+print the reverse array as a one line of space-separated integers for each test
+case.
+
+{{{subheading(Sample Output)}}}
+
+: 4 3 2 1 
+
+{{{heading(Explanation)}}}
+
+The initial doubly linked list is: 1 \leftrightarrow 2 \leftrightarrow 3 \leftrightarrow 4 \rightarrow null
+
+The reversed doubly linked list is: 4 \leftrightarrow 3 \leftrightarrow 2 \leftrightarrow 1 \rightarrow null
+
+**** Reverse a Double Linked List Node CL Processing and Classes
+#+name:reverse-double-llist-node-cl-processing_and_classes
+#+header: :noweb yes :mkdirp yes
+#+begin_src js -n :tangle data-structures/linked_lists/node/reverse_double_llist.js
+<<node-process-command-line-arguments>>
+<<doubly-llist-node-class>>
+<<doubly-llist-class>>
+<<doubly-llist-print-function>>
+#+end_src
+
+**** Reverse a Double Linked List Main Function
+#+name:reverse-double-llist-main
+#+begin_src js +n :tangle data-structures/linked_lists/node/reverse_double_llist.js
+  function main() {
+      const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
+
+      const t = parseInt(readLine(), 10);
+      console.log(`tests: ${t}`);
+
+      for (let tItr = 0; tItr < t; tItr++) {
+          console.log(`\ntest: ${tItr + 1}`);
+          const llistCount = parseInt(readLine(), 10);
+          console.log(`n: ${llistCount}`);
+
+          let llist = new DoublyLinkedList();
+
+          for (let i = 0; i < llistCount; i++) {
+              const llistItem = parseInt(readLine(), 10);
+              console.log(`data[${i}]: ${llistItem}`);
+              llist.insertNode(llistItem);
+          }
+
+          let llist1 = reverse(llist.head);
+
+          printDoublyLinkedList(llist1, " ", ws);
+          ws.write("\n");
+      }
+
+      ws.end();
+  }
+#+end_src
+
+**** Reverse a Double Linked List reverse Function
+#+name:reverse-double-llist-reverse
+#+begin_src js +n :tangle data-structures/linked_lists/node/reverse_double_llist.js
+// Complete the reverse function below.
+
+/*
+ * For your reference:
+ *
+ * DoublyLinkedListNode {
+ *     int data;
+ *     DoublyLinkedListNode next;
+ *     DoublyLinkedListNode prev;
+ * }
+ *
+ */
+function reverse(head) {
+    return head;
+}
+#+end_src
+
+**** Reverse a Double Linked List Tests
+#+name:reverse-double-llist-tests
+#+header: :shebang "#!/usr/bin/env bash"
+#+header: :dir
+#+header: :results output :exports results
+#+begin_src sh :tangle data-structures/linked_lists/node/reverse_double_llist.test.sh
+  export OUTPUT_PATH=reverse-double-llist-results
+  echo Inputs:
+  echo \
+  '4
+  4
+  1
+  2
+  3
+  4
+  1
+  1
+  2
+  1
+  2
+  0' | node reverse_double_llist.js
+  echo
+  echo Results:
+  cat reverse-double-llist-results
 #+end_src
 
 * Concept Index
