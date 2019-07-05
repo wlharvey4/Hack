@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-05 09:02
-#+macro:version Version 0.8.6
+#+date:2019-07-05 09:15
+#+macro:version Version 0.8.7
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -4088,6 +4088,9 @@ function printDoublyLinkedList(node, sep, ws) {
 :level:    easy
 :max-score: 5
 :success-rate: 97.52%
+:score:    5
+:current-score: 215
+:current-rank: 366882
 :END:
 **** Reverse a Double Linked List Problem Statement
 You’re given the pointer to the head node of a doubly linked list.  Reverse the
@@ -4198,21 +4201,36 @@ The reversed doubly linked list is: 4 \leftrightarrow 3 \leftrightarrow 2 \leftr
 **** Reverse a Double Linked List reverse Function
 #+name:reverse-double-llist-reverse
 #+begin_src js +n :tangle data-structures/linked_lists/node/reverse_double_llist.js
-// Complete the reverse function below.
+  // Complete the reverse function below.
 
-/*
- * For your reference:
- *
- * DoublyLinkedListNode {
- *     int data;
- *     DoublyLinkedListNode next;
- *     DoublyLinkedListNode prev;
- * }
- *
- */
-function reverse(head) {
-    return head;
-}
+  /*
+   ,* For your reference:
+   ,*
+   ,* DoublyLinkedListNode {
+   ,*     int data;
+   ,*     DoublyLinkedListNode next;
+   ,*     DoublyLinkedListNode prev;
+   ,* }
+   ,*
+   ,*/
+  function reverse(head) {
+      if (head === null)
+          return null;
+
+      let current = head,
+          next = null,
+          newHead = null;
+
+      while (current !== null) {
+          next = current.next;
+          if (next === null)
+              newHead = current;
+          current.next = current.prev,
+          current.prev = next;
+          current = next;
+      }
+      return newHead;;
+  }
 #+end_src
 
 **** Reverse a Double Linked List Tests
