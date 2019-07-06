@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-05 11:41
-#+macro:version Version 0.9.3
+#+date:2019-07-06 12:00
+#+macro:version Version 0.9.4
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -4254,6 +4254,61 @@ The reversed doubly linked list is: 4 \leftrightarrow 3 \leftrightarrow 2 \leftr
   echo
   echo Results:
   cat reverse-double-llist-results
+#+end_src
+
+* Algorithms
+** Solve First
+:PROPERTIES:
+:level:    easy
+:max-score: 1
+:success-rate: 98.27%
+:END:
+Complete the function ~solveMeFirst~ to compute the sum of two integers.
+
+{{{heading(Function prototype:)}}}
+
+~int solveMeFirst(int a, int b);~
+
+where
+
+- ~a~ is the first integer input.
+- ~b~ is the second integer input
+
+
+{{{heading(Return values)}}}
+
+- sum of the above two integers
+
+{{{heading(Sample input)}}}
+
+#+begin_example
+a = 2
+b = 3
+#+end_example
+
+{{{heading(Sample output)}}}
+
+: 5
+
+{{{heading(Explanation)}}}
+
+The sum of the two integers ~a~ and ~b~ is computed as: =2 + 3 = 5=.
+
+#+name:solveMeFirst
+#+begin_src js -n :tangle algorithms/node/solveMeFirst.js :mkdirp yes
+<<node-process-command-line-arguments>>
+function main() {
+    var a = parseInt(readLine());
+    var b = parseInt(readLine());;
+
+    var res = solveMeFirst(a, b);
+    console.log(res);
+}
+
+function solveMeFirst(a, b) {
+  // Hint: Type return a+b below
+  return a+b;
+}
 #+end_src
 
 * Ten Days of JavaScript
