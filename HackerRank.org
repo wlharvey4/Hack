@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-06 12:00
-#+macro:version Version 0.9.4
+#+date:2019-07-08 08:04
+#+macro:version Version 0.9.5
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -4309,6 +4309,121 @@ function solveMeFirst(a, b) {
   // Hint: Type return a+b below
   return a+b;
 }
+#+end_src
+** Simple Array Sum
+:PROPERTIES:
+:level:    easy
+:max-score: 10
+:success-rate: 94.32%
+:score:    10
+:current-rank: 351026
+:current-score: 226
+:END:
+Calculate the sum of integers in an array.
+
+*** Problem Statement
+Given an array of integers, find the sum of its elements.
+
+For example, if the array ~ar~ = ~[1,2,3]~, 1 \plus 2 \plus 3 = 6,
+so return 6.
+
+{{{heading(Functional Description)}}}
+
+Complete the ~simpleArraySum~ function in the editor below.  It must return the
+sum of the array elements as an integer.
+
+~simpleArraySum~ has the following parameter(s):
+
+- ~ar~ :: an array of integers
+
+
+{{{heading(Input Format)}}}
+
+The first line contains an integer, ~n~, denoting the size of the array.
+
+The second line contains ~n~ space-separated integers representing the array's
+elements.
+
+{{{subheading(Sample Input)}}}
+
+#+begin_example
+6
+1 2 3 4 10 11
+#+end_example
+
+{{{heading(Constraints)}}}
+
+- 0 \le n, ar[i] \le 1000
+
+
+{{{heading(Output Format)}}}
+
+Print the sum of the array's elements as a single integer.
+
+{{{subheading(Sample Output)}}}
+
+: 31
+
+{{{heading(Explanation)}}}
+
+We print the sum of the array's elements: 1 \plus 2 \plus 3 \plus 4 \plus 10
+\plus 11 = 31.
+
+*** Simple Array Sum Node CL Processing
+#+name:simple-array-sum-node-cl-processing
+#+header: :noweb yes :mkdirp yes
+#+begin_src js -n :tangle algorithms/node/simple_array_sum.js
+<<node-process-command-line-arguments>>
+#+end_src
+
+*** Simple Array Sum Main Function
+#+name:simple-array-sum-main
+#+begin_src js +n :tangle algorithms/node/simple_array_sum.js
+function main() {
+    const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
+
+    const arCount = parseInt(readLine(), 10);
+    console.log(`n: ${arCount}`);
+
+    const ar = readLine().split(' ').map(arTemp => parseInt(arTemp, 10));
+    console.log(`ar: ${ar}`);
+
+    let result = simpleArraySum(ar);
+
+    ws.write(result + "\n");
+
+    ws.end();
+}
+#+end_src
+
+*** Simple Array Sum simpleArraySum Function
+#+name:simple-array-sum-simpleArraySum
+#+begin_src js +n :tangle algorithms/node/simple_array_sum.js
+/*
+ ,* Complete the simpleArraySum function below.
+ ,*/
+function simpleArraySum(ar) {
+    /*
+     ,* Write your code here.
+     ,*/
+     return ar.reduce((a,e) => a + e,0);
+}
+#+end_src
+
+*** Simple Array Sum Tests
+#+name:simple-array-sum-tests
+#+header: :shebang "#!/usr/bin/env bash"
+#+header: :dir algorithms/node
+#+header: :results output :exports results
+#+begin_src sh :tangle algorithms/node/simple_array_sum.tests.sh
+export OUTPUT_PATH=simple-array-sum-results
+echo Inputs:
+echo \
+'6
+1 2 3 4 10 11' | node simple_array_sum.js
+echo
+echo Result:
+cat simple-array-sum-results
 #+end_src
 
 * Ten Days of JavaScript
