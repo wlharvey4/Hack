@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-08 08:04
-#+macro:version Version 0.9.5
+#+date:2019-07-08 08:06
+#+macro:version Version 0.10.0
 
 * Introduction
 - https://www.hackerrank.com/dashboard
