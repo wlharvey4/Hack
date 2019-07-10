@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-08 08:06
-#+macro:version Version 0.10.0
+#+date:2019-07-10 07:33
+#+macro:version Version 0.10.1
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -4424,6 +4424,155 @@ echo \
 echo
 echo Result:
 cat simple-array-sum-results
+#+end_src
+** Compare the Triplets
+:PROPERTIES:
+:level:    easy
+:max-score: 10n
+:success-rate: 94.18%
+:END:
+Compre the elements in two triplets.
+*** Compare the Triplets Problem Statement
+Alice and Bob each created one problem for HackerRank.  A reviewer rates the
+two challenges, awarding points on a scale from 1 to 100 for three categories:
+problem clarity, originality, and difficulty.
+
+We define the rating for Alice's challenge to be the triplet ~a = ( a[0], a[1],
+a[2] )~, and the rating for Bob's challenge to be the triplet ~b = ( b[0],
+b[1], b[2] )~.
+
+Your task is to find their comparison points by comparing ~a[0]~ with ~b[0]~,
+~a[1]~ with ~b[1]~, and ~a[2]~ with ~b[2]~.
+
+- if ~a[i]~ \gt ~b[i]~, then Alice is awarded 1 point
+
+- if ~a[i]~ \lt ~b[i]~, then Bob is awarded 1 point
+
+- if ~a[i]~ = ~b[i]~, then neither person is awarded any points
+
+
+Comparison points is the total points a person earned.
+
+Given ~a~ and ~b~, determine their respective comparison points.
+
+For example, ~a = [1, 2, 3]~ and ~b = [3, 2, 1]~.  For elements 0, Bob is
+awarded a point because ~a[0] \lt b[0]~.  For the equal elements ~a[1]~ and
+~b[1]~, no points are earned.  Finally, for elements 2, ~a[2] \gt b[2]~ so
+Alice receives a point.  Your return array would be ~[1, 1]~ with Alice's score
+first and Bob's second.
+
+
+{{{heading(Function Description)}}}
+
+Complete the function ~compareTriplets~ in the editor below.  It must return an
+array of two integers, the first being Alice's score and the second being
+Bob's.
+
+~compareTriplets~ has the following parameter(s):
+
+- ~a~ :: an array of integers representing Alice's challenge rating
+
+- ~b~ :: an array of integers representing Bob's challenge rating
+
+
+{{{heading(Input Format)}}}
+
+The first line contains 3 space-separated integers, ~a[0]~, ~a[1]~, and ~a[2]~,
+describing the respective values in triplet ~a~.  The second line contains 3
+space-separated integers, ~b[0]~, ~b[1]~, and ~b[2]~, describing the respective
+values in triplet ~b~.
+
+{{{subheading(Sample Input 0)}}}
+
+#+begin_example
+5 6 7
+3 6 10
+#+end_example
+
+{{{subheading(Sample Input 1)}}}
+
+#+begin_example
+17 28 30
+99 16 8
+#+end_example
+
+{{{heading(Constraints)}}}
+
+- 1 \le ~a[i]~ \le 100
+
+- 1 \le ~b[i]~ \le 100
+
+
+{{{heading(Output Format)}}}
+
+Return an array of two integers denoting the respective comparison points
+earned by Alice and Bob.
+
+{{{subheading(Sample Output 0)}}}
+
+: 1 1
+
+{{{subheading(Sample Output 1)}}}
+
+: 2 1
+
+*** Compare the Triplets Node CL Processing
+#+name:compare-the-triplets-node-cl-processing
+#+header: :mkdirp yes :noweb yes
+#+begin_src js -n :tangle algorithms/node/compare_the_triplets.js
+<<node-process-command-line-arguments>>
+#+end_src
+
+*** Compare the Triplets Main Function
+#+name:compare-the-triplets-main
+#+begin_src js +n :tangle algorithms/node/compare_the_triplets.js
+function main() {
+    const ws = fs.createWriteStream(process.env.OUTPUT_PATH, {flags: 'a+'});
+
+    const a = readLine().replace(/\s+$/g, '').split(' ').map(aTemp => parseInt(aTemp, 10));
+    console.log(`a: ${a}`);
+
+    const b = readLine().replace(/\s+$/g, '').split(' ').map(bTemp => parseInt(bTemp, 10));
+    console.log(`b: ${b}`);
+
+    const result = compareTriplets(a, b);
+
+    ws.write(result.join(' ') + '\n');
+
+    ws.end();
+}
+#+end_src
+
+*** Compare the Triplets compareTriplets Function
+#+name:compare-the-triplets-compareTriplets
+#+begin_src js +n :tangle algorithms/node/compare_the_triplets.js
+// Complete the compareTriplets function below.
+function compareTriplets(a, b) {
+    return [0,0];
+}
+#+end_src
+
+*** Compare the Triplets Tests
+#+name:compare-the-triplets-tests
+#+header: :shebang "#!/usr/bin/env bash"
+#+header: :dir algorithms/node
+#+header: :results output :export results
+#+begin_src sh :tangle algorithms/node/compare_the_triplets.tests.sh
+export OUTPUT_PATH=compare_the_triplets_results
+echo
+echo Inputs:
+echo \
+'5 6 7
+3 6 10' | node compare_the_triplets.js
+echo
+echo Inputs
+echo \
+'17 28 30
+99 16 8' | node compare_the_triplets.js
+echo
+echo Results:
+cat compare_the_triplets_results
+echo
 #+end_src
 
 * Ten Days of JavaScript
