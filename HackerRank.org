@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-10 08:33
-#+macro:version Version 0.10.2
+#+date:2019-07-10 08:51
+#+macro:version Version 0.10.3
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -4580,6 +4580,119 @@ echo
 echo Results:
 cat compare_the_triplets_results
 echo
+#+end_src
+** A Very Big Sum
+:PROPERTIES:
+:level:    easy
+:max-score: 10
+:success-rate: 98.61%
+:END:
+Calculate the sum of the values in an array that might exceed the range of int
+values.
+*** A Very Big Sum Problem Statement
+Calculate and print the sum of the elements in an array, keeping in mind that
+some of those integers may be quite large.
+
+{{{heading(Function Description)}}}
+
+Complete the ~aVeryBigSum~ function in the editor below. It must return the sum
+of all array elements.
+
+~aVeryBigSum~ has the following parameter(s):
+
+- ~ar~ :: an array of integers.
+
+
+{{{heading(Input Format)}}}
+
+The first line of the input consists of an integer ~n~.
+
+The next line contains ~n~ space-separated integers contained in the array.
+
+{{{subheading(Sample Input)}}}
+
+#+begin_example
+5
+1000000001 1000000002 1000000003 1000000004 1000000005
+#+end_example
+
+{{{heading(Output Format)}}}
+
+Print the integer sum of the elements in the array.
+
+{{{subheading(Sample Output)}}}
+
+: 5000000015
+
+{{{heading(Constraints)}}}
+
+- 1 \le ~n~ \le 10
+
+- 0 \le ~ar[i]~ \le 10^10
+
+{{{heading(Note)}}}
+
+The range of the 32-bit integer is ~(\minus 2^31)~ to ~(2^31 \minus 1)~, or
+[\minus 2147483648, 2147483647].
+
+When we add several integer values, the resulting sum might exceed the above
+range. You might need to use =long long int= in C/C++ or =long= data type in
+Java to store such sums.
+
+*** A Very Big Sum Node CL Processing
+#+name:a-very-big-sum-node-cl-processing
+#+header: :mkdirp yes :noweb yes
+#+begin_src js -n :tangle algorithms/node/very_big_sum.js
+<<node-process-command-line-arguments>>
+#+end_src
+
+*** A Very Big Sum Main Function
+#+name:a-very-big-sum-main
+#+begin_src js +n :tangle algorithms/node/very_big_sum.js
+function main() {
+    const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
+
+    const arCount = parseInt(readLine(), 10);
+    console.log(`n: ${arCount}`);
+
+    const ar = readLine().split(' ').map(arTemp => parseInt(arTemp, 10));
+    console.log(`ar: ${ar}`);
+
+    let result = aVeryBigSum(ar);
+
+    ws.write(result + "\n");
+
+    ws.end();
+}
+#+end_src
+
+*** A Very Big Sum aVeryBigSum Function
+#+name:a-very-big-sum-aVeryBigSum-function
+#+begin_src js +n :tangle algorithms/node/very_big_sum.js
+function readLine() {
+    return inputString[currentLine++];
+}
+
+// Complete the aVeryBigSum function below.
+function aVeryBigSum(ar) {
+    return 0;
+}
+#+end_src
+
+*** A Very Big Sum Tests
+#+name:a-very-big-sum-tests
+#+header: :shebang "#!/usr/bin/env bash"
+#+header: :dir algorithms/node/
+#+header: :results output :exports results
+#+begin_src sh :tangle algorithms/node/very_big_sum_tests.sh
+export OUTPUT_PATH=very_big_sum_results
+echo Inputs:
+echo \
+'5
+1000000001 1000000002 1000000003 1000000004 1000000005' | node very_big_sum.js
+echo
+echo Results:
+cat very_big_sum_results
 #+end_src
 
 * Ten Days of JavaScript
