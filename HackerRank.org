@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-10 08:51
-#+macro:version Version 0.10.3
+#+date:2019-07-10 09:06
+#+macro:version Version 0.10.4
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -4586,6 +4586,9 @@ echo
 :level:    easy
 :max-score: 10
 :success-rate: 98.61%
+:score:    10
+:current-score: 246
+:current-rank: 327624
 :END:
 Calculate the sum of the values in an array that might exceed the range of int
 values.
@@ -4667,6 +4670,11 @@ function main() {
 #+end_src
 
 *** A Very Big Sum aVeryBigSum Function
+#+cindex:@code{BigInt}
+The built-in type =BigInt= is JavaScript's large integer Number type.
+=BigInt=s are created by explicit conversion of a =Number=: ~BigInt(n)~, or by
+adding the letter =n= to the end of a literal integer.  Both conversions are
+demonstrated in this code.
 #+name:a-very-big-sum-aVeryBigSum-function
 #+begin_src js +n :tangle algorithms/node/very_big_sum.js
 function readLine() {
@@ -4675,7 +4683,7 @@ function readLine() {
 
 // Complete the aVeryBigSum function below.
 function aVeryBigSum(ar) {
-    return 0;
+    return ar.reduce((a,e) => { return a + BigInt(e) },0n);
 }
 #+end_src
 
