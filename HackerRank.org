@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-10 07:33
-#+macro:version Version 0.10.1
+#+date:2019-07-10 08:33
+#+macro:version Version 0.10.2
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -4430,6 +4430,9 @@ cat simple-array-sum-results
 :level:    easy
 :max-score: 10n
 :success-rate: 94.18%
+:score:    10
+:current-rank: 339505
+:current-score: 236
 :END:
 Compre the elements in two triplets.
 *** Compare the Triplets Problem Statement
@@ -4548,7 +4551,11 @@ function main() {
 #+begin_src js +n :tangle algorithms/node/compare_the_triplets.js
 // Complete the compareTriplets function below.
 function compareTriplets(a, b) {
-    return [0,0];
+    return a.reduce((acc,e,i) => {
+        if (e > b[i]) { acc[0]++; return acc; }
+        if (e < b[i]) { acc[1]++; return acc; }
+        return acc;
+    },[0,0]);
 }
 #+end_src
 
