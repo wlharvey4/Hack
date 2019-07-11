@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-10 09:06
-#+macro:version Version 0.10.4
+#+date:2019-07-11 09:35
+#+macro:version Version 0.10.5
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -4675,6 +4675,7 @@ The built-in type =BigInt= is JavaScript's large integer Number type.
 =BigInt=s are created by explicit conversion of a =Number=: ~BigInt(n)~, or by
 adding the letter =n= to the end of a literal integer.  Both conversions are
 demonstrated in this code.
+
 #+name:a-very-big-sum-aVeryBigSum-function
 #+begin_src js +n :tangle algorithms/node/very_big_sum.js
 function readLine() {
@@ -4690,7 +4691,7 @@ function aVeryBigSum(ar) {
 *** A Very Big Sum Tests
 #+name:a-very-big-sum-tests
 #+header: :shebang "#!/usr/bin/env bash"
-#+header: :dir algorithms/node/
+#+header: :dir algorithms/node
 #+header: :results output :exports results
 #+begin_src sh :tangle algorithms/node/very_big_sum_tests.sh
 export OUTPUT_PATH=very_big_sum_results
@@ -4701,6 +4702,157 @@ echo \
 echo
 echo Results:
 cat very_big_sum_results
+#+end_src
+** Diagonal Difference
+:PROPERTIES:
+:level:    easy
+:max-score: 10
+:success-rate: 95.82%
+:END:
+Calculate the absolute difference of sums across the two diagonals of a square
+matrix.
+*** Diagonal Difference Problem Statement
+Given a square matrix, calculate the absolute difference between the sums of
+its diagonals.  For example, the square matrix ~arr~ is shown below:
+
+#+begin_example
+1 2 3
+4 5 6
+9 8 9
+#+end_example
+
+The left-to-right diagonal = ~1 + 5 + 9 = 15~.  The right to left diagonal =
+~3 + 5 + 9 = 17~.  Their absolute difference is ~|15 - 17| = 2~.
+
+{{{heading(Function Description)}}}
+
+Complete the ~diagonalDifference~ function in the editor below.  It must return
+an integer representing the absolute diagonal difference.
+
+~diagonalDifference~ takes the following parameter:
+
+- ~arr~ :: an array of integers.
+
+
+{{{heading(Input Format)}}}
+
+The first line contains a single integer, ~n~, the number of rows and columns
+in the matrix ~arr~.
+
+Each of the next ~n~ lines describes a row, ~arr[i]~, and consists of ~n~
+space-separated integers ~arr[i][j]~.
+
+
+{{{subhading(Sample Input)}}}
+
+#+begin_example
+3
+11 2 4
+4 5 6
+10 8 -12
+#+end_example
+
+{{{heading(Constraints)}}}
+
+- ~\neg100~ \le ~arr[i][j]~ \le 100
+
+
+{{{heading(Output Format)}}}
+
+Print the absolute difference between the sums of the matrix's two diagonals as
+a single integer.
+
+{{{subheading(Sample Output)}}}
+
+: 15
+
+{{{heading(Explanation)}}}
+
+The primary diagonal is:
+
+#+begin_example
+11
+   5
+     -12
+#+end_example
+
+Sum across the primary diagonal: ~11 + 5 - 12 = 4~
+
+The secondary diagonal is:
+
+#+begin_example
+     4
+   5
+10
+#+end_example
+
+Sum across the secondary diagonal: ~4 + 5 + 10 = 19~
+
+Difference: ~|4 - 19| = 15~
+
+*** Diagonal Difference Node CL Processing
+#+name:diagonal-difference-node-cl-processing
+#+header: :mkdirp yes :noweb yes
+#+begin_src js -n :tangle algorithms/node/diagonal_difference.js
+<<node-process-command-line-arguments>>
+#+end_src
+
+*** Diagonal Difference Main Function
+#+name:diagonal-difference-main-function
+#+begin_src js +n :tangle algorithms/node/diagonal_difference.js
+function main() {
+    const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
+
+    const n = parseInt(readLine().trim(), 10);
+    console.log(`n: ${n}`);
+
+    let arr = Array(n);
+
+    for (let i = 0; i < n; i++) {
+        arr[i] = readLine().replace(/\s+$/g, '').split(' ').map(arrTemp => parseInt(arrTemp, 10));
+        console.log(`row[${i}]: ${arr[i]}`);
+    }
+
+    const result = diagonalDifference(arr);
+
+    ws.write(result + '\n');
+
+    ws.end();
+}
+#+end_src
+
+*** Diagonal Difference diagonalDifference Function
+#+name:diagonal-difference-function
+#+begin_src js +n :tangle algorithms/node/diagonal_difference.js
+/*
+ * Complete the 'diagonalDifference' function below.
+ *
+ * The function is expected to return an INTEGER.
+ * The function accepts 2D_INTEGER_ARRAY arr as parameter.
+ */
+
+function diagonalDifference(arr) {
+    // Write your code here
+    return 0;
+}
+#+end_src
+
+*** Diagonal Difference Tests
+#+name:diagonal-dfference-tests
+#+header: :shebang "#!/usr/bin/env bash"
+#+header: :dir algorithms/node
+#+header: :results output :exports results
+#+begin_src sh +n :tangle algorithms/node/diagonal_difference.test.sh
+export OUTPUT_PATH=diagonal_difference_results
+echo Inputs:
+echo \
+'3
+11 2 4
+4 5 6
+10 8 -12' | node diagonal_difference.js
+echo
+echo Result:
+cat diagonal_difference_results
 #+end_src
 
 * Ten Days of JavaScript
