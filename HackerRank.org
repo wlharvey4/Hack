@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-11 09:35
-#+macro:version Version 0.10.5
+#+date:2019-07-11 09:54
+#+macro:version Version 0.10.6
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -4689,6 +4689,10 @@ function aVeryBigSum(ar) {
 #+end_src
 
 *** A Very Big Sum Tests
+:PROPERTIES:
+:current-rank: 316515
+:current-score: 256
+:END:
 #+name:a-very-big-sum-tests
 #+header: :shebang "#!/usr/bin/env bash"
 #+header: :dir algorithms/node
@@ -4708,6 +4712,8 @@ cat very_big_sum_results
 :level:    easy
 :max-score: 10
 :success-rate: 95.82%
+:score:    10
+:current-rank: 316515
 :END:
 Calculate the absolute difference of sums across the two diagonals of a square
 matrix.
@@ -4825,15 +4831,21 @@ function main() {
 #+name:diagonal-difference-function
 #+begin_src js +n :tangle algorithms/node/diagonal_difference.js
 /*
- * Complete the 'diagonalDifference' function below.
- *
- * The function is expected to return an INTEGER.
- * The function accepts 2D_INTEGER_ARRAY arr as parameter.
- */
+ ,* Complete the 'diagonalDifference' function below.
+ ,*
+ ,* The function is expected to return an INTEGER.
+ ,* The function accepts 2D_INTEGER_ARRAY arr as parameter.
+ ,*/
 
 function diagonalDifference(arr) {
-    // Write your code here
-    return 0;
+    const len = arr[0].length;
+    const diagonals = arr.reduce((acc,row,i) => {
+        acc[0] += row[i];
+        acc[1] += row[len - 1 - i];
+        return acc;
+    },[0,0]);
+
+    return Math.abs(diagonals[0] - diagonals[1]);
 }
 #+end_src
 
@@ -4854,7 +4866,6 @@ echo
 echo Result:
 cat diagonal_difference_results
 #+end_src
-
 * Ten Days of JavaScript
 ** Ten Days of JavaScript---Day 0 Greeting
 :PROPERTIES:
