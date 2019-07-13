@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-13 15:51
-#+macro:version Version 0.10.7
+#+date:2019-07-13 16:12
+#+macro:version Version 0.10.8
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -4871,6 +4871,9 @@ cat diagonal_difference_results
 :max-score: 10
 :level:    easy
 :success-rate: 98.14%
+:score:    10
+:current-rank: 306492
+:current-score: 266
 :END:
 Calculate the fraction of positive, negative, and zero values in an array.
 *** Plus Minus Problem Statement
@@ -4985,7 +4988,15 @@ function main() {
 #+begin_src js +n :tangle algorithms/node/plus-minus.js
 // Complete the plusMinus function below.
 function plusMinus(arr) {
-    console.log(`0\n0\n0`);
+    const totals = arr.reduce((a,e) => {
+        const d = e > 0 ? a[0]++ : e < 0 ? a[1]++ : a[2]++;
+        return a;
+    },[0,0,0]);
+
+    const n = arr.length;
+    console.log((totals[0] / n).toFixed(6));
+    console.log((totals[1] / n).toFixed(6));
+    console.log((totals[2] / n).toFixed(6));
 }
 #+end_src
 
