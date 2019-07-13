@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-11 09:54
-#+macro:version Version 0.10.6
+#+date:2019-07-13 15:51
+#+macro:version Version 0.10.7
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -4749,7 +4749,7 @@ Each of the next ~n~ lines describes a row, ~arr[i]~, and consists of ~n~
 space-separated integers ~arr[i][j]~.
 
 
-{{{subhading(Sample Input)}}}
+{{{subheading(Sample Input)}}}
 
 #+begin_example
 3
@@ -4866,6 +4866,141 @@ echo
 echo Result:
 cat diagonal_difference_results
 #+end_src
+** Plus Minus
+:PROPERTIES:
+:max-score: 10
+:level:    easy
+:success-rate: 98.14%
+:END:
+Calculate the fraction of positive, negative, and zero values in an array.
+*** Plus Minus Problem Statement
+Given an array of integers, calculate the fractions of its elements that are
+positive, negative, and are zeros.  Print the decimal value of each fraction on
+a new line.
+
+#+cindex:precision problem
+#+cindex:absolute error
+*Note*: This challenge introduces precision problems. The test cases are scaled
+ to six decimal places, though answers with absolute error of up to 10^-4 are
+ acceptable.
+
+For example, given the array ~arr = [1,1,0,-1,-1]~, there are elements, two
+positive, two negative and one zero.  Their ratios would be ~2/5 = 0.400000~,
+~2/5 = 0.400000~, and ~1/5 = 0.200000~.  It should be printed as:
+
+#+begin_example
+0.400000
+0.400000
+0.200000
+#+end_example
+
+{{{heading(Function Description)}}}
+
+Complete the ~plusMinus~ function in the editor below.  It should print out the
+ratio of positive, negative and zero items in the array, each on a separate
+line rounded to six decimals.
+
+~plusMinus~ has the following parameter(s):
+
+- ~arr~ :: an array of integers
+
+{{{heading(Input Format)}}}
+
+The first line contains an integer, ~n~, denoting the size of the array.
+
+The second line contains ~n~ space-separated integers describing an array of
+numbers ~arr[0]...arr[n-1]~.
+
+{{{heading(Constraints)}}}
+
+- 0 \lt n \le 100
+
+- \minus100 \le arr[i] \le 100
+
+
+{{{subheading(Sample Input)}}}
+
+#+begin_example
+6
+-4 3 -9 0 4 1
+#+end_example
+
+{{{heading(Output Format)}}}
+
+You must print the following 3 lines:
+
+1. A decimal representing of the fraction of positive numbers in the array
+   compared to its size.
+
+2. A decimal representing of the fraction of negative numbers in the array
+   compared to its size.
+
+3. A decimal representing of the fraction of zeros in the array compared to its
+   size.
+
+
+{{{subheading(Sample Output)}}}
+
+#+begin_example
+0.500000
+0.333333
+0.166667
+#+end_example
+
+{{{heading(Explanation)}}}
+
+There are 3 positive numbers, 2 negative numbers, and 1 zero in the array.
+
+The proportions of occurrence are:
+
+1. positive: 3/6 = 0.500000
+
+2. negative: 2/6 = 0.333333
+
+3. zeroes: 1/6 = 1.66667
+
+*** Plus Minus Node CL Processing
+#+name:plus-minus-node-cl-processing
+#+header: :mkdirp yes :noweb yes
+#+begin_src js -n :tangle algorithms/node/plus-minus.js
+<<node-process-command-line-arguments>>
+#+end_src
+
+*** Plus Minus Node Main Function
+#+name:plus-minus-node-main-function
+#+begin_src js +n :tangle algorithms/node/plus-minus.js
+function main() {
+    const n = parseInt(readLine(), 10);
+    console.log(`n: ${n}`);
+
+    const arr = readLine().split(' ').map(arrTemp => parseInt(arrTemp, 10));
+    console.log(`arr: ${arr}`);
+
+    plusMinus(arr);
+}
+#+end_src
+
+*** Plus Minus Node plusMinus Function
+#+name:plus-minus-node-function
+#+begin_src js +n :tangle algorithms/node/plus-minus.js
+// Complete the plusMinus function below.
+function plusMinus(arr) {
+    console.log(`0\n0\n0`);
+}
+#+end_src
+
+*** Plus Minus Node Test
+#+name:plus-minus-node-test
+#+header: :shebang "#!/usr/bin/env bash"
+#+header: :dir algorithms/node
+#+header: :results output :exports results
+#+begin_src js sh :tangle algorithms/node/plus-minus-test.sh
+echo Inputs:
+echo \
+'6
+-4 3 -9 0 4 1' | node plus-minus.js
+#+end_src
+
 * Ten Days of JavaScript
 ** Ten Days of JavaScript---Day 0 Greeting
 :PROPERTIES:
