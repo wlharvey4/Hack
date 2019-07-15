@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-13 16:12
-#+macro:version Version 0.10.8
+#+date:2019-07-15 00:12
+#+macro:version Version 0.10.9
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -5011,6 +5011,111 @@ echo \
 '6
 -4 3 -9 0 4 1' | node plus-minus.js
 #+end_src
+** Staircase
+:PROPERTIES:
+:level:    easy
+:max-score: 10
+:success-rate: 98.26%
+:END:
+Print a right-aligned staircase with ~n~ steps.
+*** Staircase Problem Statement
+Consider a staircase of size ~n~ = 4:
+
+#+begin_example
+   #
+  ##
+ ###
+####
+#+end_example
+
+Observe that its base and height are both equal to ~n~, and the image is drawn
+using =#= symbols and spaces.  The last line is not preceded by any spaces.
+
+Write a program that prints a staircase of size ~n~.
+
+{{{heading(Function Description)}}}
+
+Complete the staircase function in the editor below.  It should print a
+staircase as described above.
+
+~staircase~ has the following parameter(s):
+
+- ~n~ :: an integer
+
+
+{{{heading(Input Format)}}}
+
+A single integer, ~n~, denoting the size of the staircase.
+
+{{{subheading(Sample Input)}}}
+
+: 6
+
+{{{heading(Constraints)}}}
+
+- 0 \le ~n~ \le 100
+
+
+{{{heading(Output Format)}}}
+
+Print a staircase of size ~n~ using =#= symbols and spaces.
+
+*Note*: The last line must have 0 spaces in it.
+
+{{{subheading(Sanple Output)}}}
+
+#+begin_example
+     #
+    ##
+   ###
+  ####
+ #####
+######
+#+end_example
+
+{{{heading(Explanation)}}}
+
+The staircase is right-aligned, composed of =#= symbols and spaces, and has a
+height and width of ~n = 6~.
+
+*** Staircase Node CL Argument Processing
+#+name:staircase-node-cl-argument-processing
+#+header: :mkdirp yes :noweb yes
+#+begin_src js -n :tangle algorithms/node/staircase.js
+<<node-process-command-line-arguments>>
+#+end_src
+
+*** Staircase Main Function
+#name:staircase-main-function
+#+begin_src js +n :tangle algorithms/node/staircase.js
+function main() {
+    const n = parseInt(readLine(), 10);
+    console.log(`n: ${n}`);
+
+    staircase(n);
+}
+#+end_src
+
+*** Staircase staircase Function
+#+name:staircase-function
+#+begin_src js +n :tangle algorithms/node/staircase.js
+// Complete the staircase function below.
+function staircase(n) {
+    console.log('#');
+}
+#+end_src
+
+*** Staircase Test
+#+name:staircase-test
+#+header: :shebang "#!/usr/bin/env bash"
+#+header: :dir algorithms/node
+#+header: :results output :exports output
+#+begin_src sh :tangle algorithms/node/staircase.test.sh
+echo Inputs:
+echo \
+'6' | node staircase.js
+#+end_src
+
 
 * Ten Days of JavaScript
 ** Ten Days of JavaScript---Day 0 Greeting
