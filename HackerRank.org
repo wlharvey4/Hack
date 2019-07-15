@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-15 08:42
-#+macro:version Version 0.10.11
+#+date:2019-07-15 08:56
+#+macro:version Version 0.10.12
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -5130,6 +5130,9 @@ echo \
 :level:    easy
 :max-score: 10
 :success-rate: 92.93%
+:score:    10
+:current-rank: 287727
+:current-score: 286
 :END:
 Find the maximum and minimum values obtained by summing four of five integers.
 *** Mini-Max Sum Problem Statement
@@ -5221,7 +5224,14 @@ function main() {
 #+begin_src js +n :tangle algorithms/node/mini-max-sum.js
 // Complete the miniMaxSum function below.
 function miniMaxSum(arr) {
-    console.log('0 0');
+    const mini_max = arr.sort().reduce((a,e,i) => {
+        if (i < arr.length - 1)
+            a[0] += e;
+        if (i > 0)
+            a[1] += e;
+        return a;
+    },[0,0]);
+    console.log(`${mini_max[0]} ${mini_max[1]}`);
 }
 #+end_src
 *** Mini-Max Sum Test
@@ -5233,6 +5243,7 @@ function miniMaxSum(arr) {
 echo Inputs:
 echo '1 2 3 4 5' | node mini-max-sum.js
 #+end_src
+
 * Ten Days of JavaScript
 ** Ten Days of JavaScript---Day 0 Greeting
 :PROPERTIES:
