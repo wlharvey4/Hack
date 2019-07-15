@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-15 00:12
-#+macro:version Version 0.10.9
+#+date:2019-07-15 00:31
+#+macro:version Version 0.10.10
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -5016,6 +5016,9 @@ echo \
 :level:    easy
 :max-score: 10
 :success-rate: 98.26%
+:score:    10
+:current-rank: 297068
+:current-score: 276
 :END:
 Print a right-aligned staircase with ~n~ steps.
 *** Staircase Problem Statement
@@ -5101,9 +5104,16 @@ function main() {
 #+begin_src js +n :tangle algorithms/node/staircase.js
 // Complete the staircase function below.
 function staircase(n) {
-    console.log('#');
+    let staircase = '';
+    for (let i = 1; i <= n; i++) {
+        staircase += ' '.repeat(n - i).concat('#'.repeat(i));
+        if (i < n) staircase = staircase + '\n';
+    }
+    console.log(staircase);
 }
 #+end_src
+
+#+RESULTS: staircase-function
 
 *** Staircase Test
 #+name:staircase-test
