@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-17 09:12
-#+macro:version Version 0.10.15
+#+date:2019-07-17 10:03
+#+macro:version Version 0.10.16
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -5373,6 +5373,9 @@ cat birthday_cake_candles_results
 :level:    easy
 :max-score: 15
 :success-rate: 90.07%
+:score:    15
+:current-rank: 267004
+:current-score: 311
 :END:
 Convert time from an AM/PM format to a 24 hour format.
 
@@ -5445,10 +5448,26 @@ function main() {
  ,* Complete the timeConversion function below.
  ,*/
 function timeConversion(s) {
-    /*
-     ,* Write your code here.
-     ,*/
-    return '00:00:00';
+    /* input format: hh:mm:ssAM|PM */
+    const meridian = s.substring(8);
+    const time = s.substring(0,8);
+    let   hour = time.substring(0,2);
+    const minsec = time.substring(2);
+
+    if (hour === '12')
+        hour = '00';
+
+    let hr = Number.parseInt(hour);
+    if (meridian === 'PM')
+        hr += 12;
+
+    let milHour = hr.toString();
+    if (milHour.length === 1)
+        milHour = '0' + milHour;
+
+    const milTime = milHour + minsec;
+
+    return milTime;
 }
 #+end_src
 
@@ -5460,11 +5479,13 @@ function timeConversion(s) {
 export OUTPUT_PATH=time_conversion_results
 echo Input:
 echo \
-'07:05:45PM' | node time_conversion.js
+'12:00:00PM' | node time_conversion.js
 echo
 echo Results:
 cat time_conversion_results
 #+end_src
+
+
 
 * Ten Days of JavaScript
 ** Ten Days of JavaScript---Day 0 Greeting
