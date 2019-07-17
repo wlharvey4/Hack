@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-16 23:43
-#+macro:version Version 0.10.14
+#+date:2019-07-17 09:12
+#+macro:version Version 0.10.15
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -5367,6 +5367,103 @@ echo \
 echo
 echo Results:
 cat birthday_cake_candles_results
+#+end_src
+** Time Conversion
+:PROPERTIES:
+:level:    easy
+:max-score: 15
+:success-rate: 90.07%
+:END:
+Convert time from an AM/PM format to a 24 hour format.
+
+*** Time Conversion Problem Statement
+Given a time in 12-hour AM/PM format, convert it to military (24-hour) time.
+
+Note: Midnight is 12:00:00AM on a 12-hour clock, and 00:00:00 on a 24-hour
+clock. Noon is 12:00:00PM on a 12-hour clock, and 12:00:00 on a 24-hour clock.
+
+{{{heading(Function Description)}}}
+
+Complete the ~timeConversion~ function in the editor below.  It should return a
+new string representing the input time in 24 hour format.
+
+~timeConversion~ has the following parameter(s):
+
+- ~s~ :: a string representing time in 24 hour format
+
+
+{{{heading(Input Format)}}}
+
+A single string ~s~ containing a time in 12-hour clock format (i.e.:
+=hh:mm:ssAM= or =hh:mm:ssPM=), where 01 \le ~hh~ \le 12 and 00 \le ~mm~ \le 59.
+
+{{{subheading(Sample Input)}}}
+
+: 07:05:45PM
+
+{{{heading(Constraints)}}}
+
+- All input times are valid
+
+
+{{{heading(Output Format)}}}
+
+Convert and print the given time in 24-hour format, where 00 \le ~hh~ \le 23.
+
+{{{subheading(Sample Output)}}}
+
+: 19:05:45
+
+*** Time Conversion Node CL Processing
+#+name:time-conversion-node-cl-processing
+#+header: :mkdirp yes :noweb yes
+#+begin_src js -n :tangle algorithms/node/time_conversion.js
+<<node-process-command-line-arguments>>
+#+end_src
+
+*** Time Conversion Main Function
+#+name:time-conversion-main-function
+#+begin_src js +n :tangle algorithms/node/time_conversion.js
+function main() {
+    const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
+
+    const s = readLine();
+    console.log(`s: ${s}`);
+
+    let result = timeConversion(s);
+
+    ws.write(result + "\n");
+
+    ws.end();
+}
+#+end_src
+
+*** Time Conversion Function
+#+name:time-conversion-function
+#+begin_src js +n :tangle algorithms/node/time_conversion.js
+/*
+ ,* Complete the timeConversion function below.
+ ,*/
+function timeConversion(s) {
+    /*
+     ,* Write your code here.
+     ,*/
+    return '00:00:00';
+}
+#+end_src
+
+*** Time Conversion Test
+#+name:time-conversion-test
+#+header: :shebang "#!/usr/bin/env bash"
+#+header: :dir algorithms/node :results output :exports results
+#+begin_src sh :tangle algorithms/node/time_conversion.test.sh
+export OUTPUT_PATH=time_conversion_results
+echo Input:
+echo \
+'07:05:45PM' | node time_conversion.js
+echo
+echo Results:
+cat time_conversion_results
 #+end_src
 
 * Ten Days of JavaScript
