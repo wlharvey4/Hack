@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-18 07:34
-#+macro:version Version 0.11.1
+#+date:2019-07-18 08:08
+#+macro:version Version 0.11.2
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -5930,6 +5930,102 @@ echo \
 '3
 4.5 ' | node operators.js
 #+end_src
+*** Day 1---Functions
+:PROPERTIES:
+:level:    easy
+:max-score: 10
+:success-rate: 99.34%
+:score:    10
+:END:
+**** Day 1---Functions Problem Statement
+
+{{{heading(Objective)}}}
+
+Today, we're discussing JavaScript functions. Check out the attached tutorial
+for more details.
+
+{{{heading(Task)}}}
+
+Implement a function named ~factorial~ that has one parameter: an integer, ~n~.
+It must return the value of ~n!~ (i.e., ~n~ factorial).
+
+{{{heading(Input Format)}}}
+
+Locked stub code in the editor reads a single integer, ~n~, from stdin and
+passes it to a function named ~factorial~.
+
+{{{subheading(Sample Input)}}}
+
+: 4
+
+{{{heading(Constraints)}}}
+
+- 1 \le ~n~ \le 10
+
+
+{{{heading(Output Format)}}}
+
+The function must return the value of ~n!~.
+
+{{{subheading(Sample Output)}}}
+
+: 24
+
+{{{heading(Explanation)}}}
+
+We return the value of 4! = 4 \times 3 \times 2 \times 1 = 24.
+
+**** Ten Days of JavaScript Day 1 Functions Node CL Processing
+#+name:ten-days-of-javascript-day-1-node-cl-processing
+#+header: :mkdirp yes :noweb yes
+#+begin_src js -n :tangle ten-days-of-javascript/day-1/functions.js
+<<node-process-command-line-arguments>>
+#+end_src
+
+**** Ten Days of JavaScript Day 1 Functions Main Function
+#+name:ten-days-of-javascript-day-1-functions-main-function
+#+begin_src js +n :tangle ten-days-of-javascript/day-1/functions.js
+function main() {
+    const n = +(readLine());
+    console.log(`n: ${n}`);
+
+    console.log('Result:')
+
+    console.log(`${n}!:`);
+    console.log(factorial(n));
+}
+#+end_src
+
+**** Ten Days of JavaScript Day 1 Functions factorial Function
+#+name:ten-days-of-javascript-day-1-factorial-function
+#+begin_src js +n :tangle ten-days-of-javascript/day-1/functions.js
+/*
+ ,* Create the function factorial here
+ ,*/
+function factorial(n) {
+    if (n === 1)
+        return 1;
+    else
+        return n * factorial(n - 1);
+}
+#+end_src
+
+**** Ten Days of JavaScript Day 1 Functions Test
+#+name:ten-days-of-javascript-day-1-functions-test
+#+header: :shebang "#!/usr/bin/env bash"
+#+header: :dir ten-days-of-javascript/day-1
+#+header: :results output :exports results
+#+begin_src sh :tangle ten-days-of-javascript/day-1/functions.test.sh
+echo Inputs:
+echo 4 | node functions.js
+#+end_src
+
+#+RESULTS: ten-days-of-javascript-day-1-functions-test
+: Inputs:
+: n: 4
+: Result:
+: 4!:
+: 24
 
 * Concept Index
 :PROPERTIES:
