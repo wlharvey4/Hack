@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-18 08:08
-#+macro:version Version 0.11.2
+#+date:2019-07-18 10:34
+#+macro:version Version 0.11.3
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -6026,6 +6026,126 @@ echo 4 | node functions.js
 : Result:
 : 4!:
 : 24
+*** Day 1---Let and Const
+:PROPERTIES:
+:level:    easy
+:max-score: 10
+:success-rate: 98.69%
+:score:    10
+:END:
+**** Ten Days of JavaScript Day 1 Let and Const Problem Statement
+
+{{{heading(Objective)}}}
+
+In this challenge, we practice declaring variables using the ~let~ and ~const~
+keywords.  Check out the attached tutorial for more details.
+
+{{{heading(Task)}}}
+
+1. Declare a constant variable, =PI=, and assign it the value ~Math.PI~.  You
+   will not pass this challenge unless the variable is declared as a constant
+   and named =PI= (uppercase).
+
+2. Read a number, ~r~, denoting the radius of a circle from stdin.
+
+3. Use =PI= and ~r~ to calculate the ~area~ and ~perimeter~ of a circle having
+   radius ~r~.
+
+4. Print ~area~ as the first line of output and print ~perimeter~ as the second
+   line of output.
+
+
+{{{heading(Input Format)}}}
+
+A single integer, ~r~, denoting the radius of a circle.
+
+{{{subheading(Sample Input)}}}
+
+: 2.6
+
+{{{heading(Constraints)}}}
+
+- 0 \le ~r~ \le 100
+
+- ~r~  is a floating-point number scaled to at most 3 decimal places.
+
+
+{{{heading(Output Format)}}}
+
+Print the following two lines:
+
+1. On the first line, print the ~area~ of the circle having radius ~r~.
+
+2. On the second line, print the ~perimeter~ of the circle having radius ~r~.
+
+
+{{{subheading(Sample Output)}}}
+
+#+begin_example
+21.237166338267002
+16.336281798666924
+#+end_example
+
+{{{heading(Explanation)}}}
+
+Given the radius ~r~ = 2.6, we calculate the following:
+
+- ~area = \pi \times r^2 = 21.237166338267002~
+
+- ~perimeter = 2 \times \pi \times r = 16.336281798666924~
+
+
+We then print ~area~ as our first line of output and ~perimeter~ as our second
+line of output.
+
+**** Ten Days of JavaScript Day 1 Let and Const Node CL Processing
+#+name:ten-days-of-javascript-day-1-let-and-const-node-cl-processing
+#+header: :mkdirp yes :noweb yes
+#+begin_src js -n :tangle ten-days-of-javascript/day-1/let_and_const.js
+<<node-process-command-line-arguments>>
+#+end_src
+
+**** Ten Days of JavaScript Day 1 Let and Const Main Function
+#+name:ten-days-of-javascript-day-1-let-and-const-main-function
+#+begin_src js +n :tangle ten-days-of-javascript/day-1/let_and_const.js
+function main() {
+    // Write your code here. Read input using 'readLine()' and print output using 'console.log()'.
+
+    const PI = Math.PI;
+
+    const r = readLine();
+    console.log(`radius: ${r}`);
+
+    // Print the area of the circle:
+
+    const area = PI * r ** 2;
+    console.log(`area: ${area}`);
+
+    // Print the perimeter of the circle:
+
+    const perimeter = 2 * PI * r;
+    console.log(`perimeter: ${perimeter}`);
+
+    try {
+        // Attempt to redefine the value of constant variable PI
+        PI = 0;
+        // Attempt to print the value of PI
+        console.log(PI);
+    } catch(error) {
+        console.error("You correctly declared 'PI' as a constant.");
+    }
+}
+#+end_src
+
+**** Ten Days of JavaScript Day 1 Let and Const Test
+#+name:ten-days-of-javascript-day-1-let-and-const-test
+#+header: :shebang "#!/usr/bin/env bash"
+#+header: :dir ten-days-of-javascript/day-1
+#+header: :results output :exports results
+#+begin_src sh :tangle ten-days-of-javascript/day-1/let_and_const.test.sh
+echo Input:
+echo 2.6 | node let_and_const.js
+#+end_src
 
 * Concept Index
 :PROPERTIES:
