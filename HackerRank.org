@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-19 11:01
-#+macro:version Version 0.11.4
+#+date:2019-07-20 09:43
+#+macro:version Version 0.11.5
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -4255,6 +4255,169 @@ The reversed doubly linked list is: 4 \leftrightarrow 3 \leftrightarrow 2 \leftr
   echo Results:
   cat reverse-double-llist-results
 #+end_src
+** Trees
+*** Data Structures---Trees---Python Classes
+**** Data Structures---Tress---Python Node Class
+#+name:python-trees-node-class
+#+begin_src python
+class Node:
+    def __init__(self, info):
+        self.info = info
+        self.left = None
+        self.right = None
+        self.level = None
+
+    def __str__(self):
+        return str(self.info)
+
+#+end_src
+
+**** Data Structures---Trees---Python BinarySearchTree Class
+#+name:python-trees-binarysearchtree-class
+#+begin_src python
+class BinarySearchTree:
+    def __init__(self):
+        self.root = None
+
+    def create(self, val):
+        if self.root == None:
+            self.root = Node(val)
+        else:
+            current = self.root
+
+            while True:
+                if val < current.info:
+                    if current.left:
+                        current = current.left
+                    else:
+                        current.left = Node(val)
+                        break
+                elif val > current.info:
+                    if current.right:
+                        current = current.right
+                    else:
+                        current.right = Node(val)
+                        break
+                else:
+                    break
+
+#+end_src
+
+*** Data Structures---Trees---Preorder Traversal
+:PROPERTIES:
+:level:    easy
+:max-score: 10
+:success-rate: 98.38%
+:score:    10
+:current-rank: 260187
+:END:
+**** Preorder Traversal Problem Statement
+Complete the ~preOrder~ function in your editor below, which has 1 parameter: a
+pointer to the root of a binary tree. It must print the values in the tree's
+preorder traversal as a single line of space-separated values.
+
+{{{heading{Input Format)}}}
+
+Our hidden tester code passes the root node of a binary tree to your ~preOrder~
+function.
+
+{{{subheading(Sample Input)}}}
+
+#+begin_example
+     1
+      \
+       2
+        \
+         5
+        /  \
+       3    6
+        \
+         4
+#+end_example
+
+{{{heading(Constraints)}}}
+
+1 \le Nodes in the tree \le 500
+
+{{{heading(Output Format)}}}
+
+Print the tree's preorder traversal as a single line of space-separated values.
+
+{{{subheading(Sample Output)}}}
+
+: 1 2 5 3 4 6
+
+**** Preorder Traversal Python Classes
+#+name:python-trees-preorder-traversal-node-binarysearchtree
+#+header: :mkdirp yes :noweb yes
+#+begin_src python -n :tangle data-structures/trees/python/preorder_traversal.py
+<<python-trees-node-class>>
+<<python-trees-binarysearchtree-class>>
+#+end_src
+
+**** Preorder Traversal Python Preorder
+#+name:python-trees-preorder-traversal-preorder
+#+begin_src python +n :tangle data-structures/trees/python/preorder_traversal.py
+"""
+Node is defined as
+self.left (the left child of the node)
+self.right (the right child of the node)
+self.info (the value of the node)
+"""
+def preOrder(root):
+    #Write your code here
+    s = ""
+
+    def recPreOrder(root):
+        nonlocal s
+
+        if root == None:
+            return
+
+        s += f"{root.info} "
+        recPreOrder(root.left)
+        recPreOrder(root.right)
+        return
+
+    recPreOrder(root)
+    print(s)
+#+end_src
+
+**** Preorder Traversal Python Main
+#+name:python-trees-preorder-traversal-main
+#+begin_src python +n :tangle data-structures/trees/python/preorder_traversal.py
+tree = BinarySearchTree()
+t = int(input())
+print("Inputs:")
+print(f"t: {t}")
+
+arr = list(map(int, input().split()))
+print(f"arr: {repr(arr)}")
+print("Results:")
+
+for i in range(t):
+    tree.create(arr[i])
+
+preOrder(tree.root)
+#+end_src
+
+**** Preorder Traversal Python Test
+#+name:python-trees-preorder-traversal-test
+#+header: :shebang "#!/usr/bin/env bash"
+#+header: :dir data-structures/trees/python
+#+header: :results output :exports results
+#+begin_src sh :tangle data-structures/trees/python/preorder_traversal.test.sh
+echo \
+'6
+1 2 5 3 6 4' | python3 preorder_traversal.py
+#+end_src
+
+#+RESULTS: python-trees-preorder-traversal-test
+: Inputs:
+: t: 6
+: arr: [1, 2, 5, 3, 6, 4]
+: Results:
+: 1 2 5 3 4 6 
 
 * Algorithms
 ** Solve First
