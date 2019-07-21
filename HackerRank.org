@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-21 10:54
-#+macro:version Version 0.11.10
+#+date:2019-07-21 10:59
+#+macro:version Version 0.11.11
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -6920,6 +6920,7 @@ echo \
 :level:    easy
 :max-score: 15
 :success-rate: 99.33%
+:score:    15
 :END:
 
 **** Ten Days of JavaScript---Day 3---Throw Problem Statement
@@ -7085,7 +7086,9 @@ function main() {
  ,* If 'a' is negative, throw an Error with the message "Negative Error"
  ,*/
 function isPositive(a) {
-    return 'YES';
+    if (a > 0) return 'YES';
+    if (a === 0) throw new Error("Zero Error");
+    throw new Error("Negative Error");
 }
 #+end_src
 
