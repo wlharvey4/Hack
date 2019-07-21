@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-21 10:59
-#+macro:version Version 0.11.11
+#+date:2019-07-21 11:19
+#+macro:version Version 0.11.12
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -6628,13 +6628,13 @@ Observe the following:
 **** Ten Days of JavaScript---Day 2---Loops Node CL Arguments
 #+name:ten-days-of-javascript-day-2-loops-node-cl-arguments
 #+header: :mkdirp yes :noweb yes
-#+begin_src js -n :tangle ten-days-of-javascript/day-2/node/loops.js
+#+begin_src js -n :tangle ten-days-of-javascript/day-2/loops.js
 <<node-process-command-line-arguments>>
 #+end_src
 
 **** Ten Days of JavaScript---Day 2---Loops Main Function
 #+name:ten-days-of-javascript-day-2-loops-main-function
-#+begin_src js +n :tangle ten-days-of-javascript/day-2/node/loops.js
+#+begin_src js +n :tangle ten-days-of-javascript/day-2/loops.js
 function main() {
     const s = readLine();
     console.log(`s: ${s}`);
@@ -6646,7 +6646,7 @@ function main() {
 
 **** Ten Days of JavaScript---Day 2---Loops Vowels and Consonants
 #+name:ten-days-of-javascript-day-2-loops-vowelsAndConsonsants
-#+begin_src js +n :tangle ten-days-of-javascript/day-2/node/loops.js
+#+begin_src js +n :tangle ten-days-of-javascript/day-2/loops.js
 /*
  ,* Complete the vowelsAndConsonants function.
  ,* Print your output using 'console.log()'.
@@ -6670,9 +6670,9 @@ function vowelsAndConsonants(s) {
 **** Ten Days of JavaScript---Day 2---Loops Test
 #+name:ten-days-of-javascript-day-2-loops-test
 #+header: :shebang "#!/usr/bin/env bash"
-#+header: :dir ten-days-of-javascript/day-2/node :mkdirp yes
+#+header: :dir ten-days-of-javascript/day-2 :mkdirp yes
 #+header: :results output :exports results
-#+begin_src sh :tangle ten-days-of-javascript/day-2/node/loops.test.sh
+#+begin_src sh :tangle ten-days-of-javascript/day-2/loops.test.sh
 echo 'Inputs:'
 echo \
 'javascriptloops' | node loops.js
@@ -6740,13 +6740,13 @@ array is 6 and the second largest value is 5.  Thus, we return 5 as our answer.
 **** Ten Days of JavaScript---Day 3---Arrays Node CL Arguments
 #+name:ten-days-of-javascript-day-3-arrays-node-cl-arguments
 #+header: :mkdirp yes :noweb yes
-#+begin_src js -n :tangle ten-days-of-javascript/day-3/arrays/node/arrays.js
+#+begin_src js -n :tangle ten-days-of-javascript/day-3/arrays.js
 <<node-process-command-line-arguments>>
 #+end_src
 
 **** Ten Days of JavaScript---Day 3---Arrays Main Function
 #+name:ten-days-of-javascript-day-3-arrays-main-function
-#+begin_src js +n :tangle ten-days-of-javascript/day-3/arrays/node/arrays.js
+#+begin_src js +n :tangle ten-days-of-javascript/day-3/arrays.js
 function main() {
     const n = +(readLine());
     console.log(`n: ${n}`);
@@ -6760,7 +6760,7 @@ function main() {
 
 **** Ten Days of JavaScript---Day 3---Arrays getSecondLargest Function
 #+name:ten-days-of-javascript-day-3-arrays-getSecondLargest-function
-#+begin_src js +n :tangle ten-days-of-javascript/day-3/arrays/node/arrays.js
+#+begin_src js +n :tangle ten-days-of-javascript/day-3/arrays.js
 /**
 ,*   Return the second largest number in the array.
 ,*   @param {Number[]} nums - An array of numbers.
@@ -6776,9 +6776,9 @@ function getSecondLargest(nums) {
 **** Ten Days of JavaScript---Day 3---Arrays Test
 #+name:ten-days-of-javascript-day-3-arrays-test
 #+header: :shebang "#!/usr/bin/env bash"
-#+header: :dir ten-days-of-javascript/day-3/arrays/node
+#+header: :dir ten-days-of-javascript/day-3
 #+header: :results output :exports results
-#+begin_src sh :tangle ten-days-of-javascript/day-3/arrays/node/arrays.test.sh
+#+begin_src sh :tangle ten-days-of-javascript/day-3/arrays.test.sh
 echo Inputs:
 echo \
 '5
