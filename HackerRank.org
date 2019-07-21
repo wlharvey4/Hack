@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-21 10:15
-#+macro:version Version 0.11.8
+#+date:2019-07-21 10:23
+#+macro:version Version 0.11.9
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -6793,12 +6793,11 @@ echo \
 : 4
 
 *** Ten Days of JavaScript---Day 3---Try-Catch-Finally
-*** Ten Days of JavaScript---Day 3---Throw
-*** Ten Days of JavaScript---Day 3---Try-Catch-Finally
 :PROPERTIES:
 :max-score: 15
 :level:    easy
 :success-rate: 98.86%
+:score:    15
 :END:
 **** Ten Days of JavaScript---Day 3---Try-Catch-Finally Problem Statement
 
@@ -6878,7 +6877,7 @@ reversed, is ~Number(1234)~.
 function main() {
     const s = eval(readLine());
     console.log(`s: ${s}`);
-    console.log('\nResults:');
+    console.log('\nResult:');
 
     reverseString(s);
 }
@@ -6892,7 +6891,12 @@ function main() {
  ,* Use console.log() to print to stdout.
  ,*/
 function reverseString(s) {
-    return s;
+    try {
+        s = s.split('').reverse().join('');
+    } catch(err) {
+        console.log(err.message);
+    }
+    console.log(s);
 }
 #+end_src
 
@@ -6904,12 +6908,14 @@ function reverseString(s) {
 #+begin_src sh :tangle ten-days-of-javascript/day-3/try_catch.test.sh
 echo Input 1:
 echo \
-'1234' | node try_catch.js
+'"1234"' | node try_catch.js
 echo
 echo Input 2:
 echo \
 'Number(1234)' | node try_catch.js
 #+end_src
+
+*** Ten Days of JavaScript---Day 3---Throw
 
 * Concept Index
 :PROPERTIES:
