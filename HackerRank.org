@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-21 10:23
-#+macro:version Version 0.11.9
+#+date:2019-07-21 10:54
+#+macro:version Version 0.11.10
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -6916,7 +6916,208 @@ echo \
 #+end_src
 
 *** Ten Days of JavaScript---Day 3---Throw
+:PROPERTIES:
+:level:    easy
+:max-score: 15
+:success-rate: 99.33%
+:END:
 
+**** Ten Days of JavaScript---Day 3---Throw Problem Statement
+
+{{{heading(Objective)}}}
+
+In this challenge, we practice using ~throw~ and ~catch~ statements to work
+with custom error messages.
+
+{{{heading(Task)}}}
+
+Complete the ~isPositive~ function below.  It has one integer parameter, ~a~.
+If the value of ~a~ is positive, it must return the string =YES=.  Otherwise,
+it must throw an =Error= according to the following rules:
+
+- If ~a~ is 0, throw an =Error= with ~message = Zero Error~.
+
+- If ~a~ is negative, throw an =Error= with ~message = Negative Error~.
+
+
+{{{heading(Input Format)}}}
+
+Locked stub code in the editor reads the following input from stdin and passes
+each value of ~a~ to the function as an argument:
+
+The first line is an integer, ~n~, denoting the number of times the function
+will be called with some ~a~.
+
+Each line ~i~ of the ~n~ subsequent lines contains an integer denoting some
+~a~.
+
+{{{subheading(Sample Input 0)}}}
+
+#+begin_example
+3
+1
+2
+3
+#+end_example
+
+{{{subheading(Sample Input 1)}}}
+
+#+begin_example
+3
+2
+0
+6
+#+end_example
+
+{{{subheading(Sample Input 2)}}}
+
+#+begin_example
+2
+-1
+20
+#+end_example
+
+{{{heading(Constraints)}}}
+
+- 1 \le ~n~ \le 5
+
+- -100 \le ~a~ \le 100
+
+
+{{{heading(Output Format)}}}
+
+If the value of ~a~ is positive, the function must return the string =YES=.
+Otherwise, it must throw an =Error= according to the following rules:
+
+- If ~a~ is 0, throw an =Error= with ~message = Zero Error~.
+
+- If ~a~ is negative, throw an =Error= with ~message = Negative Error~.
+
+
+{{{subheading(Sample Output 0)}}}
+
+#+begin_example
+YES
+YES
+YES
+#+end_example
+
+{{{subheading(Sample Output 1)}}}
+
+#+begin_example
+YES
+Zero Error
+YES
+#+end_example
+
+{{{subheading(Sample Output 2)}}}
+
+#+begin_example
+Negative Error
+YES
+#+end_example
+
+{{{heading(Explanation 0)}}}
+
+Each of the given values is positive, so we return =YES= each time.  The value
+returned during each function call is printed on a new line by locked stub code
+in the editor.
+
+{{{heading(Explanation 1)}}}
+
+Locked stub code in the editor makes the following three calls to the
+~isPositive~ function:
+
+1. ~isPositive(2)~: This returns =YES= because 2 is positive.
+
+2. ~isPositive(0)~: Because ~a = 0~, we throw an =Error= with ~messasge = Zero
+   Error~.  This is caught by the locked stub code and the value of its
+   ~message~ is printed.
+
+3. ~isPositive(6)~: This returns =YES= because 6 is positive.
+
+
+{{{heading(Explanation 2)}}}
+
+Locked stub code in the editor makes the following two calls to the ~isPositive~
+function:
+
+1. ~isPositive(-1)~: Because ~a = -1~, we throw an =Error= with ~message =
+   Negative Error~.  This is caught by the locked stub code and the value of
+   its ~message~ is printed.
+
+2. ~isPositive(20): This returns =YES= because 20 is positive.
+
+**** Ten Days of JavaScript---Day 3---Throw Node CL Processing
+#+name:ten-days-of-javascript-day-3-throw-node-cl-processing
+#+header: :mkdirp yes :noweb yes
+#+begin_src js -n :tangle ten-days-of-javascript/day-3/throw.js
+<<node-process-command-line-arguments>>
+#+end_src
+
+**** Ten Days of JavaScript---Day 3---Throw Main Function
+#+name:ten-days-of-javascript-day-3-throw-main-function
+#+begin_src js +n :tangle ten-days-of-javascript/day-3/throw.js
+function main() {
+    const n = +(readLine());
+    console.log(`n: ${n}`);
+
+    for (let i = 0; i < n; i++) {
+        const a = +(readLine());
+        console.log(`a: ${a}`);
+        
+        try {
+            console.log(isPositive(a));
+        } catch (e) {
+            console.log(e.message);
+        }
+    }
+}
+#+end_src
+
+**** Ten Days of JavaScript---Day 3---Throw isPositive Function
+#+name:ten-days-of-javascript-day-3-throw-isPositive-function
+#+begin_src js +n :tangle ten-days-of-javascript/day-3/throw.js
+/*
+ ,* Complete the isPositive function.
+ ,* If 'a' is positive, return "YES".
+ ,* If 'a' is 0, throw an Error with the message "Zero Error"
+ ,* If 'a' is negative, throw an Error with the message "Negative Error"
+ ,*/
+function isPositive(a) {
+    return 'YES';
+}
+#+end_src
+
+**** Ten Days of JavaScript---Day 3---Throw Test
+#+name:ten-days-of-javascript-day-3-throw-test
+#+header: :shebang "#!/usr/bin/env bash"
+#+header: :dir ten-days-of-javascript/day-3
+#+header: :results output :exports results
+#+begin_src sh +n :tangle ten-days-of-javascript/day-3/throw.test.sh
+echo Inputs:
+echo \
+'3
+1
+2
+3' | node throw.js
+echo
+echo Inputs:
+
+echo \
+'3
+2
+0
+6' | node throw.js
+echo
+
+echo Inputs
+echo \
+'2
+-1
+20' | node throw.js
+#+end_src
+x
 * Concept Index
 :PROPERTIES:
 :index:    cp
