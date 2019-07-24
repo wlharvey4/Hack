@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-23 23:31
-#+macro:version Version 0.11.13
+#+date:2019-07-24 00:11
+#+macro:version Version 0.11.14
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -4520,7 +4520,108 @@ echo \
 '6
 1 2 5 3 6 4' | python3 inorder_traversal.py
 #+end_src
+*** Data Structures---Trees---Postorder Traversal
+:PROPERTIES:
+:level:    easy
+:max-score: 10
+:success-rate: 99.50%
+:score:    10
+:current-rank: 246619
+:current-score]: 341
+:END:
+**** Data Structures---Trees---Postorder Traversal Problem Statement
+Complete the ~postOrder~ function in your editor below, which has 1 parameter:
+a pointer to the root of a binary tree.  It must print the values in the tree's
+postorder traversal as a single line of space-separated values.
 
+{{{heading(Input Format)}}}
+
+Our hidden tester code passes the root node of a binary tree to your
+~postOrder~ function.
+
+{{{subheading(Sample Input)}}}
+
+#+begin_example
+     1
+      \
+       2
+        \
+         5
+        /  \
+       3    6
+        \
+         4
+#+end_example
+
+{{{heading(Constraints)}}}
+
+1 \le Nodes in the tree \le 500
+
+{{{heading(Output Format)}}}
+
+Print the tree's postorder traversal as a single line of space-separated
+values.
+
+{{{subheading(Sample Output)}}}
+
+: 4 3 6 5 2 1
+
+**** Data Structures---Tress---Postorder Traversal Python Node and Binarysearchtree Classes
+#+name:data-structures-trees-postorder-traveral-python-node-binarysearchtree-classes
+#+header: :mkdirp yes :noweb yes
+#+begin_src python -n :tangle data-structures/trees/python/postorder_traversal.py
+<<python-trees-node-class>>
+<<python-trees-binarysearchtree-class>>
+#+end_src
+
+**** Data Structures---Trees---Postorder Traversal Python postOrder Function
+#+name:data-structures-trees-postorder-traversal-python-postOrder-function
+#+begin_src python +n :tangle data-structures/trees/python/postorder_traversal.py
+"""
+Node is defined as
+self.left (the left child of the node)
+self.right (the right child of the node)
+self.info (the value of the node)
+"""
+def postOrder(root):
+    #Write your code here
+    if root == None:
+        return
+
+    postOrder(root.left)
+    postOrder(root.right)
+    print(f"{root.info} ", end="")
+#+end_src
+
+**** Data Structures---Trees---Postorder Traversal Python Main Function
+#+name:data-structures-trees-postorder-traversal-python-main-function
+#+begin_src python +n :tangle data-structures/trees/python/postorder_traversal.py
+tree = BinarySearchTree()
+t = int(input())
+print(f"t: {t}")
+
+arr = list(map(int, input().split()))
+print(f"arr: {arr}")
+
+print("Results:")
+
+for i in range(t):
+    tree.create(arr[i])
+
+postOrder(tree.root)
+#+end_src
+
+**** Data Structures---Trees---Postorder Traversal Test
+#+name:data-structures-trees-postorder-traversal-test
+#+header: :shebang "#!/usr/bin/env bash"
+#+header: :dir data-structures/trees/python
+#+header: :results output :exports results
+#+begin_src sh :tangle data-structures/trees/python/postorder_traversal.test.sh
+echo Inputs:
+echo \
+'6
+1 2 5 3 6 4' | python3 postorder_traversal.py
+#+end_src
 * Algorithms
 ** Solve First
 :PROPERTIES:
