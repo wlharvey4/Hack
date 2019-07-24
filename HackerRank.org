@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-21 11:19
-#+macro:version Version 0.11.12
+#+date:2019-07-23 23:31
+#+macro:version Version 0.11.13
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -4418,6 +4418,108 @@ echo \
 : arr: [1, 2, 5, 3, 6, 4]
 : Results:
 : 1 2 5 3 4 6 
+
+*** Data Structures---Trees---Inorder Traversal
+:PROPERTIES:
+:level:    easy
+:max-score: 10
+:success-rate: 99.60%
+:score:    10
+:current-rank: 253590
+:current-score: 331
+:END:
+**** Data Structures---Trees---Inorder Traversal Problem Statement
+Complete the ~inOrder~ function in your editor below, which has 1 parameter: a
+pointer to the root of a binary tree. It must print the values in the tree's
+inorder traversal as a single line of space-separated values.
+
+{{{heading(Input Format)}}}
+
+Our hidden tester code passes the root node of a binary tree to your ~inOrder~
+function.
+
+{{{subheading(Sample Input)}}}
+
+#+begin_example
+     1
+      \
+       2
+        \
+         5
+        /  \
+       3    6
+        \
+         4
+#+end_example
+
+{{{heading(Constraints)}}}
+
+1 \le Nodes in the tree \le 500
+
+{{{heading(Output Format)}}}
+
+Print the tree's inorder traversal as a single line of space-separated values.
+
+{{{subheading(Sample Output)}}}
+
+: 1 2 3 4 5 6
+
+**** Data Structures---Trees---Inorder Traversal Node and Tree Classes
+#+name:python-trees-inorder-traversal-node-binarysearchtree
+#+header: :mkdirp yes :noweb  yes
+#+begin_src python -n :tangle data-structures/trees/python/inorder_traversal.py
+<<python-trees-node-class>>
+<<python-trees-binarysearchtree-class>>
+#+end_src
+
+**** Data Structures---Trees---Inorder Traversal inOrder Function
+#+name:data-structures-trees-inorder-traversal-inOrder-function
+#+begin_src python +n :tangle data-structures/trees/python/inorder_traversal.py
+"""
+Node is defined as
+self.left (the left child of the node)
+self.right (the right child of the node)
+self.info (the value of the node)
+"""
+def inOrder(root):
+    #Write your code here
+    if root == None:
+        return
+
+    inOrder(root.left)
+    print(f"{root.info} ", end="")
+    inOrder(root.right)
+#+end_src
+
+**** Data Structures---Trees---Inorder Traversal Main
+#+name:data-structures-trees-inorder-traversal-main
+#+begin_src python +n :tangle data-structures/trees/python/inorder_traversal.py
+tree = BinarySearchTree()
+t = int(input())
+print(f"t: {t}")
+
+arr = list(map(int, input().split()))
+print(f"arr: {arr}")
+
+for i in range(t):
+    tree.create(arr[i])
+
+print("Results:")
+
+inOrder(tree.root)
+#+end_src
+
+**** Data Structures---Trees---Inorder Traversal Test
+#+name:data-structures-trees-inorder-traversal-test
+#+header: :shebang "#!/usr/bin/env bash"
+#+header: :dir data-structures/trees/python
+#+header: :results output :exports results
+#+begin_src sh :tangle data-structures/trees/python/inorder_traversal.test.sh
+echo Inputs:
+echo \
+'6
+1 2 5 3 6 4' | python3 inorder_traversal.py
+#+end_src
 
 * Algorithms
 ** Solve First
