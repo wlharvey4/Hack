@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-24 09:16
-#+macro:version Version 0.11.15
+#+date:2019-07-24 11:24
+#+macro:version Version 0.11.16
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -4627,6 +4627,8 @@ echo \
 :max-score: 10
 :level:    easy
 :success-rate: 96.47%
+:score:    10
+:current-rank: 240226
 :END:
 Given a binary tree, print its height.
 **** DS---Trees---Height of a Binary Tree Problem Statement
@@ -4709,8 +4711,29 @@ class Node:
 
        // this is a node of the tree , which contains info as data, left , right
 '''
+
 def height(root):
-    return 3
+    m = 0
+    # print(f"info: {root.info}")
+
+    def rec(h, r):
+        nonlocal m
+        if r == None:
+            return
+
+        # print(f"info: {r.info}")
+
+        h += 1
+        if h > m:
+            m = h
+        # print(f"h: {h} m: {m}")
+        rec(h, r.left)
+        rec(h, r.right)
+        return
+
+    rec(0, root.left)
+    rec(0, root.right)
+    return m
 #+end_src
 
 **** DS---Trees---Height of a Binary Tree Python Main Script
@@ -4739,7 +4762,7 @@ print(height(tree.root))
 echo Inputs:
 echo \
 '7
-3 2 5 1 4 6 2' | python3 height_of_binary_tree.py
+3 5 2 1 4 6 7' | python3 height_of_binary_tree.py
 #+end_src
 
 * Algorithms
