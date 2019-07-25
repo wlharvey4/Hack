@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-24 11:24
-#+macro:version Version 0.11.16
+#+date:2019-07-25 16:56
+#+macro:version Version 0.11.17
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -4763,6 +4763,108 @@ echo Inputs:
 echo \
 '7
 3 5 2 1 4 6 7' | python3 height_of_binary_tree.py
+#+end_src
+*** Data Structures---Trees---Top View
+:PROPERTIES:
+:level:    easy
+:max-score: 20
+:success-rate: 72.11%
+:END:
+Given a binary tree, print its top view.
+**** Data Structures---Trees---Top View Problem Statement
+You are given a pointer to the root of a binary tree.  Print the top view of the
+binary tree.
+
+#+cindex:top view
+Top view means when you look at the tree from the top the nodes, what you will
+see will be called the /top view/ of the tree.  See the example below.
+
+You only have to complete the function.
+
+For example:
+
+#+caption: Top View : 1 -> 2 -> 5 -> 6
+#+name:top-view-example
+#+begin_example
+   1
+    \
+     2
+      \
+       5
+      /  \
+     3    6
+      \
+       4
+#+end_example
+
+{{{heading(Input Format)}}}
+
+You are given a function,
+
+#+begin_src python
+def topView(root):
+
+#+end_src
+
+{{{heading(Constraints)}}}
+
+1 \le nodes in tree \le 500
+
+{{{heading(Output Format)}}}
+
+Print the values on a single line separated by space.
+
+{{{heading(Sample Output)}}}
+
+: 1 2 5 6
+
+{{{heading(Explanation)}}}
+
+From the top only nodes 1,2,5,6 will be visible.
+
+**** Data Structures---Trees---Top View Python Classes
+#+name:data-structures-trees-top-view-python-classes
+#+header: :mkdirp yes :noweb yes
+#+begin_src python -n :tangle data-structures/trees/python/top_view.py
+<<python-trees-node-class>>
+<<python-trees-binarysearchtree-class>>
+#+end_src
+
+**** Data Structures---Trees---Top View---Python topView functin
+#+name:data-structures-trees-top-view-python-topView-function
+#+begin_src python +n :tangle data-structures/trees/python/top_view.py
+  def topView(root):
+      print(1);
+#+end_src
+
+**** Data Structures---Trees---Top View---Python Main Script
+#+name:data-structures-trees-top-view-python-main-script
+#+begin_src python +n :tangle data-structures/trees/python/top_view.py
+tree = BinarySearchTree()
+t = int(input())
+print(f"t: {t}")
+
+arr = list(map(int, input().split()))
+print(f"arr: {arr}")
+
+print("Results:")
+
+for i in range(t):
+    tree.create(arr[i])
+
+topView(tree.root)
+#+end_src
+
+**** Data Structures---Trees---Top View---Python Test
+#+name:data-structures-trees-top-view-python-test
+#+header: :shebang "#!/usr/bin/env bash"
+#+header: :dir data-structures/trees/python
+#+header: :results output :exports results
+#+begin_src sh :tangle data-structures/trees/python/top_view.test.sh
+echo Inputs:
+echo \
+'6
+1 2 5 3 4 6' | python3 top_view.py
 #+end_src
 
 * Algorithms
