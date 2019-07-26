@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-25 16:56
-#+macro:version Version 0.11.17
+#+date:2019-07-26 11:46
+#+macro:version Version 0.11.18
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -4769,6 +4769,9 @@ echo \
 :level:    easy
 :max-score: 20
 :success-rate: 72.11%
+:score:    20
+:current-rank: 228404
+:current-score: 371
 :END:
 Given a binary tree, print its top view.
 **** Data Structures---Trees---Top View Problem Statement
@@ -4833,8 +4836,39 @@ From the top only nodes 1,2,5,6 will be visible.
 **** Data Structures---Trees---Top View---Python topView functin
 #+name:data-structures-trees-top-view-python-topView-function
 #+begin_src python +n :tangle data-structures/trees/python/top_view.py
-  def topView(root):
-      print(1);
+def topView(root):
+
+    d = {} # d: dict of form {width: (height, node.info)}
+
+    def rec(n, w, h): # n: node   w: tree width   h: tree height
+        nonlocal d
+
+        if n == None:
+            return
+
+        if w not in d:           # each unique width gets added to dict
+            d[w] = h, n.info
+        else:
+            if h < d[w][0]:      # make sure the width with the lowest height is used
+                d[w] = h, n.info # this will be the top view
+
+        rec(n.left, w - 1, h + 1)
+        rec(n.right, w + 1, h + 1)
+
+    d[0] = 0, root.info
+    rec(root.left, -1, 1)
+    rec(root.right, 1, 1)
+
+    # transform the dict into a list sorted by width from left to right for printing
+    minimum = min(list(d)) # left-most width, e.g., -2
+    q = [None] * len(d).   # preallocate a list
+
+    for w in d:
+        i = w - minimum.   # translate the width into an index starting at 0
+        q[i] = d[w][1]     # d[w][1] is the node.info value at width w
+
+    for info in q:
+        print(f"{info} ", end='')
 #+end_src
 
 **** Data Structures---Trees---Top View---Python Main Script
@@ -4863,8 +4897,8 @@ topView(tree.root)
 #+begin_src sh :tangle data-structures/trees/python/top_view.test.sh
 echo Inputs:
 echo \
-'6
-1 2 5 3 4 6' | python3 top_view.py
+'15
+1 14 3 7 4 5 15 6 13 10 11 2 12 8 9' | python3 top_view.py
 #+end_src
 
 * Algorithms
