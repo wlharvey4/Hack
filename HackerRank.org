@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-26 11:46
-#+macro:version Version 0.11.18
+#+date:2019-07-27 07:20
+#+macro:version Version 0.11.19
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -4780,7 +4780,7 @@ binary tree.
 
 #+cindex:top view
 Top view means when you look at the tree from the top the nodes, what you will
-see will be called the /top view/ of the tree.  See the example below.
+see will be called the /top view/ of the tree ([[figure-top-view-bst]]).
 
 You only have to complete the function.
 
@@ -4833,7 +4833,30 @@ From the top only nodes 1,2,5,6 will be visible.
 <<python-trees-binarysearchtree-class>>
 #+end_src
 
-**** Data Structures---Trees---Top View---Python topView functin
+**** Data Structures---Trees---Top View---Python topView function
+#+cindex:binary search tree, top view
+#+cindex:top view, binary search tree, explanation
+#+cindex:width, binary search tree
+#+cindex:level, binary search tree
+The /top view/ means that the top-most node found at each width point (also
+called its /level/ in some resources) is printed in left-to-right order.  The
+width is a measure of how many edges a node is to the left or the right of the
+root node; this is not to be confused with the measure of a node's depth (or
+height) from the root node, though.
+
+Each time a node moves to the right (i.e., a higher number is added), add one
+to the width count.  Each time a node moves back to the left (i.e., a lower
+number is added), subtract one from the width count.  But to find the top view,
+the node's height from the root node must also be taken into account.  Only the
+lowest node (i.e., lowest height) at a given width is seen in a top view.
+However, when traversing a tree, it is possible to come upon a lower node at a
+given width first, so the entire tree must be taken into account before
+returning an answer.  See Figure
+
+#+caption:Top View of a Binary Search Tree
+#+name:figure-top-view-bst
+[[file:figures/top_view_bst-75.png]]
+
 #+name:data-structures-trees-top-view-python-topView-function
 #+begin_src python +n :tangle data-structures/trees/python/top_view.py
 def topView(root):
@@ -7614,6 +7637,18 @@ x
 :index:    fn
 :unnumbered: t
 :END:
+
+* Program Index
+:PROPERTIES:
+:unnumbered: t
+:index:    pg
+:END:
+
+* List of Figures
+:PROPERTIES:
+:unnumbered: t
+:END:
+#+texinfo: @listoffloats Figure
 
 * Export Settings                                                  :noexport:
 ** Options
