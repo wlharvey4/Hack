@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-27 08:10
-#+macro:version Version 0.11.20
+#+date:2019-07-27 09:13
+#+macro:version Version 0.11.21
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -4256,10 +4256,22 @@ The reversed doubly linked list is: 4 \leftrightarrow 3 \leftrightarrow 2 \leftr
   cat reverse-double-llist-results
 #+end_src
 ** Trees
-*** Data Structures---Trees---Python Classes
-**** Data Structures---Tress---Python Node Class
+*** Data Structures---Trees
+- Binary Tree :: A data structure consisting of /nodes/ containing /data/ and
+                 two /references/ to other nodes, one on the left and one on
+                 the right.
+
+- Node :: An object containing a data payload and two references (links) to
+          child nodes, usually called =left= and =right=.  The first or top
+          node is usually called =root=.
+
+
+
+{{{heading(A Binary Search Tree Node)}}}
+
+#+caption:A Binary Tree Node
 #+name:python-trees-node-class
-#+begin_src python
+#+begin_src python -n
 class Node:
     def __init__(self, info):
         self.info = info
@@ -4269,12 +4281,12 @@ class Node:
 
     def __str__(self):
         return str(self.info)
-
 #+end_src
 
-**** Data Structures---Trees---Python BinarySearchTree Class
+{{{heading(A Binary Search Tree)}}}
+
 #+name:python-trees-binarysearchtree-class
-#+begin_src python
+#+begin_src python +n
 class BinarySearchTree:
     def __init__(self):
         self.root = None
@@ -4303,6 +4315,37 @@ class BinarySearchTree:
 
 #+end_src
 
+*** Data Structures---Trees---Traversals
+In a binary search tree traversal, you visit each node of a tree in a certain
+order.
+
+#+caption:Tree Traversals
+#+name:figure-tree-traversals
+[[file:figures/Tree-Traversals-75.png]]
+
+- Preorder traversal ::
+  - visit the root
+  - visit the left subtree
+  - visit the right subtree
+  : 1 2 4 5 3 6 7
+
+- Inorder traversal ::
+  - visit the left subtree
+  - visit the root
+  - visit the right subtree
+  : 4 2 5 1 6 3 7
+
+- Postorder traversal ::
+  - visit the right subtree
+  - visit the left subtree
+  - visit the root
+  : 7 6 3 5 4 2 1
+
+**** Trees---Traversals---Preorder
+**** Trees---Traversals---Inorder
+**** Trees---Traversals---Postorder
+**** Trees---Traversals---Level Order
+**** Trees---Traversals---Depth First Search
 *** Data Structures---Trees---Preorder Traversal
 :PROPERTIES:
 :level:    easy
