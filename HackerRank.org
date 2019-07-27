@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-27 07:20
-#+macro:version Version 0.11.19
+#+date:2019-07-27 08:10
+#+macro:version Version 0.11.20
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -4839,23 +4839,47 @@ From the top only nodes 1,2,5,6 will be visible.
 #+cindex:width, binary search tree
 #+cindex:level, binary search tree
 The /top view/ means that the top-most node found at each width point (also
-called its /level/ in some resources) is printed in left-to-right order.  The
-width is a measure of how many edges a node is to the left or the right of the
-root node; this is not to be confused with the measure of a node's depth (or
-height) from the root node, though.
+called its /level/) is printed in left-to-right order.  The width is a measure
+of how many edges a node is to the left or the right of the root node; this is
+not to be confused with the measure of a node's depth (or height) from the root
+node, though.
 
-Each time a node moves to the right (i.e., a higher number is added), add one
-to the width count.  Each time a node moves back to the left (i.e., a lower
-number is added), subtract one from the width count.  But to find the top view,
-the node's height from the root node must also be taken into account.  Only the
-lowest node (i.e., lowest height) at a given width is seen in a top view.
-However, when traversing a tree, it is possible to come upon a lower node at a
-given width first, so the entire tree must be taken into account before
-returning an answer.  See Figure
+Each time a new node is added to the right (i.e., a higher number is added),
+add one to the width count.  Each time a node is added back to the left (i.e.,
+a lower number is added), subtract one from the width count.  But to find the
+top view, the node's height from the root node must also be taken into account.
+Only the lowest node (i.e., lowest height) at a given width is seen in a top
+view.  However, when traversing a tree, it is possible to come upon a lower
+node at a given width first, so the entire tree must be taken into account
+before returning an answer.  See Figure
 
 #+caption:Top View of a Binary Search Tree
 #+name:figure-top-view-bst
 [[file:figures/top_view_bst-75.png]]
+
+The source of this figure is [[https://algorithms.tutorialhorizon.com/print-the-top-view-of-a-binary-tree/][{{{cite(Print The Top View of a Binary Tree)}}}]].
+In the figure, each vertical line marks a different level, with the center
+vertical line marking the zero level of the root node.  The first vertical line
+to the left marks the -1 level, while the first vertical line to the right
+marks the +1 level.
+
+#+cindex:level order traversal
+#+cindex:breadth-first search
+The algorithm to print a top view is to do level order traversal and print only
+the first node at each level.  Level order traversal is accomplished using a
+queue for breadth-first searching.  In the figure, both 2 and 9 are at level
+-1, but 2 is the first node at this level (i.e., smallest height), so only it
+would be printed.
+
+{{{heading(About the Python Code)}}}
+
+In the code below, I have used a Python dictionary to store a node's data
+information and height indexed by level.  However, I did depth-first searching
+instead of breadth-first searching, and so the wrong width will often be found
+first.  The code checks for a width at a lower height and swaps out the node's
+information if one is found.  Finally, the dictionary, which contains node
+information for each level, is turned into a sorted array (sorted by width in
+ascending order) of node information and printed.
 
 #+name:data-structures-trees-top-view-python-topView-function
 #+begin_src python +n :tangle data-structures/trees/python/top_view.py
@@ -7685,6 +7709,7 @@ x
 #+macro:subheading @@texinfo:@subheading @@@@html:<h5>@@$1@@html:</h5>@@
 #+macro:dfn @@texinfo:@dfn{@@@@html:<b>@@$1@@texinfo:}@@@@html:</b>@@
 #+macro:var @@texinfo:@var{@@$1@@texinfo:}@@
+#+macro:cite @@texinfo:@cite{@@$1@@texinfo:}@@
 * Local Variables                                                  :noexport:
 # Local Variables:
 # time-stamp-pattern:"8/^\\#\\+date:%:y-%02m-%02d %02H:%02M$"
