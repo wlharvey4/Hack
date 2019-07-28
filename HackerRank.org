@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-28 11:35
-#+macro:version Version 0.11.25
+#+date:2019-07-28 12:07
+#+macro:version Version 0.11.26
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -4366,7 +4366,7 @@ class BinarySearchTree:
 
 #+end_src
 
-*** Data Structures---Trees---Traversals
+*** Data Structures---Trees---Traversals on Binary Trees
 #+cindex:inorder tree walk, traversal
 #+cindex:traversal, inorder
 #+cindex:tree traversal, walk
@@ -4477,7 +4477,7 @@ Will walk a binary search tree rooted in {{{var(node)}}} by =postorder= means.
 
 **** Trees---Traversals---Level Order
 **** Trees---Traversals---Depth First Search
-*** Data Structures---Trees---Querying Binary Trees
+*** Data Structures---Trees---Queries on Binary Trees
 Common operations on binary search trees include:
 
 - ~search~
@@ -4660,6 +4660,39 @@ exists, and =None= if {{{var(node)}}} is the smallest key in the tree.
       return s
 #+end_src
 *** Data Structures---Trees---Insertion and Deletion of Nodes in a Binary Tree
+The operations of insertion and deletion cause the dynamic set represented by a
+binary search tree to change.  The data structure must be modified to reflect
+this change, but in such a way that the binary-search-tree property continues
+to hold.
+**** Data Structures---Trees---Insertion
+#+attr_texinfo: :options BST-PY tree_insert(tree, new)
+#+begin_defmethod
+Takes a node {{{var(new)}}} for which ~new.key = value~, ~new.left = None~ and
+~new.right = None~.  It modifies {{{var(tree)}}} and some of the attributes of
+{{{var(new)}}} in such a way that it inserts {{{var(new)}}} into an
+appropriate position in the tree.
+#+end_defmethod
+
+#+caption:Insert a node in a Binary Tree
+#+name:insert-node-binary-tree-python
+#+begin_src python -n
+  def tree_insert(tree, new):
+      p = None # trailing pointer to parent node
+      n = tree.root # current node
+      while n != None:
+          p = n
+          if new.key < n.key:
+              n = n.left
+          else:
+              n = n.right
+      new.p = p
+      if p == None:
+          tree.root = new # tree was empty
+      elif new.key < p.key:
+          p.left = new
+      else:
+          p.right = new
+#+end_src
 
 *** Data Structures---Trees---Preorder Traversal
 :PROPERTIES:
