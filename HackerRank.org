@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-28 09:15
-#+macro:version Version 0.11.23
+#+date:2019-07-28 09:38
+#+macro:version Version 0.11.24
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -4531,31 +4531,20 @@ Print the tree's preorder traversal as a single line of space-separated values.
 #+end_src
 
 **** Preorder Traversal Python Preorder
-#+name:python-trees-preorder-traversal-preorder
+#+name:python-trees-preorder-traversal-preOrder-function
 #+begin_src python +n :tangle data-structures/trees/python/preorder_traversal.py
-"""
-Node is defined as
-self.left (the left child of the node)
-self.right (the right child of the node)
-self.info (the value of the node)
-"""
-def preOrder(root):
-    #Write your code here
-    s = ""
-
-    def recPreOrder(root):
-        nonlocal s
-
-        if root == None:
-            return
-
-        s += f"{root.info} "
-        recPreOrder(root.left)
-        recPreOrder(root.right)
-        return
-
-    recPreOrder(root)
-    print(s)
+  """
+  Node is defined as
+  self.left (the left child of the node)
+  self.right (the right child of the node)
+  self.info (the value of the node)
+  """
+  def preOrder(node):
+      #Write your code here
+      if node != None:
+          print(f"{node} ", end="")
+          preOrder(node.left)
+          preOrder(node.right)
 #+end_src
 
 **** Preorder Traversal Python Main
@@ -4650,20 +4639,18 @@ Print the tree's inorder traversal as a single line of space-separated values.
 **** Data Structures---Trees---Inorder Traversal inOrder Function
 #+name:data-structures-trees-inorder-traversal-inOrder-function
 #+begin_src python +n :tangle data-structures/trees/python/inorder_traversal.py
-"""
-Node is defined as
-self.left (the left child of the node)
-self.right (the right child of the node)
-self.info (the value of the node)
-"""
-def inOrder(root):
-    #Write your code here
-    if root == None:
-        return
-
-    inOrder(root.left)
-    print(f"{root.info} ", end="")
-    inOrder(root.right)
+  """
+  Node is defined as
+  self.left (the left child of the node)
+  self.right (the right child of the node)
+  self.info (the value of the node)
+  """
+  def inOrder(root):
+      #Write your code here
+      if root != None:
+          inOrder(root.left)
+          print(f"{root} ", end="")
+          inOrder(root.right)
 #+end_src
 
 **** Data Structures---Trees---Inorder Traversal Main
@@ -4695,6 +4682,14 @@ echo \
 '6
 1 2 5 3 6 4' | python3 inorder_traversal.py
 #+end_src
+
+#+RESULTS: data-structures-trees-inorder-traversal-test
+: Inputs:
+: t: 6
+: arr: [1, 2, 5, 3, 6, 4]
+: Results:
+: 1 2 3 4 5 6 
+
 *** Data Structures---Trees---Postorder Traversal
 :PROPERTIES:
 :level:    easy
@@ -4752,20 +4747,18 @@ values.
 **** Data Structures---Trees---Postorder Traversal Python postOrder Function
 #+name:data-structures-trees-postorder-traversal-python-postOrder-function
 #+begin_src python +n :tangle data-structures/trees/python/postorder_traversal.py
-"""
-Node is defined as
-self.left (the left child of the node)
-self.right (the right child of the node)
-self.info (the value of the node)
-"""
-def postOrder(root):
-    #Write your code here
-    if root == None:
-        return
-
-    postOrder(root.left)
-    postOrder(root.right)
-    print(f"{root.info} ", end="")
+  """
+  Node is defined as
+  self.left (the left child of the node)
+  self.right (the right child of the node)
+  self.info (the value of the node)
+  """
+  def postOrder(root):
+      #Write your code here
+      if root != None:
+          postOrder(root.left)
+          postOrder(root.right)
+          print(f"{root} ", end="")
 #+end_src
 
 **** Data Structures---Trees---Postorder Traversal Python Main Function
@@ -4797,6 +4790,14 @@ echo \
 '6
 1 2 5 3 6 4' | python3 postorder_traversal.py
 #+end_src
+
+#+RESULTS: data-structures-trees-postorder-traversal-test
+: Inputs:
+: t: 6
+: arr: [1, 2, 5, 3, 6, 4]
+: Results:
+: 4 3 6 5 2 1 
+
 *** Data Structures---Trees---Height of a Binary Tree
 :PROPERTIES:
 :max-score: 10
