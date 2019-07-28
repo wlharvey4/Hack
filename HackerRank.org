@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-27 09:13
-#+macro:version Version 0.11.21
+#+date:2019-07-28 08:08
+#+macro:version Version 0.11.22
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -4257,17 +4257,68 @@ The reversed doubly linked list is: 4 \leftrightarrow 3 \leftrightarrow 2 \leftr
 #+end_src
 ** Trees
 *** Data Structures---Trees
-- Binary Tree :: A data structure consisting of /nodes/ containing /data/ and
-                 two /references/ to other nodes, one on the left and one on
-                 the right.
 
-- Node :: An object containing a data payload and two references (links) to
-          child nodes, usually called =left= and =right=.  The first or top
-          node is usually called =root=.
+#+cindex:node
+#+cindex:child node
+#+cindex:key, node data
+#+cindex:satelite data
+- Node :: An object containing a data property (or a /key/ and satelite data)
+          and two or more node properties, which are links to other nodes,
+          called child nodes, often labeled =left= and =right=.  Sometimes
+          there will also be a link to a parent node.
+
+#+cindex:tree
+#+cindex:binary tree
+#+cindex:parent node
+- Tree :: A linked data structure consisting of a collection of linked /nodes/
+          (objects), in which each node (a /parent/ node) has a /data/ property
+          and two or more node properties, which are /references/ to other
+          nodes (/child/ nodes).  In a tree, all nodes have one parent node and
+          two or more chiild nodes, except for the first or top node, usually
+          called the =root=, which has no parent node.  If a child is missing,
+          the corresponding reference is =NIL=.  The root node has a =NIL=
+          parent node link.
+
+- Binary Search Tree :: A tree containing one data property and two node
+     properties, which maintains the condition that all linked nodes to the
+     left contain data that is less than or equal to the data in all parent
+     nodes, and all linked nodes to the right contain data that is greater than
+     or equal to all parent nodes.
 
 
+{{{heading(Binary Search Tree Property)}}}
 
-{{{heading(A Binary Search Tree Node)}}}
+#+cindex:binary-search-tree property
+#+begin_quote
+Let {{{math(n)}}} be a node in a binary search tree.  If {{{math(y)}}} is a
+node in the left subtree of {{{math(x)}}}, then {{{math(y.key \le x.key)}}}.  If
+{{{math(y)}}} is a node in the right subtree of {{{math(x)}}}, then
+{{{math(y.key \ge x.key)}}}.
+#+end_quote
+
+{{{heading(Tree Dynamic Set Operations)}}}
+
+The search tree data structure supports many dynamic-set operations, such as:
+
+- search
+- minimum
+- maximum
+- predecessor
+- successor
+- insert
+- delete
+
+
+These basic operations take time proportional to the height the tree (rather
+than the number of nodes in the tree).  For a complete binary tree with ~n~
+nodes, such operations run in \Theta(\ln n) worst-case time.  However, if the tree
+is a linear chain of ~n~ nodes, then the same operations take \Theta(n) worst-case
+time.
+
+The expected height of a randomly built binary search tree is \Omicron(\ln n), which
+means that basic dynamic-set operations take \Theta(\lg n) time on average.
+
+*** Data Structures---Trees---Python Node and Tree Classes
 
 #+caption:A Binary Tree Node
 #+name:python-trees-node-class
@@ -4678,7 +4729,7 @@ Given a binary tree, print its height.
 The height of a binary tree is the number of edges between the tree's root and
 its furthest leaf. For example, the following binary tree is of height 2:
 
-[[file:figs/height-of-binary-tree.png]]
+[[file:figures/height-of-binary-tree.png]]
 
 {{{heading(Function Description)}}}
 
@@ -4705,7 +4756,7 @@ Next line contains ~n~ space-separated integers where ~i~ th integer denotes
 
 {{{subheading(Sample Input)}}}
 
-[[file:figs/treeDepthSample0.png]]
+[[file:figures/treeDepthSample0.png]]
 
 {{{heading(Constraints)}}}
 
@@ -4727,7 +4778,7 @@ tree.
 
 The longest root-to-leaf path is shown below:
 
-[[file:figs/treeDepthSample1.png]]
+[[file:figures/treeDepthSample1.png]]
 
 There are 4 nodes in this path that are connected by 3 edges, meaning our
 binary tree's ~height = 3~.
@@ -7753,6 +7804,7 @@ x
 #+macro:dfn @@texinfo:@dfn{@@@@html:<b>@@$1@@texinfo:}@@@@html:</b>@@
 #+macro:var @@texinfo:@var{@@$1@@texinfo:}@@
 #+macro:cite @@texinfo:@cite{@@$1@@texinfo:}@@
+#+macro:math @@texinfo:@math{@@$1@@texinfo:}@@
 * Local Variables                                                  :noexport:
 # Local Variables:
 # time-stamp-pattern:"8/^\\#\\+date:%:y-%02m-%02d %02H:%02M$"
