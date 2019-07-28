@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-28 09:38
-#+macro:version Version 0.11.24
+#+date:2019-07-28 11:35
+#+macro:version Version 0.11.25
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -4319,19 +4319,18 @@ The expected height of a randomly built binary search tree is \Omicron(\ln n), w
 means that basic dynamic-set operations take \Theta(\lg n) time on average.
 
 *** Data Structures---Trees---Python Node and Tree Classes
-
 #+caption[Binary Tree Node]:A Binary Tree Node Class Implementation in Python
 #+name:binary-tree-node-class-python
 #+begin_src python -n
 class Node:
-    def __init__(self, info):
-        self.info  = info
+    def __init__(self, key):
+        self.key   = key
         self.left  = None
         self.right = None
         self.level = None
 
     def __str__(self):
-        return str(self.info)
+        return str(self.key)
 #+end_src
 
 {{{heading(A Binary Search Tree)}}}
@@ -4343,24 +4342,24 @@ class BinarySearchTree:
     def __init__(self):
         self.root = None
 
-    def create(self, val):
+    def create(self, key):
         if self.root == None:
-            self.root = Node(val)
+            self.root = Node(key)
         else:
             current = self.root
 
             while True:
-                if val < current.info:
+                if key < current.key:
                     if current.left:
                         current = current.left
                     else:
-                        current.left = Node(val)
+                        current.left = Node(key)
                         break
-                elif val > current.info:
+                elif key > current.key:
                     if current.right:
                         current = current.right
                     else:
-                        current.right = Node(val)
+                        current.right = Node(key)
                         break
                 else:
                     break
@@ -4478,6 +4477,190 @@ Will walk a binary search tree rooted in {{{var(node)}}} by =postorder= means.
 
 **** Trees---Traversals---Level Order
 **** Trees---Traversals---Depth First Search
+*** Data Structures---Trees---Querying Binary Trees
+Common operations on binary search trees include:
+
+- ~search~
+- ~minimum~
+- ~maximum~
+- ~successor~
+- ~predecessor~
+
+
+This section will examine these operations and show how to support each one
+time \Omicron(h) on any binary search tree of height ~h~.
+
+**** Data Structures---Trees---Searching Binary Trees
+#+attr_texinfo: :options BST-PY tree_search (node, key)
+#+begin_defmethod
+Given a pointer to the root of the tree ({{{var(node)}}}), and a key
+({{{var(key)}}}), ~tree_search~ returns a pointer to a node with key
+{{{var(key)}}} if one exists; otherwise it returns =None=.
+#+end_defmethod
+
+{{{subheading(Recursive Tree Search)}}}
+
+#+caption[Recursive BST Search]:Searching a Binary Tree Recursively
+#+name:binary-tree-recursive-search-python
+#+begin_src python -n
+  def tree_search(node, key):
+      if node == None or key == node.key:
+          return node
+      if key < node.key:
+          return tree_search(node.left, key)
+      else:
+          return tree_search(node.right, key)
+#+end_src
+
+{{{subheading(Iterative Tree Search)}}}
+
+#+caption[Iterative BST Search]:Searching a Binary Tree Iteratively
+#+name:tree-tree-iterative-search-python
+#+begin_src python -n
+  def iterative_tree_search(node, key):
+      while node != None and key != node.key:
+          if key < node.key:
+              node = node.left
+          else:
+              node = node.right
+      return node
+#+end_src
+
+**** Data Structures---Trees---Minimum and Maximum in a Binary Tree
+Both procedures below run in \Omicron(h) time on a tree of height ~h~.
+
+{{{heading(Tree Minimum)}}}
+
+#+cindex:minimum, BST
+Find an element in a binary search tree whose key is a minimum by following
+=left= child pointers from the /root/ until encountering a =None=.
+
+#+attr_texinfo: :options BST-PY tree_minimum (root)
+#+begin_defmethod
+Returns a pointer to the minimum element in the subtree rooted at a given node
+{{{var(root)}}}, which is non-nil.
+#+end_defmethod
+
+#+caption:Binary Tree Minimum Value
+#+name:binary-tree-minimum-python
+#+begin_src python -n
+  def tree_minimum(root):
+      while root.left != None:
+          root = root.left
+      return root
+#+end_src
+
+{{{heading(Tree Maximum)}}}
+
+#+cindex:maximum, BST
+#+attr_texinfo: :options BST-PY tree_maximum (root)
+#+begin_defmethod
+Returns a pointer to the maximum element in the subtree rooted at a given node
+{{{var(root)}}}, which is non-nil.
+#+end_defmethod
+
+#+caption:Binary Tree Maximum Value
+#+name:binary-tree-maximum-python
+#+begin_src python -n
+  def tree_maximum(root):
+      while root.right != None:
+          root = root.right
+      return root
+#+end_src
+
+**** Data Structures---Trees---Successor and Predecessor Nodes in a Binary Tree
+#+cindex:successor, BST
+#+cindex:predecessor, BST
+Given a node in a binary search tree, find its successor or predecessor in the
+sorted order determined by an ~inorder~ tree walk.  If all keys are distinct,
+the successor of a node ~n~ is the node with the smallest key greater than
+~n.key~.  The structure of a binary search tree allows one to determine the
+successor of a node without ever comparing keys.
+
+The running time of ~tree_successor~ and ~tree_predecessor~ on a tree of height
+~h~ is \Omicron(h), since the algorithm follows a simple path either up or down the
+tree.
+
+{{{heading(Successor)}}}
+
+#+cindex:successor, BST
+#+attr_texinfo: :options BST-PY tree-successor(node)
+#+begin_defmethod
+Returns the successor of a node {{{var(node)}}} in a binary search tree if it
+exists, and =None= if {{{var(node)}}} has the largest key in the tree.
+#+end_defmethod
+
+The code for ~tree_successor~ is broken into two cases.
+
+1. If the right subtree of the node ~node~ is nonempty, then the successor of
+   ~node~ is the leftmost node in ~node~'s right subtree, found by calline
+   ~tree_minimum(node.right)~.
+
+2. If the right subtree of ~node~ is empty, and ~node~ has a successor ~s~,
+   then ~s~ is the lowest ancestor of ~node~ whose left child is also an
+   ancestor of ~node~.
+
+
+The node with key 13 has no right subtree, and thus its successor is its lowest
+ancestor whose left child is also an ancestor, i.e., 15.
+#+begin_example
+           15
+          /  \
+         /    \
+        /      \
+       6       18
+      /  \    /  \
+     3    7  17   20
+    / \    \
+   2   4    13
+           /  \
+          9    None
+#+end_example
+
+#+caption:Binary Tree Successor
+#+name:binary-tree-successor-python
+#+begin_src python -n
+  def tree_successor(node):
+      if node.right != None:
+          return tree_minimum(node.right)
+      s = node.parent
+      while s != None and node == s.right:
+          node = s
+          p = s.p
+      return s
+#+end_src
+
+{{{heading(Predecessor)}}}
+
+#+cindex:predecessor, BST
+#+attr_texinfo: :options BST-PY tree-predecessor (node)
+#+begin_defmethod
+Returns the predecessor of a node {{{var(node)}}} in a binary search tree if it
+exists, and =None= if {{{var(node)}}} is the smallest key in the tree.
+#+end_defmethod
+
+1. If the left subtree of the node ~node~ is nonempty, then the predecessor of
+   ~node~ is the rightmost node in ~node~'s left subtree, found by calling
+   ~tree_maximum(node.left)~.
+
+2. If the left subtree of ~node~ is empty, and ~node~ has a predecessor ~s~,
+   then ~s~ is the lowest ancestor of ~node~ whose right child is also an
+   ancestor of ~node~.
+
+#+caption:Binary Tree Predecessor
+#+name:binary-tree-predecessor-python
+#+begin_src python -n
+  def tree_predecessor(node):
+      if node.left != None:
+          return tree_maximum(node.left)
+      s = node.parent
+      while s != None and node == s.left:
+          node = s
+          p = s.p
+      return s
+#+end_src
+*** Data Structures---Trees---Insertion and Deletion of Nodes in a Binary Tree
+
 *** Data Structures---Trees---Preorder Traversal
 :PROPERTIES:
 :level:    easy
