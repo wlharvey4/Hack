@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-28 08:08
-#+macro:version Version 0.11.22
+#+date:2019-07-28 09:15
+#+macro:version Version 0.11.23
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -4320,13 +4320,13 @@ means that basic dynamic-set operations take \Theta(\lg n) time on average.
 
 *** Data Structures---Trees---Python Node and Tree Classes
 
-#+caption:A Binary Tree Node
-#+name:python-trees-node-class
+#+caption[Binary Tree Node]:A Binary Tree Node Class Implementation in Python
+#+name:binary-tree-node-class-python
 #+begin_src python -n
 class Node:
     def __init__(self, info):
-        self.info = info
-        self.left = None
+        self.info  = info
+        self.left  = None
         self.right = None
         self.level = None
 
@@ -4336,7 +4336,8 @@ class Node:
 
 {{{heading(A Binary Search Tree)}}}
 
-#+name:python-trees-binarysearchtree-class
+#+caption[Binary Tree Class]:A Binary Tree Class Implementation in Python
+#+name:binary-tree-class-python
 #+begin_src python +n
 class BinarySearchTree:
     def __init__(self):
@@ -4367,8 +4368,29 @@ class BinarySearchTree:
 #+end_src
 
 *** Data Structures---Trees---Traversals
-In a binary search tree traversal, you visit each node of a tree in a certain
-order.
+#+cindex:inorder tree walk, traversal
+#+cindex:traversal, inorder
+#+cindex:tree traversal, walk
+#+cindex:walk, inorder tree
+In a binary search tree traversal, or tree walk, one visits each node of a tree
+in a certain order.
+
+{{{heading(Tree Traversals)}}}
+
+{{{subheading(Inorder Tree Traversal)}}}
+
+The binary-search-tree property allows one to print out all the keys in a
+binary search tree in sorted order by a simple recursive algorith called an
+/inorder tree walk/, or /traversal/.  This algorithm is so named because it
+prints the key of the root of a subtree between printing the values in its left
+subtee and printing those in its right subtree.
+
+{{{subheading(Preorder and Postorder Tree Traversals)}}}
+
+#+cindex:preorder tree traversal, walk
+#+cindex:postorder tree traversal, walk
+A /preorder tree walk/ prints the root /before/ the values in either subtree,
+and a /postorder tree walk/ prints the root after the values in its subtrees.
 
 #+caption:Tree Traversals
 #+name:figure-tree-traversals
@@ -4392,9 +4414,68 @@ order.
   - visit the root
   : 7 6 3 5 4 2 1
 
-**** Trees---Traversals---Preorder
 **** Trees---Traversals---Inorder
+Use the following procedure to print all the elements in a binary search tree
+=T=, by calling ~inorder-tree-walk(T)~.
+
+#+attr_texinfo: :options BST-PY inorder_tree_walk (node)
+#+begin_defmethod
+Will walk a binary search tree rooted in {{{var(node)}}} by =inorder= means.
+#+end_defmethod
+
+#+caption:Inorder Traversal, in Python
+#+name:inorder-tree-traversal-python
+#+begin_src python -n
+  def inorder_tree_walk(node):
+      if node != None:
+          inorder-tree-walk(node.left)
+          print(f"{node}")
+          inorder-tree-walk(node.right)
+#+end_src
+
+It takes \Theta(n) time to walk an ~n~-node binary search tree, since after the
+initial call, the procedure calls itself recursivly exactly twice for each node
+in the tree---once for its left child and once for its right child.
+
+- Side Note ::
+
+               Since sorting ~n~ elements takes \Omega(n \lg n) time in the worst
+               case in the comparison model, any comparison-based algorithm for
+               constructing a binary search tree from an arbitrary list of ~n~
+               elements takes \Omega(n \lg n) time in the worst case.
+
+**** Trees---Traversals---Preorder
+#+attr_texinfo: :options BST-PY preorder-tree-walk (node)
+#+begin_defmethod
+Will walk a binary search tree rooted in {{{var(node)}}} by =preorder= means.
+#+end_defmethod
+
+#+caption:Preorder Traversal, in Python
+#+name:preorder-tree-traversal-python
+#+begin_src python -n
+  def preorder_tree_walk(node):
+      if node != None:
+          print(f"{node}")
+          preorder_tree_walk(node.left)
+          preorder_tree_walk(node.right)
+#+end_src
+
 **** Trees---Traversals---Postorder
+#+attr_texinfo: :options BST-PY postorder-tree-walk (node)
+#+begin_defmethod
+Will walk a binary search tree rooted in {{{var(node)}}} by =postorder= means.
+#+end_defmethod
+
+#+caption:Postorder Traversal, in Python
+#+name:postorder-tree-traversal-python
+#+begin_src python -n
+  def postorder_tree_walk(node):
+      if node != None:
+          postorder_tree_walk(node.right)
+          postorder_tree_walk(node.left)
+          print(f"{node}")
+#+end_src
+
 **** Trees---Traversals---Level Order
 **** Trees---Traversals---Depth First Search
 *** Data Structures---Trees---Preorder Traversal
@@ -4445,8 +4526,8 @@ Print the tree's preorder traversal as a single line of space-separated values.
 #+name:python-trees-preorder-traversal-node-binarysearchtree
 #+header: :mkdirp yes :noweb yes
 #+begin_src python -n :tangle data-structures/trees/python/preorder_traversal.py
-<<python-trees-node-class>>
-<<python-trees-binarysearchtree-class>>
+<<binary-tree-node-class-python>>
+<<binary-tree-class-python>>
 #+end_src
 
 **** Preorder Traversal Python Preorder
@@ -4562,8 +4643,8 @@ Print the tree's inorder traversal as a single line of space-separated values.
 #+name:python-trees-inorder-traversal-node-binarysearchtree
 #+header: :mkdirp yes :noweb  yes
 #+begin_src python -n :tangle data-structures/trees/python/inorder_traversal.py
-<<python-trees-node-class>>
-<<python-trees-binarysearchtree-class>>
+<<binary-tree-node-class-python>>
+<<binary-tree-class-python>>
 #+end_src
 
 **** Data Structures---Trees---Inorder Traversal inOrder Function
@@ -4664,8 +4745,8 @@ values.
 #+name:data-structures-trees-postorder-traveral-python-node-binarysearchtree-classes
 #+header: :mkdirp yes :noweb yes
 #+begin_src python -n :tangle data-structures/trees/python/postorder_traversal.py
-<<python-trees-node-class>>
-<<python-trees-binarysearchtree-class>>
+<<binary-tree-node-class-python>>
+<<binary-tree-class-python>>
 #+end_src
 
 **** Data Structures---Trees---Postorder Traversal Python postOrder Function
@@ -4787,8 +4868,8 @@ binary tree's ~height = 3~.
 #+name:data-structures-trees-height-of-a-binary-tree-python-node-classes
 #+header: :mkdirp yes :noweb yes
 #+begin_src python -n :tangle data-structures/trees/python/height_of_binary_tree.py
-<<python-trees-node-class>>
-<<python-trees-binarysearchtree-class>>
+<<binary-tree-node-class-python>>
+<<binary-tree-class-python>>
 #+end_src
 
 **** DS---Trees---Height of a Binary Tree Python height Function
@@ -4923,8 +5004,8 @@ From the top only nodes 1,2,5,6 will be visible.
 #+name:data-structures-trees-top-view-python-classes
 #+header: :mkdirp yes :noweb yes
 #+begin_src python -n :tangle data-structures/trees/python/top_view.py
-<<python-trees-node-class>>
-<<python-trees-binarysearchtree-class>>
+<<binary-tree-node-class-python>>
+<<binary-tree-class-python>>
 #+end_src
 
 **** Data Structures---Trees---Top View---Python topView function
