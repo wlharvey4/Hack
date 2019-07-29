@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-28 12:07
-#+macro:version Version 0.11.26
+#+date:2019-07-29 11:11
+#+macro:version Version 0.11.27
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -4694,7 +4694,7 @@ appropriate position in the tree.
           p.right = new
 #+end_src
 
-*** Data Structures---Trees---Preorder Traversal
+*** Data Structures---Trees---Preorder Traversal---Problem
 :PROPERTIES:
 :level:    easy
 :max-score: 10
@@ -4799,7 +4799,7 @@ echo \
 : Results:
 : 1 2 5 3 4 6 
 
-*** Data Structures---Trees---Inorder Traversal
+*** Data Structures---Trees---Inorder Traversal---Problem
 :PROPERTIES:
 :level:    easy
 :max-score: 10
@@ -5339,6 +5339,107 @@ echo \
 '15
 1 14 3 7 4 5 15 6 13 10 11 2 12 8 9' | python3 top_view.py
 #+end_src
+*** Data Structures---Trees---Level Order Traversal
+:PROPERTIES:
+:level:    easy
+:max-score: 20
+:success-rate: 96.29%
+:END:
+Level order traversal of a binary tree.
+**** Data Structures---Trees---Level Order Traversal---Problem Statement
+You are given a pointer to the root of a binary tree.  You need to print the
+level order traversal of this tree.  In level order traversal, we visit the
+nodes level by level from left to right.  You only have to complete the
+function. For example:
+
+#+begin_example
+     1
+      \
+       2
+        \
+         5
+        /  \
+       3    6
+        \
+         4
+#+end_example
+
+
+For the above tree, the level order traversal is 1 -> 2 -> 5 -> 3 -> 6 -> 4.
+
+{{{heading(Input Format)}}}
+
+1 \le Nodes in the tree \le 500
+
+{{{subheading(Sample Input)}}}
+
+: 1 2 5 3 4 6
+
+{{{heading(Output Format)}}}
+
+Print the values in a single line separated by a space.
+
+{{{subheading(Sample Output)}}}
+
+: 1 2 5 3 6 4
+
+{{{heading(Explanation)}}}
+
+We need to print the nodes level by level. We process each level from left to
+right.
+
+Level Order Traversal: 1 -> 2 -> 5 -> 3 -> 6 -> 4.
+
+**** Data Structures---Trees---Level Order Traversal---Python Classes
+#+name:data-structures-trees-level-order-traversal-python-classes
+#+header: :mkdirp yes :noweb yes
+#+begin_src python -n :tangle data-structures/trees/python/level_order_traversal.py
+<<binary-tree-node-class-python>>
+<<binary-tree-class-python>>
+#+end_src
+
+**** Data Structures---Trees---Level Order Traversal---Python levelOrder Function
+#+name:data-structures-trees-level-order-traversal-python-levelOrder-function
+#+begin_src python +n :tangle data-structures/trees/python/level_order_traversal.py
+  """
+  Node is defined as
+  self.left (the left child of the node)
+  self.right (the right child of the node)
+  self.info (the value of the node)
+  """
+  def levelOrder(root):
+      #Write your code here
+      print(f"{root} ", end="")
+#+end_src
+
+**** Data Structures---Trees---Level Order Traversal---Python Main Script
+#+name:data-structures-trees-level-order-traversal-python-main-script
+#+begin_src python +n :tangle data-structures/trees/python/level_order_traversal.py
+tree = BinarySearchTree()
+t = int(input())
+print(f"t: {t}")
+
+arr = list(map(int, input().split()))
+print(f"arr: {arr}")
+
+for i in range(t):
+    tree.create(arr[i])
+
+levelOrder(tree.root)
+#+end_src
+
+**** Data Structures---Trees---Level Order Traversal---Python Test Script
+#+name:data-structures-trees-level-order-traversal-python-test-script
+#+header: :shebang "#!/usr/bin/env bash"
+#+header: :dir data-structures/trees/python
+#+header: :results output :exports results
+#+begin_src sh :tangle data-structures/trees/python/level_order_traversal.test.sh
+echo Inputs:
+echo \
+'6
+1 2 5 3 4 6' | python3 level_order_traversal.py
+#+end_src
+
 
 * Algorithms
 ** Solve First
