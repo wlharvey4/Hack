@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-29 11:33
-#+macro:version Version 0.11.28
+#+date:2019-07-29 12:29
+#+macro:version Version 0.11.29
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -4665,6 +4665,19 @@ binary search tree to change.  The data structure must be modified to reflect
 this change, but in such a way that the binary-search-tree property continues
 to hold.
 **** Data Structures---Trees---Insertion
+~tree_insert~ begins at the root of the tree and the pointer ~n~ traces a
+simple path downward looking for a =NIL= to replace with the input item ~new~.
+The procedure maintains the /trailing pointer/ ~p~ as the parent of ~n~.  After
+initialization, the =while= loop causes these two pointers to move down the
+tree, going left or right depending on the comparision of ~new.key~ with
+~n.key~ until ~n~ becomes =NIL=.  This =NIL= occupies the position where we
+wish to place the input item ~new~.  We need the trailing pointer ~p~ because
+by the time we find the =NIL= where ~new~ belongs, the search has proceeded one
+step beyond the node that needs to be changed.  The final lines set the
+pointers that cause ~new~ to be inserted.
+
+The procedure ~tree_insert~ runs on \Omicron(h) time on a tree of height ~h~.
+
 #+attr_texinfo: :options BST-PY tree_insert(tree, new)
 #+begin_defmethod
 Takes a node {{{var(new)}}} for which ~new.key = value~, ~new.left = None~ and
