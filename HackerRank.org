@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-29 11:11
-#+macro:version Version 0.11.27
+#+date:2019-07-29 11:33
+#+macro:version Version 0.11.28
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -5344,6 +5344,9 @@ echo \
 :level:    easy
 :max-score: 20
 :success-rate: 96.29%
+:score:    20
+:current-score: 391
+:current-rank: 217908
 :END:
 Level order traversal of a binary tree.
 **** Data Structures---Trees---Level Order Traversal---Problem Statement
@@ -5409,7 +5412,20 @@ Level Order Traversal: 1 -> 2 -> 5 -> 3 -> 6 -> 4.
   """
   def levelOrder(root):
       #Write your code here
-      print(f"{root} ", end="")
+      queue = []
+
+      def traverse():
+          nonlocal queue
+          if len(queue) > 0:
+              n = queue.pop(0)
+              if n != None:
+                  print(f"{n} ", end="")
+                  queue.append(n.left)
+                  queue.append(n.right)
+              traverse()
+
+      queue.append(root)
+      traverse()
 #+end_src
 
 **** Data Structures---Trees---Level Order Traversal---Python Main Script
@@ -5440,6 +5456,11 @@ echo \
 1 2 5 3 4 6' | python3 level_order_traversal.py
 #+end_src
 
+#+RESULTS: data-structures-trees-level-order-traversal-python-test-script
+: Inputs:
+: t: 6
+: arr: [1, 2, 5, 3, 4, 6]
+: 1 2 5 3 6 4 
 
 * Algorithms
 ** Solve First
