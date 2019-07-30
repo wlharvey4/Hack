@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-29 13:24
-#+macro:version Version 0.11.30
+#+date:2019-07-30 07:05
+#+macro:version Version 0.11.31
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -8327,6 +8327,130 @@ echo \
 20' | node throw.js
 #+end_src
 x
+** Ten Days of JavaScript---Day 4
+*** Ten Days of JavaScript---Day 4---Create a Rectangle Object
+:PROPERTIES:
+:max-score: 15
+:level:    easy
+:success-rate: 99.66%
+:score:    15
+:END:
+**** Create a Rectangle Object Problem Statement
+{{{heading(Objective)}}}
+
+In this challenge, we practice creating objects. Check out the attached
+tutorial for more details.
+
+{{{heading(Task)}}}
+
+Complete the function in the editor.  It has two parameters: ~a~ and ~b~.  It
+must return an object modeling a rectangle that has the following properties:
+
+- length :: This value is equal to ~a~.
+
+- width :: This value is equal to ~b~.
+
+- perimeter :: This value is equal to 2 \times (a + p)
+
+- area :: This value is equal to a \times b
+
+
+*Note*: The names of the object's properties must be spelled correctly to pass
+ this challenge.
+
+{{{heading(Input Format)}}}
+
+The first line contains an integer denoting ~a~.
+
+The second line contains an integer denoting ~b~.
+
+{{{subheading(Sample Input)}}}
+
+#+begin_example
+4
+5
+#+end_example
+
+{{{heading(Constraints)}}}
+
+- 1 \le a, b \le 100
+
+
+{{{heading(Output Format)}}}
+
+Return an object that has the properties specified above.  Locked code in the
+editor prints the returned object's ~length~, ~width~, ~perimeter~, and ~area~
+to =STDOUT=.
+
+{{{subheading(Sample Output)}}}
+
+#+begin_example
+4
+5
+18
+20
+#+end_example
+
+{{{heading(Explanation)}}}
+
+Given a ~length~ of ~a~ = 4 and a ~width~ of ~b~ = 5, the Rectangle object's
+~perimeter~ is 4 + 4 + 5 + 5 = 18 and its ~area~ is 4 \times 5 = 20.
+
+**** Create a Rectangle Object Command Line Parsing
+#+name:ten-days-of-javascript-day-4-create-a-rectangle-command-line-parsing
+#+header: :mkdirp yes :noweb yes
+#+begin_src js -n :tangle ten-days-of-javascript/day-4/Rectangle.js
+<<node-process-command-line-arguments>>
+#+end_src
+
+**** Create a Rectangle Object Main Function
+#+name:ten-days-of-javascript-day-4-create-a-rectangle-main-function
+#+begin_src js +n :tangle ten-days-of-javascript/day-4/Rectangle.js
+function main() {
+    const a = +(readLine());
+    console.log(`a: ${a}`);
+    const b = +(readLine());
+    console.log(`b: ${b}`);
+
+    const rec = new Rectangle(a, b);
+
+    console.log('Results');
+
+    console.log(rec.length);
+    console.log(rec.width);
+    console.log(rec.perimeter);
+    console.log(rec.area);
+}
+#+end_src
+
+**** Create a Rectangle Object Rectangle Function
+#+name:ten-days-of-javascript-day-4-create-a-rectangle-rectangle-function
+#+begin_src js +n :tangle ten-days-of-javascript/day-4/Rectangle.js
+/*
+ ,* Complete the Rectangle function
+ ,*/
+function Rectangle(a, b) {
+    this.length = a;
+    this.width = b;
+    this.perimeter = 2 * (a + b);
+    this.area = a * b;
+}
+#+end_src
+
+**** Create a Rectangle Object Test
+#+name:ten-days-of-javascript-day-4-create-a-rectangle-test
+#+header: :shebang "#!/usr/bin/env bash"
+#+header: :dir ten-days-of-javascript/day-4
+#+header: :results output :exports results
+#+begin_src sh :tangle ten-days-of-javascript/day-4/Rectangle.test.sh
+echo Inputs:
+echo \
+'4
+5' | node Rectangle.js
+#+end_src
+
+#+RESULTS: ten-days-of-javascript-day-4-create-a-rectangle-test
+
 * Concept Index
 :PROPERTIES:
 :index:    cp
