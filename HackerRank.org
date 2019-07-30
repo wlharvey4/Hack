@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-30 07:30
-#+macro:version Version 0.11.32
+#+date:2019-07-30 09:44
+#+macro:version Version 0.11.33
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -8566,6 +8566,103 @@ echo \
 3 4
 4 5' | node count_objects.js
 #+end_src
+*** Ten Days of JavaScript---Day 4---Classes
+:PROPERTIES:
+:level:    easy
+:max-score: 15
+:success-rate: 99.59%
+:score:    15
+:END:
+**** Classes Problem Statement
+{{{heading(Objective)}}}
+
+In this challenge, we practice using JavaScript classes.  Check the attached
+tutorial for more details.
+
+{{{heading(Task)}}}
+
+Create a Polygon class that has the following properties:
+
+- A constructor that takes an array of integer values describing the lengths of
+  the polygon's sides.
+
+- A ~perimeter()~ method that returns the polygon's perimeter.
+
+
+Locked code in the editor tests the Polygon constructor and the perimeter
+method.
+
+*Note*: The perimeter method must be lowercase and spelled correctly.
+
+{{{heading(Input Format)}}}
+
+There is no input for this challenge.
+
+{{{heading(Output Format)}}}
+
+The perimeter method must return the polygon's perimeter using the side length
+array passed to the constructor.
+
+{{{heading(Explanation)}}}
+
+Consider the following code:
+
+#+begin_src js
+// Create a polygon with side lengths 3, 4, and 5
+let triangle = new Polygon([3, 4, 5]);
+
+// Print the perimeter
+console.log(triangle.perimeter());
+#+end_src
+
+When executed with a properly implemented Polygon class, this code should print
+the result of =3 + 4 + 5 = 12=.
+
+**** Classes Polygon Class
+#+name:ten-days-of-javascript-day-4-classes-polygon-class
+#+header: :mkdirp yes
+#+begin_src js -n :tangle ten-days-of-javascript/day-4/polygon_class.js
+/*
+ ,* Implement a Polygon class with the following properties:
+ ,* 1. A constructor that takes an array of integer side lengths.
+ ,* 2. A 'perimeter' method that returns the sum of the Polygon's side lengths.
+ ,*/
+
+class Polygon {
+    constructor(sides) {
+        this.sides = sides;
+    }
+    perimeter() {
+        return this.sides.reduce((c,s) => c + s,0);
+    }
+}
+#+end_src
+
+**** Class Polygon Main Script
+#+name:ten-days-of-javascript-day-4-classes-main-script
+#+begin_src js +n :tangle ten-days-of-javascript/day-4/polygon_class.js
+const rectangle = new Polygon([10, 20, 10, 20]);
+const square = new Polygon([10, 10, 10, 10]);
+const pentagon = new Polygon([10, 20, 30, 40, 43]);
+
+console.log(rectangle.perimeter());
+console.log(square.perimeter());
+console.log(pentagon.perimeter());
+#+end_src
+
+**** Class Polygon Run
+#+name:ten-days-of-javascript-day-4-classes-run
+#+header: :dir ten-days-of-javascript/day-4
+#+header: :results output :exports results
+#+begin_src sh
+node polygon_class.js
+#+end_src
+
+#+RESULTS: ten-days-of-javascript-day-4-classes-run
+: 60
+: 40
+: 143
+
 
 * Concept Index
 :PROPERTIES:
