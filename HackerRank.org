@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-07-30 07:05
-#+macro:version Version 0.11.31
+#+date:2019-07-30 07:30
+#+macro:version Version 0.11.32
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -8450,6 +8450,122 @@ echo \
 #+end_src
 
 #+RESULTS: ten-days-of-javascript-day-4-create-a-rectangle-test
+*** Ten Days of JavaScript---Day 4---Count Objects
+:PROPERTIES:
+:level:    easy
+:max-score: 15
+:success-rate: 99.61%
+:END:
+**** Count Objects Problem Statement
+{{{heading(Objective)}}}
+
+In this challenge, we learn about iterating over objects.  Check the attached
+tutorial for more details.
+
+{{{heading(Task)}}}
+
+Complete the function in the editor.  It has one parameter: an array, ~a~, of
+objects.  Each object in the array has two integer properties denoted by ~x~
+and ~y~.  The function must return a count of all such objects ~o~ in array ~a~
+that satisfy ~o.x == o.y~.
+
+{{{heading(Input Format)}}}
+
+The first line contains an integer denoting ~n~.
+
+Each of the subsequent lines contains two space-separated integers describing
+the values of ~x~ and ~y~.
+
+{{{subheading(Sample Input)}}}
+
+#+begin_example
+5
+1 1
+2 3
+3 3
+3 4
+4 5
+#+end_example
+
+{{{heading(Constraints)}}}
+
+- 5 \le n \le 10
+
+- 1 \le x, y \le 100
+
+
+{{{heading(Output Format)}}}
+
+Return a count of the total number of objects ~o~ such that ~o.x == o.y~.
+Locked stub code in the editor prints the returned value to =STDOUT=.
+
+{{{subheading(Sample Output)}}}
+
+: 2
+
+{{{heading(Explanation)}}}
+
+There are ~n~ = 5 objects in the ~objects~ array:
+
+Because we have two objects ~o~ that satisfy ~o.x == o.y~ (i.e., ~object s[0]~
+and ~object s[2]~), we return 2 as our answer.
+
+**** Count Objects Command Line Parsing
+#+name:ten-days-of-javascript-day-4-count-objects-command-line-parsing
+#+header: :mkdirp yes :noweb yes
+#+begin_src js -n :tangle ten-days-of-javascript/day-4/count_objects.js
+<<node-process-command-line-arguments>>
+#+end_src
+
+**** Count Objects Main Function
+#+name:ten-days-of-javascript-day-4-count-objects-main-function
+#+begin_src js +n :tangle ten-days-of-javascript/day-4/count_objects.js
+function main() {
+    const n = +(readLine());
+    console.log(`n: ${n}`)
+
+    let objects = [];
+
+    for (let i = 0; i < n; i++) {
+        const [a, b] = readLine().split(' ');
+        console.log(`a: ${a}\tb: ${b}`);
+
+        objects.push({x: +(a), y: +(b)});
+    }
+
+    console.log(getCount(objects));
+}
+#+end_src
+
+**** Count Objects getCount Function
+#+name:ten-days-of-javascript-day-4-count-objects-getCount_function
+#+begin_src js +n :tangle ten-days-of-javascript/day-4/count_objects.js
+/*
+ ,* Return a count of the total number of objects 'o' satisfying o.x == o.y.
+ ,*
+ ,* Parameter(s):
+ ,* objects: an array of objects with integer properties 'x' and 'y'
+ ,*/
+function getCount(objects) {
+    return objects.reduce((c,o) => c + (o.x === o.y ? 1 : 0), 0)
+}
+#+end_src
+
+**** Count Objects Test
+#+name:ten-days-of-javascript-day-4-count-objects-test
+#+header: :shebang "#!/usr/bin/env sh"
+#+header: :dir ten-days-of-javascript/day-4
+#+header: :results output :exports results
+#+begin_src sh :tangle ten-days-of-javascript/day-4/count_objects.test.js
+echo Inputs:
+echo \
+'5
+1 1
+2 3
+3 3
+3 4
+4 5' | node count_objects.js
+#+end_src
 
 * Concept Index
 :PROPERTIES:
