@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-08-01 01:42
-#+macro:version Version 0.12.1
+#+date:2019-08-01 10:01
+#+macro:version Version 0.12.2
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -5629,6 +5629,9 @@ echo \
 :level:    medium
 :max-score: 20
 :success-rate: 97.66%
+:score:    20
+:current-rank: 199167
+:current-score: 431
 :END:
 Given a Huffman tree and an encoded binary string, you have to print the
 original string.
@@ -5757,13 +5760,13 @@ cntr = 0
 
 **** Data Structures---Trees---Huffman Decoding---Class Node
 #+name:data-structures-trees-huffman-decoding-class-node
-#+begin_src python +n :tangle data-structures/trees/huffmanDecoding.py
+#+begin_src python +n :tangle data-structures/trees/huffman-trees/huffmanDecoding.py
 class Node:
     def __init__(self, freq, data):
         self.freq = freq
         self.data = data
         self.left = None
-        self.right = Nonen
+        self.right = None
         global cntr
         self._count = cntr
         cntr = cntr + 1
@@ -5772,6 +5775,9 @@ class Node:
         if self.freq != other.freq:
             return self.freq < other.freq
         return self._count < other._count
+
+    def __str__(self):
+        return f"<<(freq: {self.freq}) (data: {self.data}) (terminal: {self.left==None and self.right==None})>>"
 
 #+end_src
 
@@ -5897,16 +5903,29 @@ def dfs_hidden(obj, already):
 #+begin_src python +n :tangle data-structures/trees/huffman-trees/huffmanDecoding.py
 """class Node:
     def __init__(self, freq,data):
-        self.freq= freq
-        self.data=data
+        self.freq = freq
+        self.data = data
         self.left = None
-        self.right = None
+        self.right= None
 """
 
 # Enter your code here. Read input from STDIN. Print output to STDOUT
 def decodeHuff(root, s):
-	#Enter Your Code Here
+    #Enter Your Code Here
+    msg = ''
+    n = root
 
+    def isTerminal(node):
+        return node.left == None and node.right == None
+
+    for bit in s:
+        n = n.left if bit == '0' else n.right
+
+        if isTerminal(n):
+            msg += n.data
+            n = root
+
+    print(f"message: {msg}")
 #+end_src
 
 **** Data Structures---Trees---Huffman Decoding---Main
@@ -5949,8 +5968,9 @@ decodeHuff(root, toBeDecoded)
 #+header: :shebang "#!/usr/bin/env bash"
 #+header: :dir data-structures/trees
 #+header: :results output :exports results
-#+begin_src sh :tangle data-structures/trees/huffmanDecoding.test.sh
-
+#+begin_src sh :tangle data-structures/trees/huffman-trees/huffmanDecoding.test.sh
+echo Inputs:
+echo ABACA | python3 huffmanDecoding.py
 #+end_src
 * Algorithms
 ** Solve First
