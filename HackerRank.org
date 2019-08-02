@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-08-01 10:01
-#+macro:version Version 0.12.2
+#+date:2019-08-02 11:30
+#+macro:version Version 0.12.3
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -4331,6 +4331,7 @@ class Node:
 
     def __str__(self):
         return str(self.key)
+
 #+end_src
 
 {{{heading(A Binary Search Tree)}}}
@@ -5972,6 +5973,182 @@ decodeHuff(root, toBeDecoded)
 echo Inputs:
 echo ABACA | python3 huffmanDecoding.py
 #+end_src
+*** Data Structures---Trees---Lowest Common Ancestor
+:PROPERTIES:
+:level:    easy
+:max-score: 30
+:success-rate: 92.25%
+:score:    30
+:current-rank: 187321
+:current-score: 461
+:END:
+Given two nodes of a binary search tree, find the lowest common ancestor of
+these two nodes.
+**** Data Structures---Trees---Lowest Common Ancestor---Problem Statement
+You are given pointer to the root of the binary search tree and two values ~v1~
+and ~v2~.  You need to return the lowest common ancestor (LCA) of ~v1~ and ~v2~
+in the binary search tree.
+
+[[file:figures/lcaexample.png]]
+
+In the diagram above, the lowest common ancestor of the nodes 4 and 6 is the
+node 3.  Node 3 is the lowest node which has nodes 4 and 6 as descendants.
+
+{{{heading(Function Description)}}}
+
+Complete the function ~lca~ in the editor below.  It should return a pointer to
+the lowest common ancestor node of the two values given.
+
+~lca~ has the following parameters: 
+
+- root :: a pointer to the root node of a binary search tree
+
+- ~v1~ :: a node.data value
+
+- ~v2~ ::  node.data value
+
+
+{{{heading(Input Format)}}}
+
+The first line contains an integer, ~n~, the number of nodes in the tree.
+
+The second line contains ~n~ space-separated integers representing ~node.data~
+values.
+
+The third line contains two space-separated integers, ~v1~ and ~v2~.
+
+To use the test data, you will have to create the binary search tree
+yourself.  Here on the platform, the tree will be created for you.
+
+{{{subheading(Sample Input)}}}
+
+#+begin_example
+6
+4 2 3 1 7 6
+1 7
+#+end_example
+
+[[file:figures/LCASample.png]]
+
+~v1~ = 1 and ~v2~ = 7
+
+{{{heading(Constraints)}}}
+
+- 1 \le ~n~, ~node.data~ \le 25
+
+- 1 \le ~v1~, ~v2~ \le 25
+
+- ~v1~ \ne ~v2~
+
+The tree will contain nodes with data equal to ~v1~ and ~v2~.
+
+{{{heading(Output Format)}}}
+
+Return the a pointer to the node that is the lowest common ancestor of ~v1~ and
+~v2~.
+
+{{{subheading(Sample Output)}}}
+
+: [reference to node 4]
+
+{{{heading(Explanation)}}}
+
+LCA of 1 and 7 is 4, the root in this case.  Return a pointer to the node.
+
+**** Data Structures---Trees---Lowest Common Ancestor---Python BST Classes
+#+name:data-structures-trees-lowest-common-ancestor---python-bst-classes
+#+header: :mkdirp yes :noweb yes
+#+begin_src python -n :tangle data-structures/trees/python/lca/lowest_common_ancestor.py
+<<binary-tree-node-class-python>>
+<<binary-tree-class-python>>
+#+end_src
+
+**** Data Structures---Trees---Lowest Common Ancestor---lca function
+#+name:data-structures-trees-lowest-common-ancestor-lca-function
+#+begin_src python +n :tangle data-structures/trees/python/lca/lowest_common_ancestor.py
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+'''
+class Node:
+      def __init__(self,info):
+          self.info = info
+          self.left = None
+          self.right = None
+
+
+       // this is a node of the tree , which contains info as data, left , right
+'''
+
+def lca(root, v1, v2):
+    #Enter your code here
+
+    def tree_search(node):
+        if not node:
+            return False
+
+        if node.key == v1 or node.key == v2:
+            return True
+
+        return tree_search(node.left) or tree_search(node.right)
+
+    parent = root
+
+    while True:
+        p = tree_search(parent) and (parent.key == v1 or parent.key == v2)
+        left = tree_search(parent.left)
+        right = tree_search(parent.right)
+
+        if p and (left or right) or (left and right):
+            break
+        if left:
+            parent = parent.left
+        else:
+            parent = parent.right
+
+    return parent
+#+end_src
+
+**** Data Structures---Trees---Lowest Common Ancestor---main script
+#+name:data-structures-trees-lowest-common-ancestor-main-script
+#+begin_src python +n :tangle data-structures/trees/python/lca/lowest_common_ancestor.py
+tree = BinarySearchTree()
+t = int(input())
+print(f"t: {t}")
+
+arr = list(map(int, input().split()))
+print(f"arr: {arr}")
+
+for i in range(t):
+    tree.create(arr[i])
+
+v = list(map(int, input().split()))
+print(f"v: {v}")
+
+print("Result:")
+
+ans = lca(tree.root, v[0], v[1])
+print (ans.key)
+#+end_src
+
+**** Data Structures---Trees---Lowest Common Ancestor---test
+#+name:data-structures-trees-lowest-common-ancestor-test
+#+header: :shebang "#!/usr/bin/env bash"
+#+header: :dir data-structures/trees/python/lca
+#+header: :results output :exports results
+#+begin_src sh :tangle data-structures/trees/python/lca/lowest_common_ancestor.test.sh
+echo Inputs:
+echo \
+'6
+4 2 3 1 7 6
+1 7' | python3 lowest_common_ancestor.py
+#+end_src
+
+#+RESULTS: data-structures-trees-lowest-common-ancestor-test
+: Inputs:
+: t: 6
+: arr: [4, 2, 3, 1, 7, 6]
+: v: [1, 7]
+: Result:
+: 4
 * Algorithms
 ** Solve First
 :PROPERTIES:
