@@ -2,21 +2,21 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2019-08-02 11:30
-#+macro:version Version 0.12.3
+#+date:2020-09-26 19:27
+#+macro:version Version 0.12.4
 
 * Introduction
 - https://www.hackerrank.com/dashboard
 
 ** Tree of Installed Directories and Files
-#+name:show-tree
-#+begin_src sh :results output :exports results
-tree -I '*.org|*.info|*.texi*|*.pdf|*.tex|figs'
-#+end_src
-
 #+name:tangle-all
 #+begin_src emacs-lisp :results output :exports results
 (org-babel-tangle-file "HackerRank.org")
+#+end_src
+
+#+name:show-tree
+#+begin_src sh :results output :exports results
+tree -I '*.org|*.info|*.texi*|*.pdf|*.tex|figs'
 #+end_src
 
 * Node
@@ -110,7 +110,7 @@ variable must be created prior to running the program or an exception will be
 thrown when ~main()~ is entered.
 
 #+name:node-main-write-stream-ws
-#+begin_src js
+#+begin_src js +n
 const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
 #+end_src
 
@@ -4798,7 +4798,7 @@ preOrder(tree.root)
 **** Preorder Traversal Python Test
 #+name:python-trees-preorder-traversal-test
 #+header: :shebang "#!/usr/bin/env bash"
-#+header: :dir data-structures/trees/python
+#+header: :dir data-structures/trees/python :mkdirp t
 #+header: :results output :exports results
 #+begin_src sh :tangle data-structures/trees/python/preorder_traversal.test.sh
 echo \
@@ -4904,7 +4904,7 @@ inOrder(tree.root)
 **** Data Structures---Trees---Inorder Traversal Test
 #+name:data-structures-trees-inorder-traversal-test
 #+header: :shebang "#!/usr/bin/env bash"
-#+header: :dir data-structures/trees/python
+#+header: :dir data-structures/trees/python :mkdirp t
 #+header: :results output :exports results
 #+begin_src sh :tangle data-structures/trees/python/inorder_traversal.test.sh
 echo Inputs:
@@ -5012,7 +5012,7 @@ postOrder(tree.root)
 **** Data Structures---Trees---Postorder Traversal Test
 #+name:data-structures-trees-postorder-traversal-test
 #+header: :shebang "#!/usr/bin/env bash"
-#+header: :dir data-structures/trees/python
+#+header: :dir data-structures/trees/python :mkdirp t
 #+header: :results output :exports results
 #+begin_src sh :tangle data-structures/trees/python/postorder_traversal.test.sh
 echo Inputs:
@@ -5162,7 +5162,7 @@ print(height(tree.root))
 **** DS---Trees---Height of a Binary Tree Python Test
 #+name:data-structures-trees-height-of-a-binary-tree-test
 #+header: :shebang "#!/usr/bin/env bash"
-#+header: :dir data-structures/trees/python
+#+header: :dir data-structures/trees/python :mkdirp t
 #+header: :results output :exports results
 #+begin_src sh :tangle data-structures/trees/python/height_of_binary_tree.test.sh
 echo Inputs:
@@ -5345,7 +5345,7 @@ topView(tree.root)
 **** Data Structures---Trees---Top View---Python Test
 #+name:data-structures-trees-top-view-python-test
 #+header: :shebang "#!/usr/bin/env bash"
-#+header: :dir data-structures/trees/python
+#+header: :dir data-structures/trees/python :mkdirp t
 #+header: :results output :exports results
 #+begin_src sh :tangle data-structures/trees/python/top_view.test.sh
 echo Inputs:
@@ -5461,7 +5461,7 @@ levelOrder(tree.root)
 **** Data Structures---Trees---Level Order Traversal---Python Test Script
 #+name:data-structures-trees-level-order-traversal-python-test-script
 #+header: :shebang "#!/usr/bin/env bash"
-#+header: :dir data-structures/trees/python
+#+header: :dir data-structures/trees/python :mkdirp t
 #+header: :results output :exports results
 #+begin_src sh :tangle data-structures/trees/python/level_order_traversal.test.sh
 echo Inputs:
@@ -5606,10 +5606,10 @@ print("\nResults:")
 preOrder(tree.root)
 #+end_src
 
-**** Data Structures---Trees---Insertion Test
+**** Data Structures---Trees---Insertion---Python Test Script
 #+name:data-structures-trees-insertion-python-test
 #+header: :shebang "#!/usr/bin/env bash"
-#+header: :dir data-structures/trees/python
+#+header: :dir data-structures/trees/python :mkdirp t
 #+header: :results output :exports results
 #+begin_src sh :tangle data-structures/trees/python/insert_tree.test.sh
 echo Inputs:
@@ -5929,7 +5929,7 @@ def decodeHuff(root, s):
     print(f"message: {msg}")
 #+end_src
 
-**** Data Structures---Trees---Huffman Decoding---Main
+**** Data Structures---Trees---Huffman Decoding---Main Script
 #+name:data-structures-trees-huffman-decoding-main
 #+begin_src python +n :tangle data-structures/trees/huffman-trees/huffmanDecoding.py
 ip = input()
@@ -5964,10 +5964,10 @@ decodeHuff(root, toBeDecoded)
 
 #+end_src
 
-**** Data Structures---Trees---Huffman Decoding---Test
+**** Data Structures---Trees---Huffman Decoding---Python Test Script
 #+name:data-structures-trees-huffman-decoding-test
 #+header: :shebang "#!/usr/bin/env bash"
-#+header: :dir data-structures/trees
+#+header: :dir data-structures/trees :mkdirp t
 #+header: :results output :exports results
 #+begin_src sh :tangle data-structures/trees/huffman-trees/huffmanDecoding.test.sh
 echo Inputs:
@@ -6107,7 +6107,7 @@ def lca(root, v1, v2):
     return parent
 #+end_src
 
-**** Data Structures---Trees---Lowest Common Ancestor---main script
+**** Data Structures---Trees---Lowest Common Ancestor---Main script
 #+name:data-structures-trees-lowest-common-ancestor-main-script
 #+begin_src python +n :tangle data-structures/trees/python/lca/lowest_common_ancestor.py
 tree = BinarySearchTree()
@@ -6129,10 +6129,10 @@ ans = lca(tree.root, v[0], v[1])
 print (ans.key)
 #+end_src
 
-**** Data Structures---Trees---Lowest Common Ancestor---test
+**** Data Structures---Trees---Lowest Common Ancestor---Python Test Script
 #+name:data-structures-trees-lowest-common-ancestor-test
 #+header: :shebang "#!/usr/bin/env bash"
-#+header: :dir data-structures/trees/python/lca
+#+header: :dir data-structures/trees/python/lca :mkdirp t
 #+header: :results output :exports results
 #+begin_src sh :tangle data-structures/trees/python/lca/lowest_common_ancestor.test.sh
 echo Inputs:
