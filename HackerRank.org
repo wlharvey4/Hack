@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2020-09-26 19:27
-#+macro:version Version 0.12.4
+#+date:2020-11-17 07:25
+#+macro:version Version 0.12.5
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -20,13 +20,62 @@ tree -I '*.org|*.info|*.texi*|*.pdf|*.tex|figs'
 #+end_src
 
 * Node
-Programs coded in JavaScript run in the Node.js environment.  The following
-code entails the boilerplate for processing command-line arguments using Node's
-built-in Streams and Process, in particular ~ReadStream~, ~WriteStream~,
-~process.stdin~, and ~process.env~.
+- https://nodejs.org/en/
+
+The current installed 'Node.js' version is src_sh[:results output :exports
+results]{node --version}.
+
+Programs coded in JavaScript run in the Node.js environment. The following code
+entails  the boilerplate  for  processing command-line  arguments using  Node's
+built-in    Streams    and    Process,    in    particular    ~ReadableStream~,
+~WriteableStream~, ~process.stdin~, and ~process.env~.
+
+#+texinfo: @heading process.stdin
+
+- ~ReadableStream~
+
+- ~WriteableStream~
+
+- ~process.stdin~
+
+  =<Stream>=
+
+  The =process.stdin= property returns a stream connected to =stdin= (fd 0). It
+  is a =net.Socket= (which is a Duplex stream) unless fd 0 refers to a file, in
+  which case it is a =Readable Stream=.
+
+  For details of how to read from =stdin= see ~readable.read()~.
+
+  In general, a =Readable Stream= (which  is also an =Event Emitter=) is opened
+  in =pause= mode. When a listener  is attached (via the =readable= event), the
+  stream begins  collecting data  into an internal  buffer and  emitting =data=
+  events,  indicating that  the =Stream=  can withdraw  data via  the =Readable
+  Stream= method ~read()~. This will  happen automatically once the listener is
+  attached. The listener should also attach  an =end= event to be notified that
+  the stream of data has ended.
+
+- =process.env=
+
+  =<Object>=
+
+  The =process.env= property returns an object containing the user environment.
+  See =environ(7)=. It is possible to modify this object.
+
+  #+begin_example
+  process.env.foo = 'bar';
+  console.log(process.env.foo);
+  #+end_example
+
+  Use ~delete~ to delete a property from =process.env=.
+
+  : delete process.env.TEST;
+
 ** Node Command-Line Processing
-The first set of code processes command-line arguments.  The second code
-fragment sets up a ~WriteStream~ for writing the result to a file.
+The first  code fragment (in  [[*Process][Process]]) processes command-line arguments  and is
+placed at the beginning of every code assignment. The second code fragment
+(in [[*Write
+ Stream][Write Stream]]) is added to the beginning of every ~main()~ method and sets
+up a ~WriteableStream~ for writing the result to a file.
 
 #+begin_src js :noweb yes :exports none
 <<node-process-command-line-arguments>>
@@ -41,7 +90,7 @@ First are the Node dependencies:
 
 - ~FileSystem~
 
-- ~Process Stdin~ --- the default input encoding is to a buffer; setting the
+- ~process.stdin~ ---  the default input encoding  is to a buffer;  setting the
   encoding to =utf-8= means that the input encoding will be a ~String~.
 
 #+name:node-dependencies
@@ -54,7 +103,7 @@ process.stdin.setEncoding('utf-8');
 - ~inputString~ will become an array holding each line of the input arguments
   as strings.
 
-- ~currentLine~ is a simple counter will be used by the function ~readLine()~
+- ~currentLine~ is a simple counter and will be used by the function ~readLine()~
   to produce one line of input after another upon request.
 
 #+name:node-declarations
@@ -70,7 +119,22 @@ arguments are broken into an array at newlines, but left in ~inputString~.
 During the process, all trailing spaces are removed.
 
 At the conclusion of breaking the arguments into an array, the program's
-~main()~ function is called.
+~main()~ function is called.  Therefore, the code is a little circular:
+
+1. Create local variables to hold state:
+   - ~inputString~
+   - ~currentLine~
+2. Obtain the =Readable Stream= (~process.stdin~)
+3. Attach a =readable= listener as ~process.stdin.on('readable')~
+4. Collect data via the ~process.stdin.read()~ method
+5. Upon receiving notice that all data has been read and collected, process the
+   collected data via the =end= event (~process.stdin.on('end')~) by:
+   - removing trailing spaces from the raw data string
+   - splitting data on newlines and return it as an array of strings
+   - removint trailing spaces again from each element
+6. Call ~main()~
+7. Create the function ~readline()~, which returns an element from the array
+   which has just been processed.
 
 #+name:node-process-stdin
 #+begin_src js +n
@@ -91,8 +155,9 @@ process.stdin.on('end', () => {
 
 #+end_src
 
-The function ~readLine()~ is called by the ~main()~ function when it wants
-another line of input.
+The  ~reaLine()~  function processes  the  collected  data from  the  =Readable
+Stream= by returning one  line of data at a time.  The function ~readLine()~ is
+called by the ~main()~ function when it wants another line of input.
 
 #+name:node-readLine
 #+begin_src js +n
@@ -103,10 +168,11 @@ function readLine () {
 #+end_src
 
 *** Write Stream
-This little line of code sets up a ~WriteStream~ at a file established by the
-~process.env.OUTPUT_PATH~ environment variable.  The ~main()~ function will
-write the result into this file and then close the stream.  The environment
-variable must be created prior to running the program or an exception will be
+This little line of  code sets up a ~WriteableStream~ at  a file established by
+the  ~process.env.OUTPUT_PATH~  environment  variable.   It  is  added  at  the
+beginning of each  ~main()~ method to allow the ~main()~  function to write the
+result into  this file; ~main()~  with then  close the stream.  The environment
+variable must be created  prior to running the program or  an exception will be
 thrown when ~main()~ is entered.
 
 #+name:node-main-write-stream-ws
