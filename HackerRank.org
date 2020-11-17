@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2020-11-17 07:25
-#+macro:version Version 0.12.5
+#+date:2020-11-17 07:39
+#+macro:version Version 0.13.1
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -9253,6 +9253,30 @@ node polygon_class.js
 : 40
 : 143
 
+* Functional Programming
+- https://www.hackerrank.com/domains/fp
+
+** Problem
+This is an introductory challenge. The purpose of this challenge is to give you
+a working  I/O template in  your preferred  language. It includes  scanning =2=
+integers from =STDIN=,  calling a function, returning a value,  and printing it
+to =STDOUT=. Your  task is to scan  two numbers, =A= and =B=  from =STDIN=, and
+print the sum =A+B= on =STDOUT=.
+
+*** Input and Output Formats---Constraints---Samples
+- *Input* :: You are given two integers, =A= and =B= on separate lines.
+
+- *Output* :: Output an integer that denotes =A + B=.
+
+- *Constraints* :: 1 \le A, B \le 1000
+
+- *Sample Input* ::
+  2\\
+  3
+
+- *Sample Output* ::
+  5
+
 * Concept Index
 :PROPERTIES:
 :index:    cp
@@ -9296,8 +9320,8 @@ node polygon_class.js
 ** HTML Export Settings
 #+html_doctype: html5
 #+html_container: div
-#+description:
-#+keywords:
+#+description: HackerRank Problems and Exercises
+#+keywords: HackerRank
 #+html_link_home:
 #+html_link_up:
 #+html_mathjax:
