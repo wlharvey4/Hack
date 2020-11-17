@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2020-11-17 07:39
-#+macro:version Version 0.13.1
+#+date:2020-11-17 09:13
+#+macro:version Version 0.13.2
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -9256,12 +9256,16 @@ node polygon_class.js
 * Functional Programming
 - https://www.hackerrank.com/domains/fp
 
-** Problem
-This is an introductory challenge. The purpose of this challenge is to give you
-a working  I/O template in  your preferred  language. It includes  scanning =2=
-integers from =STDIN=,  calling a function, returning a value,  and printing it
-to =STDOUT=. Your  task is to scan  two numbers, =A= and =B=  from =STDIN=, and
-print the sum =A+B= on =STDOUT=.
+** Solve Me First
+   :PROPERTIES:
+   :completed-date: 2020-11-17
+   :END:
+*** Problem
+ This is an introductory challenge. The purpose of this challenge is to give you
+ a working  I/O template in  your preferred  language. It includes  scanning =2=
+ integers from =STDIN=,  calling a function, returning a value,  and printing it
+ to =STDOUT=. Your  task is to scan  two numbers, =A= and =B=  from =STDIN=, and
+ print the sum =A+B= on =STDOUT=.
 
 *** Input and Output Formats---Constraints---Samples
 - *Input* :: You are given two integers, =A= and =B= on separate lines.
@@ -9276,6 +9280,42 @@ print the sum =A+B= on =STDOUT=.
 
 - *Sample Output* ::
   5
+
+*** Common Lisp---Solve Me First
+
+#+caption:Common Lisp Solve Me First
+#+name:cl-solveMeFirst
+#+header: :mkdirp yes
+#+header: :tangle functional/solveMeFirst/common-lisp/solveMeFirst.lisp
+#+begin_src lisp
+  (defun solveMeFirst (x y)
+    (+ x y))
+
+  (setq a (read-line))
+  (setq b (read-line))
+
+  (format t "~a~%~a~%Output:~%" a b)
+
+
+  (write (solveMeFirst (parse-integer a) (parse-integer b)))
+#+end_src
+
+*** Common Lisp---Solve Me First Test
+#+header: :dir functional/solveMeFirst/common-lisp
+#+header: :results output :exports results
+#+begin_src sh
+PATH=$PATH:/usr/local/dev/bin
+echo Input:
+echo '2
+3' | ccl -Qb -l "solveMeFirst.lisp" -e '(quit)'
+#+end_src
+
+#+RESULTS:
+: Input:
+: 2
+: 3
+: Output:
+: 5
 
 * Concept Index
 :PROPERTIES:
