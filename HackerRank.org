@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2020-11-17 12:18
-#+macro:version Version 0.13.4
+#+date:2020-11-18 07:37
+#+macro:version Version 0.13.5
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -9354,6 +9354,68 @@ same program.
 #+begin_src sh
 ccl -Q -l hello.lisp -e '(quit)'
 #+end_src
+
+** Functional Hello World N Times
+*** Functional Hello World N Times---Problem
+Print  "Hello  World" amount  of  times.  The  input  portion will  be  handled
+automatically.  You  need to  write  a  function  with the  recommended  method
+signature.
+*** Functional Hello World N Times---Formats---Constraints
+- *Input Format* ::  A single line of input containing  integer =N=, the number
+  of times to print "Hello World".
+
+- *Output Format* :: Output =N= lines, each containing "Hello World".
+
+- *Constraints* :: 0 \le N \le 50
+
+- *Sample Input* :: 4
+
+- *Sample Output* ::
+  #+begin_example
+  Hello World
+  Hello World
+  Hello World
+  Hello World
+  #+end_example
+
+- *Recommended Method Signature* ::
+  - Number of Parameters: 1
+  - Parameters: ~[n]~
+  - Returns: =nil=
+
+- *Instructions* :: You have to read input from standard input and write output
+  to standard output.  The focus is on writing the correct function.
+*** Functional Hello World N Times---Code
+#+caption:Functional Hello World N Times in CL
+#+name:functional-hello-n-times-cl-code
+#+header: :tangle functional/hello-n/common-lisp/hello-n.lisp :mkdirp yes
+#+begin_src lisp
+  (defun fn (n)
+    (format t "~a~%~%Output:~%" n)
+    (when (and (>= n 0) (<= n 50))
+      (dotimes (_ n)
+	(format t "Hello World~%"))))
+
+  (fn (read))
+#+end_src
+
+#+caption:Functional Hello World N Times in CL Results
+#+name:functional-hello-n-times-cl-results
+#+header: :results output :exports results
+#+header: :dir functional/hello-n/common-lisp :mkdirp yes
+#+begin_src sh
+echo Input:
+echo 2 | ccl -Qb -l hello-n.lisp -e '(quit)'
+#+end_src
+
+#+RESULTS: functional-hello-n-times-cl-results
+: Input:
+: 2
+: 
+: Output:
+: Hello World
+: Hello World
+
 
 * Concept Index
 :PROPERTIES:
