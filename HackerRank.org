@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2020-11-18 07:37
-#+macro:version Version 0.13.5
+#+date:2020-11-18 18:05
+#+macro:version Version 0.13.6
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -9256,6 +9256,26 @@ node polygon_class.js
 * Functional Programming
 - https://www.hackerrank.com/domains/fp
 
+** Functional Common Lisp Procedures
+*** Functional Common Lisp Procedures---Read-List
+Here is a little  procedure to obtain a list of values  from =STDIN=.  This can
+be used in test files rather than the  code itself, to provide a source of test
+data.  It recursively  reads a value from  =STDIN= and, if it is  a value other
+than =NIL=, conses it onto a  list containing further values read from =STDIN=.
+At =EOF=, =NIL= is returned to end the list.
+
+#+caption:CL Procedure to read a list of items from STDIN
+#+name:fp-cl-read-list
+#+begin_src lisp
+  (defun read-list ()
+    "This is a  procedure to read multiple values from  STDIN and return
+  them as a list using 'read'."
+    (let ((n (read *standard-input* nil)))
+      (if (null n)
+          nil
+          (cons n (read-list)))))
+#+end_src
+
 ** Functional Solve Me First
    :PROPERTIES:
    :completed-date: 2020-11-17
@@ -9416,6 +9436,99 @@ echo 2 | ccl -Qb -l hello-n.lisp -e '(quit)'
 : Hello World
 : Hello World
 
+** Functional List Replication
+*** Functional List Replication Problem
+Given a list,  repeat each element in  the list /n/ amount of  times. The input
+and output  portions will be handled  automatically by the grader.  You need to
+write a function with the recommended method signature.
+*** Functional List Replication Formats and Constraints
+- *Input Format* ::
+
+  The first line contains the integer =S=  where =S= is the number of times you
+  need  to  repeat   the  elements.   The  next  =X=  lines   each  contain  an
+  integer. These are the =X= elements in the array.
+
+- *Output Format* ::
+
+  Output  each element  of the  original  list =S=  times, each  on a  separate
+  line.  You have  to  return the  list/vector/array  of S  \times  X integers.  The
+  relative positions  of the  values should  be the same  as the  original list
+  provided in the input.
+
+- *Constraints* ::
+
+  - 0 \le X \le 10
+  - 1 \le X \le 100
+
+- *Sample Input* ::
+
+  #+begin_example
+  3
+  1
+  2
+  3
+  4
+  #+end_example
+
+- *Sample Output* ::
+
+  #+begin_example
+    1
+    1
+    1
+    2
+    2
+    2
+    3
+    3
+    3
+    4
+    4
+    4
+  #+end_example
+
+- *Recommended Method Signature* ::
+
+  - Number of Parameters: 2
+  - Parameters: ~[number of times to replicate elements, list]~
+  - Returns: List or Vector
+
+- Hackers :: 
+
+  This will be the outline of your function body (fill in the blank portion
+  marked by underscores):
+
+  : (fn[num lst]___________________________)
+
+- *For Hackers Using other Languages* ::
+
+  You have to read input from standard input and write output to standard output.
+*** Functional List Replication---Common Lisp
+#+caption: Functional List Replication in CL
+#+name:functional-list-replication-cl-code
+#+header: :mkdirp yes :tangle functional/list-replication/common-lisp/lst-repl.lisp
+#+begin_src lisp
+  (defun lst-repl (n ls)
+    "Given a list, repeat each element in the list n amount of times."
+
+    (defparameter lsn ())
+    (dolist (e ls (reverse lsn))
+      (dotimes (i n)
+        (setf lsn (cons e lsn)))))
+#+end_src
+
+#+name:functional-list-replication-cl-test-code
+#+header: :mkdirp yes :tangle functional/list-replication/common-lisp/lst-repl-test.lisp
+#+begin_src lisp
+  (ql:quickload "lisp-unit" :silent t)
+  (load "lst-repl")
+
+  (lisp-unit:define-test lst-repl
+    (lisp-unit:assert-equal '(1 1 1 2 2 2 3 3 3) (lst-repl 3 '(1 2 3)))
+    (lisp-unit:assert-equal '(9 9 8 8 7 7 6 6 5 5) (lst-repl 2 '(9 8 7 6 5))))
+  (lisp-unit:run-tests :all)
+
+#+end_src
 
 * Concept Index
 :PROPERTIES:
