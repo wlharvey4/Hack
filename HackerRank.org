@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2020-11-18 18:05
-#+macro:version Version 0.13.6
+#+date:2020-11-26 09:43
+#+macro:version Version 0.13.7
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -9377,7 +9377,7 @@ ccl -Q -l hello.lisp -e '(quit)'
 
 ** Functional Hello World N Times
 *** Functional Hello World N Times---Problem
-Print  "Hello  World" amount  of  times.  The  input  portion will  be  handled
+Print "Hello  World" =N=  amount of  times. The input  portion will  be handled
 automatically.  You  need to  write  a  function  with the  recommended  method
 signature.
 *** Functional Hello World N Times---Formats---Constraints
@@ -9528,6 +9528,103 @@ write a function with the recommended method signature.
     (lisp-unit:assert-equal '(9 9 8 8 7 7 6 6 5 5) (lst-repl 2 '(9 8 7 6 5))))
   (lisp-unit:run-tests :all)
 
+#+end_src
+
+** Functional Filter Array
+   :PROPERTIES:
+   :cite:     https://www.hackerrank.com/challenges/fp-filter-array/problem
+   :date:     2020-11-25
+   :END:
+*** Functional Filter Array Problem
+Filter a  given array of  integers and output only  those values that  are less
+than a specified value =X=. The output  integers should be in the same sequence
+as they were  in the input. You  need to write a function  with the recommended
+method  signature for  the  languages  mentioned below.  For  the  rest of  the
+languages, you have to write a complete code.
+*** Functional Filter Array Formats and Constraints
+**** Functional Filter Array Input Format
+The first line contains the delimiter =X=.
+
+The next  =B= lines each contain  an integer, which represents  the elements of
+the list/array. You have to read the input to the End-Of-File.
+**** Functional Filter Array Output Format
+Print all the integers from the array  that are less than the given upper limit
+=X= in value  on separate lines. The sequence  should be the same as  it was in
+the original array.
+**** Functional Filter Array Constraints
+- 1 \le B \le 100
+- For any element =Y= in the array, -100 \le Y \le 100
+- -100 \le X \le 100
+**** Functional Filter Array Purpose of Challenge
+The purpose of this challenge is to  learn how to write your own implementation
+of a filter function. We recommend not using the inbuilt library function.
+**** Functional Filter Array Sample Input
+#+begin_example
+3
+10
+9
+8
+2
+7
+5
+1
+3
+0
+#+end_example
+**** Functional Filter Array Sample Output
+#+begin_example
+2
+1
+0
+#+end_example
+**** Functional Filter Array Explanation
+2, 1, and 0 are the list elements that are less than the =X= delimiter, 3. They
+are displayed in the same order as they were in the original list.
+**** Functional Filter Array Method Signatur
+- Number Of Parameters :: 2
+- Parameters :: [upper-limit(X) list]
+- Returns :: List or Vector
+
+You have to read input from standard input and write output to standard output.
+Please follow the input/output format mentioned above.
+*** Functional Filter Array Code
+#+header: :mkdirp yes :tangle functional/filter-array/common-lisp/filter-array.lisp
+#+begin_src lisp
+  (defpackage filter-array
+    (:use #:cl)
+    (:export #:filter-array))
+  (in-package #:filter-array)
+
+  (defun filter-array (delimiter ls)
+    "Filter out values higher than the delimiter fron the list."
+    (defparameter lss ())
+    (dolist (l ls (reverse lss))
+      (when (< l delimiter)
+	(setf lss (cons l lss)))))
+#+end_src
+*** Functional Filter Array Tests
+
+#+header: :mkdirp yes :tangle functional/filter-array/common-lisp/filter-array-test.lisp
+#+begin_src lisp
+  (ql:quickload :lisp-unit :silent t)
+  (load "functional/filter-array/common-lisp/filter-array.lisp")
+  (defpackage #:filter-array-tests
+    (:use #:cl #:lisp-unit #:filter-array))
+  (in-package #:filter-array-tests)
+
+  (setq *print-failures* t)
+  (setq *print-errors* t)
+  (define-test basic-filter
+    (assert-equal (list 2 1 0) (filter-array 3 (list 10 9 8 2 7 5 1 3 0)))
+    (assert-equal () (filter-array 5 (list 6 7 8)))
+    (assert-equal '(8) (filter-array 9 (list 9 10 11 8 13))))
+
+  (run-tests '(basic-filter))
+#+end_src
+
+#+header: :results output
+#+begin_src sh
+ccl -Q -l ./functional/filter-array/common-lisp/filter-array-test.lisp -e '(quit)'
 #+end_src
 
 * Concept Index
