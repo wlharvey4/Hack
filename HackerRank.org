@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2020-11-26 22:22
-#+macro:version Version 0.13.10
+#+date:2020-11-26 22:24
+#+macro:version Version 0.13.11
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -9588,66 +9588,14 @@ are displayed in the same order as they were in the original list.
 You have to read input from standard input and write output to standard output.
 Please follow the input/output format mentioned above.
 *** Functional Filter Array Code
-#+header: :mkdirp yes :tangle functional/filter-array/common-lisp/filter-array.lisp
+#+header: :mkdirp yes :tangle functional/filter-array/common-lisp/filter-array-3.lisp
 #+begin_src lisp
-  (defpackage filter-array
+  (defpackage #:filter-array
     (:use #:cl)
     (:export #:filter-array))
   (in-package #:filter-array)
 
-  (defparameter lss ())
-  (defun filter-array (delimiter ls)
-    "Filter out values higher than the delimiter fron the list."
-    (setf lss ())
-    (dolist (l ls)
-      (when (< l delimiter)
-	(setf lss (cons l lss))))
-    (dolist (l lss) (format t "~a~%" l)))
-
-  (defparameter delimiter (read))
-  (defparameter arr ())
-  (defun read-arr ()
-    (let ((e (read *standard-input* nil)))
-      (when e
-	(setf arr (cons e arr))
-	(read-arr))))
-  (read-arr)
-  (filter-array delimiter arr)
-#+end_src
-*** Functional Filter Array 2 Code
-#+header: :mkdirp yes
-#+header: :tangle functional/filter-array/common-lisp/filter-array-2.lisp
-#+begin_src lisp
-  (defpackage #:filter-array-2
-    (:use #:cl)
-    (:export #:filter-array-2))
-  (in-package #:filter-array-2)
-
-  (defparameter farr ())
   (defun filter-array (del arr)
-      (dolist (e arr)
-	  (when (< e del)
-	      (setf farr (cons e farr))))
-      (dolist (e (reverse farr))
-	  (format t "~a~%" e)))
-
-  (defun read-array ()
-	 (let ((el (read *standard-input* nil)))
-	   (if el (cons el (read-array))
-	   nil)))
-
-  (filter-array (read) (read-array))
-#+end_src
-
-*** Functional Filter Array 3 Code
-#+header: :mkdirp yes :tangle functional/filter-array/common-lisp/filter-array-3.lisp
-#+begin_src lisp
-  (defpackage #:filter-array-3
-    (:use #:cl)
-    (:export #:filter-array-3))
-  (in-package #:filter-array-3)
-
-  (defun filter-array-3 (del arr)
     (dolist (a arr)
       (when (< a del) (format t "~a~%" a))))
 
@@ -9656,7 +9604,7 @@ Please follow the input/output format mentioned above.
       (if el (cons el (read-array))
 	  nil)))
 
-  (filter-array-3 (read) (read-array))
+  (filter-array (read) (read-array))
 #+end_src
 
 *** Functional Filter Array Tests
