@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2020-11-26 22:24
-#+macro:version Version 0.13.11
+#+date:2020-11-26 23:10
+#+macro:version Version 0.13.12
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -9588,7 +9588,7 @@ are displayed in the same order as they were in the original list.
 You have to read input from standard input and write output to standard output.
 Please follow the input/output format mentioned above.
 *** Functional Filter Array Code
-#+header: :mkdirp yes :tangle functional/filter-array/common-lisp/filter-array-3.lisp
+#+header: :mkdirp yes :tangle functional/filter-array/common-lisp/filter-array.lisp
 #+begin_src lisp
   (defpackage #:filter-array
     (:use #:cl)
@@ -9607,30 +9607,21 @@ Please follow the input/output format mentioned above.
   (filter-array (read) (read-array))
 #+end_src
 
-*** Functional Filter Array Tests
-
-#+header: :mkdirp yes :tangle functional/filter-array/common-lisp/filter-array-test.lisp
-#+begin_src lisp
-  (ql:quickload :lisp-unit :silent t)
-  (load "functional/filter-array/common-lisp/filter-array.lisp")
-  (defpackage #:filter-array-tests
-    (:use #:cl #:lisp-unit #:filter-array))
-  (in-package #:filter-array-tests)
-
-  (setq *print-failures* t)
-  (setq *print-errors* t)
-  (define-test basic-filter
-    (assert-equal (list 2 1 0) (filter-array 3 (list 10 9 8 2 7 5 1 3 0)))
-    (assert-equal () (filter-array 5 (list 6 7 8)))
-    (assert-equal '(8) (filter-array 9 (list 9 10 11 8 13))))
-
-  (run-tests '(basic-filter))
-#+end_src
-
 #+header: :results output
+#+header: :dir functional/filter-array/common-lisp
 #+begin_src sh
-ccl -Q -l ./functional/filter-array/common-lisp/filter-array-test.lisp -e '(quit)'
+echo '
+5
+1
+3
+5
+7
+9' | ccl -Q -b -l filter-array.lisp
 #+end_src
+
+#+RESULTS:
+: 1
+: 3
 
 * Concept Index
 :PROPERTIES:
