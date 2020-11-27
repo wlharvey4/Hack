@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2020-11-26 18:22
-#+macro:version Version 0.13.8
+#+date:2020-11-26 21:03
+#+macro:version Version 0.13.9
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -9614,6 +9614,31 @@ Please follow the input/output format mentioned above.
   (read-arr)
   (filter-array delimiter arr)
 #+end_src
+*** Functional Filter Array 2 Code
+#+header: :mkdirp yes
+#+header: :tangle functional/filter-array/common-lisp/filter-array-2.lisp
+#+begin_src lisp
+  (defpackage #:filter-array-2
+    (:use #:cl)
+    (:export #:filter-array-2))
+  (in-package #:filter-array-2)
+
+  (defparameter farr ())
+  (defun filter-array (del arr)
+      (dolist (e arr)
+	  (when (< e del)
+	      (setf farr (cons e farr))))
+      (dolist (e (reverse farr))
+	  (format t "~a~%" e)))
+
+  (defun read-array ()
+	 (let ((el (read *standard-input* nil)))
+	   (if el (cons el (read-array))
+	   nil)))
+
+  (filter-array (read) (read-array))
+#+end_src
+
 *** Functional Filter Array Tests
 
 #+header: :mkdirp yes :tangle functional/filter-array/common-lisp/filter-array-test.lisp
