@@ -2,8 +2,8 @@
 
 #+title:HackerRank Coding Problems
 #+subtitle:{{{date}}} {{{version}}}
-#+date:2020-11-26 09:43
-#+macro:version Version 0.13.7
+#+date:2020-11-26 18:22
+#+macro:version Version 0.13.8
 
 * Introduction
 - https://www.hackerrank.com/dashboard
@@ -9595,12 +9595,24 @@ Please follow the input/output format mentioned above.
     (:export #:filter-array))
   (in-package #:filter-array)
 
+  (defparameter lss ())
   (defun filter-array (delimiter ls)
     "Filter out values higher than the delimiter fron the list."
-    (defparameter lss ())
-    (dolist (l ls (reverse lss))
+    (setf lss ())
+    (dolist (l ls)
       (when (< l delimiter)
-	(setf lss (cons l lss)))))
+	(setf lss (cons l lss))))
+    (dolist (l lss) (format t "~a~%" l)))
+
+  (defparameter delimiter (read))
+  (defparameter arr ())
+  (defun read-arr ()
+    (let ((e (read *standard-input* nil)))
+      (when e
+	(setf arr (cons e arr))
+	(read-arr))))
+  (read-arr)
+  (filter-array delimiter arr)
 #+end_src
 *** Functional Filter Array Tests
 
